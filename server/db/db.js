@@ -66,16 +66,15 @@ const deleteListing = id => {
     })
 };
 
-const editRenter = (id, column, value) => {
-  return client.query(`UPDATE renters SET ${column} = ${value} WHERE (id = $1)`, [id])
+const editRow = (table, id, column, value) => {
+  return client.query(`UPDATE ${table} SET ${column} = ${value} WHERE (id = $1)`, [id])
     .then(result => {
       return result;
     })
     .catch(err => {
       return err;
     })
-}
+};
 
 
-
-module.exports = { getDataFor, addRenter, addListing, deleteRenter, deleteListing, editRenter };
+module.exports = { getDataFor, addRenter, addListing, deleteRenter, deleteListing, editRow };

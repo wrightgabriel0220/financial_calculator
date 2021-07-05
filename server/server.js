@@ -17,12 +17,21 @@ app.get('/', (req, res) => {
 
 app.get('/renters', (req, res) => {
   db.getDataFor('renters').then(results => {
-    res.send(results);
+    res.send(results.rows);
   }).catch(err => {
     res.status(404);
     res.end(err);
   })
 });
+
+app.get('/listings', (req, res) => {
+  db.getDataFor('listings').then(results => {
+    res.send(results.rows);
+  }).catch(err => {
+    res.status(404);
+    res.end(err);
+  })
+})
 
 app.post('/renters', (req, res) => {
   db.addRenter(req.body).then(results => {
@@ -61,7 +70,16 @@ app.delete('/listings', (req, res) => {
 });
 
 app.put('/renters', (req, res) => {
-  db.editRenter(req.body.id, req.body.col, req.body.val).then(results => {
+  db.editRow('renters', req.body.id, req.body.col, req.body.val).then(results => {
+    res.send(results);
+  }).catch(err => {
+    res.status(500);
+    res.end(err);
+  })
+});
+
+app.put('/listings', (req, res) => {
+  db.editRow('listings', req.body.id, req.body.col, req.body.val).then(results => {
     res.send(results);
   }).catch(err => {
     res.status(500);
