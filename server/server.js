@@ -58,6 +58,15 @@ app.delete('/listings', (req, res) => {
     res.status(500);
     res.end(err);
   })
+});
+
+app.put('/renters', (req, res) => {
+  db.editRenter(req.body.id, req.body.col, req.body.val).then(results => {
+    res.send(results);
+  }).catch(err => {
+    res.status(500);
+    res.end(err);
+  })
 })
 
 app.listen(port, (err) => {

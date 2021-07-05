@@ -18,6 +18,6 @@ CREATE TABLE listings (
   summary TEXT,
   bedrooms INT NOT NULL,
   bathrooms NUMERIC(2, 1) NOT NULL,
-  size VARCHAR(255) NOT NULL,
+  size INT NOT NULL,
   city VARCHAR(255) NOT NULL
 );

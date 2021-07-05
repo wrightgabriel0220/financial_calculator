@@ -64,8 +64,18 @@ const deleteListing = id => {
     .catch(err => {
       return err;
     })
+};
+
+const editRenter = (id, column, value) => {
+  return client.query(`UPDATE renters SET ${column} = ${value} WHERE (id = $1)`, [id])
+    .then(result => {
+      return result;
+    })
+    .catch(err => {
+      return err;
+    })
 }
 
 
 
-module.exports = { getDataFor, addRenter, addListing, deleteRenter, deleteListing };
+module.exports = { getDataFor, addRenter, addListing, deleteRenter, deleteListing, editRenter };
