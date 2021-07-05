@@ -85,7 +85,7 @@ app.put('/listings', (req, res) => {
     res.status(500);
     res.end(err);
   })
-})
+});
 
 app.listen(port, (err) => {
   console.log(`SERVER LISTENING AT PORT ${port}`);
