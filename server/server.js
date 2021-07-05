@@ -31,7 +31,16 @@ app.post('/renters', (req, res) => {
     res.status(500);
     res.end(err);
   })
-})
+});
+
+app.post('/listings', (req, res) => {
+  db.addListing(req.body).then(results => {
+    res.send(results);
+  }).catch(err => {
+    res.status(500);
+    res.end(err);
+  })
+});
 
 app.listen(port, (err) => {
   console.log(`SERVER LISTENING AT PORT ${port}`);

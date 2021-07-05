@@ -34,8 +34,18 @@ const addRenter = data => {
     .catch(err => {
       return err;
     })
+};
+
+const addListing = data => {
+  return client.query('INSERT INTO listings (address, rent, summary, bedrooms, bathrooms, size, city) VALUES ($1, $2, $3, $4, $5, $6, $7)', [data.address, data.rent, data.summary, data.bedrooms, data.bathrooms, data.size, data.city])
+    .then(result => {
+      return result;
+    })
+    .catch(err => {
+      return err;
+    });
 }
 
 
 
-module.exports = { getDataFor, addRenter };
+module.exports = { getDataFor, addRenter, addListing };
