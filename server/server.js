@@ -18,8 +18,20 @@ app.get('/', (req, res) => {
 app.get('/renters', (req, res) => {
   db.getDataFor('renters').then(results => {
     res.send(results);
+  }).catch(err => {
+    res.status(404);
+    res.end(err);
   })
 });
+
+app.post('/renters', (req, res) => {
+  db.addRenter(req.body).then(results => {
+    res.send(results);
+  }).catch(err => {
+    res.status(500);
+    res.end(err);
+  })
+})
 
 app.listen(port, (err) => {
   console.log(`SERVER LISTENING AT PORT ${port}`);

@@ -26,6 +26,16 @@ const getDataFor = table => {
     })
 };
 
+const addRenter = data => {
+  return client.query('INSERT INTO renters (name, hourly_wages, hours_working, dog_count, cat_count, share) VALUES ($1, $2, $3, $4, $5, $6)', [data.name, data.hourly, data.hours, data.dogs, data.cats, data.percentageShare])
+    .then(result => {
+      return result;
+    })
+    .catch(err => {
+      return err;
+    })
+}
 
 
-module.exports = { getDataFor };
+
+module.exports = { getDataFor, addRenter };
