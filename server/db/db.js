@@ -44,8 +44,18 @@ const addListing = data => {
     .catch(err => {
       return err;
     });
+};
+
+const deleteRenter = id => {
+  return client.query('DELETE FROM renters WHERE (id = $1)', [id])
+    .then(result => {
+      return result;
+    })
+    .catch(err => {
+      return err;
+    })
 }
 
 
 
-module.exports = { getDataFor, addRenter, addListing };
+module.exports = { getDataFor, addRenter, addListing, deleteRenter };

@@ -42,6 +42,15 @@ app.post('/listings', (req, res) => {
   })
 });
 
+app.delete('/renters', (req, res) => {
+  db.deleteRenter(req.body.id).then(results => {
+    res.send(results);
+  }).catch(err => {
+    res.status(500);
+    res.end(err);
+  })
+})
+
 app.listen(port, (err) => {
   console.log(`SERVER LISTENING AT PORT ${port}`);
 })
