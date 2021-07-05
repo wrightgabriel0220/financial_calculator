@@ -1,9 +1,12 @@
 import React from 'react';
+import RenterList from './RenterList';
+import ListingList from './ListingList';
 
 const App = props => {
   return (
-    <div>
-      If you can read this, both React and Webpack are attached correctly.
+    <div id="app-body">
+      <RenterList /> 
+      <ListingList />
     </div>
   );
 };
