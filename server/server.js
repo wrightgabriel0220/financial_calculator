@@ -16,7 +16,7 @@ app.get('/', (req, res) => {
 });
 
 app.get('/renters', (req, res) => {
-  db.getAllRenterData().then(results => {
+  db.getDataFor('renters').then(results => {
     res.send(results);
   })
 });

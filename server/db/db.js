@@ -16,8 +16,8 @@ client.connect()
     console.error(err);
   });
 
-const getAllRenterData = () => {
-  return client.query('SELECT * FROM renters')
+const getDataFor = table => {
+  return client.query(`SELECT * FROM ${table}`)
     .then(result => {
       return result;
     })
@@ -28,4 +28,4 @@ const getAllRenterData = () => {
 
 
 
-module.exports = { getAllRenterData };
+module.exports = { getDataFor };
