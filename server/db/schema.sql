@@ -7,7 +7,8 @@ CREATE TABLE renters (
   hourly_wages NUMERIC(5, 2) NOT NULL,
   hours_working INT NOT NULL,
   dog_count INT,
-  cat_count INT
+  cat_count INT, 
+  share INT NOT NULL
 );
 
 CREATE TABLE listings (
