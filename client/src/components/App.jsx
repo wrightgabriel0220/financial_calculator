@@ -13,12 +13,12 @@ const App = props => {
     if (isLoading) {
       axios.get('/renters')
         .then(rentersInDB => {
-          setRenters(rentersInDB);
+          setRenters(rentersInDB.data);
         })
         .then(() => {
           axios.get('/listings')
             .then(listingsInDB => {
-              setListings(listingsInDB);
+              setListings(listingsInDB.data);
             })
             .then(() => {
               setIsLoading(false);
@@ -43,8 +43,8 @@ const App = props => {
 
   return (
     <div id="app-body">
-      <RenterList renters={[{}, {}, {}, {}]}/>
-      <ListingList listings={[{}, {}, {}, {}, {}, {}]}/>
+      <RenterList renters={renters}/>
+      <ListingList listings={listings}/>
     </div>
   );
 };
