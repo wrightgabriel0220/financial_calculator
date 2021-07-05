@@ -49,6 +49,15 @@ app.delete('/renters', (req, res) => {
     res.status(500);
     res.end(err);
   })
+});
+
+app.delete('/listings', (req, res) => {
+  db.deleteListing(req.body.id).then(results => {
+    res.send(results);
+  }).catch(err => {
+    res.status(500);
+    res.end(err);
+  })
 })
 
 app.listen(port, (err) => {
