@@ -10,6 +10,9 @@ const Listing = props => {
     }
   };
 
+  const getStartupCost = rentShare => {
+    return Math.round(rentShare * 3 );
+  };
 
   return (
     <li className="listing">
@@ -30,6 +33,10 @@ const Listing = props => {
           <tr>
             <td>{props.listingData.rent}</td>
             {props.renters.map(renter => <td>{getRenterShare(props.listingData.rent, renter)}</td>)}
+          </tr>
+          <tr>
+            <td>{props.renters.map(renter => getStartupCost(getRenterShare(props.listingData.rent, renter))).reduce((a, b) => a + b)}</td>
+            {props.renters.map(renter => <td>{getStartupCost(getRenterShare(props.listingData.rent, renter))}</td>)}
           </tr>
         </tbody>
       </table>
