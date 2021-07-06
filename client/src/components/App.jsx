@@ -8,12 +8,17 @@ const App = props => {
   const [ isLoading, setIsLoading ] = useState(true);
   const [ renters, setRenters ] = useState([]);
   const [ listings, setListings ] = useState([]);
+  const [ maxRent, setMaxRent ] = useState(0);
   
   useEffect(() => {
     if (isLoading) {
       axios.get('/renters')
         .then(rentersInDB => {
           setRenters(rentersInDB.data);
+          return rentersInDB;
+        })
+        .then(rentersInDB => {
+          setMaxRent(rentersInDB.data.map(renter => Math.round(renter.hourly_wages * renter.hours_working*4.33333333333*.3 - 100)).reduce((a, b) => a + b));
         })
         .then(() => {
           axios.get('/listings')
@@ -43,7 +48,7 @@ const App = props => {
 
   return (
     <div id="app-body">
-      <RenterList renters={renters}/>
+      <RenterList maxRent={maxRent} renters={renters}/>
       <ListingList listings={listings}/>
     </div>
   );
