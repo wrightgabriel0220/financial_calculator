@@ -49,8 +49,8 @@ const App = props => {
   return (
     <div id="app-body">
       <RenterList maxRent={maxRent} renters={renters}/>
-      <ListingList listings={listings}/>
-    </div>
+      <ListingList renters={renters} maxRent={maxRent} listings={listings}/>
+    </div> 
   );
 };
 

@@ -4,9 +4,9 @@ import Listing from './Listing.jsx';
 const ListingList = props => {
   return (
     <div id="listings-tab">
-      <table id="listing-list">
-        {props.listings.map((listing, index) => <Listing listingData={listing} key={index}/>)}
-      </table>
+      <ul id="listing-list">
+        {props.listings.map((listing, index) => <Listing renters={props.renters} listingData={listing} key={index}/>)}
+      </ul>
     </div>
   );
 };
