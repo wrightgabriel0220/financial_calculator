@@ -1,19 +1,32 @@
 import React from 'react';
 
 const AddRenterModal = props => {
+  const submitHandler = event => {
+    event.preventDefault();
+  }
+
   return (
-    <form>
+    <form id="modal">
       <div>This is the add renter modal form</div>
-      <label> Test1:
+      <label> Name:
         <input type="text"></input>
       </label>
-      <label> Test2:
+      <label> Hourly Rate:
         <input type="text"></input>
       </label>
-      <label> Test3:
+      <label> Hours Working:
         <input type="text"></input>
       </label>
-      <button>Submit</button>
+      <label> # of Dogs:
+        <input type="text"></input>
+      </label>
+      <label> # of Cats:
+        <input type="text"></input>
+      </label>
+      <label> Share of Rent (decimal from 0 to 1):
+        <input type="text"></input>
+      </label>
+      <button onClick={submitHandler}>Submit</button>
     </form>
   );
 };
