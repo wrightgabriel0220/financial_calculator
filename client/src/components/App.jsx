@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import RenterList from './RenterList';
 import ListingList from './ListingList';
+import AddRenter from './AddRenter';
 
 const axios = require('axios');
 
@@ -18,7 +19,11 @@ const App = props => {
           return rentersInDB;
         })
         .then(rentersInDB => {
-          setMaxRent(rentersInDB.data.map(renter => Math.round(renter.hourly_wages * renter.hours_working*4.33333333333*.3 - 100)).reduce((a, b) => a + b));
+          if (rentersInDB.data.length !== 0) {
+            setMaxRent(rentersInDB.data.map(renter => Math.round(renter.hourly_wages * renter.hours_working*4.33333333333*.3 - 100)).reduce((a, b) => a + b));
+          } else {
+            setRenters([{ name: 'N/A', hourly_wages: 0, hours_working: 0, dog_count: 0, cat_count: 0, share: 0 }])
+          }
         })
         .then(() => {
           axios.get('/listings')
@@ -38,6 +43,10 @@ const App = props => {
     } else {}
   }, []);
 
+  useEffect(() => {
+    console.log(renters);
+  }, [renters])
+
   if (isLoading) {
     return (
       <div id="app-body">
@@ -50,6 +59,7 @@ const App = props => {
     <div id="app-body">
       <RenterList maxRent={maxRent} renters={renters}/>
       <ListingList renters={renters} maxRent={maxRent} listings={listings}/>
+      <AddRenter />
     </div> 
   );
 };
