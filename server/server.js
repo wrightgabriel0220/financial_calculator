@@ -4,7 +4,7 @@ const config = require('./../config.js');
 const db = require('./db/db.js');
 
 const app = express();
-const port = '3000';
+const port = '8080';
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -12,8 +12,12 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(config.root, 'client/dist')));
 
 app.get('/', (req, res) => {
-  res.sendFile('client/dist/index.html', { root: root });
-});
+  console.log('Receiving a connection from ', req.ip);
+})
+
+app.get('/test', (req, res) => {
+  res.redirect('https://www.youtube.com/watch?v=dQw4w9WgXcQ');
+})
 
 app.get('/renters', (req, res) => {
   db.getDataFor('renters').then(results => {
@@ -52,7 +56,6 @@ app.post('/listings', (req, res) => {
 });
 
 app.delete('/renters', (req, res) => {
-  console.log(req.body.id);
   db.deleteRenter(req.body.id).then(results => {
     res.send(results);
   }).catch(err => {

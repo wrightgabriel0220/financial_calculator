@@ -59,7 +59,7 @@ const App = props => {
 
   return (
     <div id="app-body">
-      <Modal modalContent={modalContent} />
+      <Modal closeModal={setModalContent.bind(null, null)} modalContent={modalContent} />
       <RenterList maxRent={maxRent} renters={renters} />
       <ListingList renters={renters} maxRent={maxRent} listings={listings} />
       <AddRenter setModalContent={setModalContent} />

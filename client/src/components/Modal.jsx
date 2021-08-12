@@ -4,6 +4,7 @@ const Modal = props => {
   if (props.modalContent) {
     return (
       <div id="modal-aura">
+        <button id="close-modal-button" onClick={props.closeModal}>X</button>
         {props.modalContent}
       </div>
     );
