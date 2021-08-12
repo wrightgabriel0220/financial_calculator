@@ -7,17 +7,20 @@ const AddRenterModal = props => {
     const form = document.getElementById('modal');
 
     if (form.checkValidity()) {
-      let formResults = {
+      props.submitRenter({
         name: document.getElementById('name-input').value,
-        hourlyWages: document.getElementById('hourly-rate-input').value,
-        hoursWorking: document.getElementById('hours-working-input').value,
-        dogCount: document.getElementById('dog-count-input').value || 0,
-        catCount: document.getElementById('cat-count-input').value || 0,
-        share: document.getElementById('share-input').value || 0
-      };
-
-      props.closeModal();
-      console.log(formResults);
+        hourly: document.getElementById('hourly-rate-input').value,
+        hours: document.getElementById('hours-working-input').value,
+        dogs: document.getElementById('dog-count-input').value || 0,
+        cats: document.getElementById('cat-count-input').value || 0,
+        percentageShare: document.getElementById('share-input').value || 0
+      })
+        .then(() => {
+          props.closeModal();
+        })
+        .catch(err => {
+          console.log('Failed to submit renter data! Try again');
+        });
     } else {
       form.reportValidity();
     }
