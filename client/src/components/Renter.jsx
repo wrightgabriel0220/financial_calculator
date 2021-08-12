@@ -1,7 +1,6 @@
 import React from 'react';
 import EditRenterModal from './modals/EditRenterModal';
 import axios from 'axios';
-import RenterList from './RenterList';
 
 const Renter = props => {
   const changeRenter = renter => {
@@ -16,13 +15,14 @@ const Renter = props => {
         share: renter.share
       }
     }).then(results => {
-      // update RenterList
+      props.update();
     }).catch(err => {
       console.error(err);
     })
   };
 
-  const editHandler = () => {
+  const editHandler = event => {
+    if (Array.from(event.target.classList).includes('delete-button')) { return; }
     props.setModalContent(<EditRenterModal renterData={props.renterData} changeRenter={changeRenter} closeModal={props.setModalContent.bind(null, null)}/>);
   };
 
@@ -37,7 +37,7 @@ const Renter = props => {
       <td>{props.renterData.cat_count}</td>
       <td>{props.renterData.share}</td>
       <td>{Math.round(props.renterData.hourly_wages*props.renterData.hours_working*4.33333333333*.3)}</td>
-      <td><button onClick={props.deleteRenter.bind(null, props.renterData.id)}>X</button></td>
+      <td><button className="delete-button" onClick={props.deleteRenter.bind(null, props.renterData.id)}>X</button></td>
     </tr>
   );
 };

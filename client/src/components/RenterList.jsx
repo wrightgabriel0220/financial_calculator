@@ -9,7 +9,7 @@ const RenterList = props => {
   const deleteRenter = renterID => {
     axios.delete('/renters', { headers: {}, data: {id: Number(renterID) } })
       .then(results => {
-        console.log(results);
+        props.update();
       })
       .catch(err => {
         console.error(err);
@@ -44,7 +44,7 @@ const RenterList = props => {
             <td></td>
             <td>{props.maxRent}</td>
           </tr>
-          {props.renters.map((renter, index) => <Renter setModalContent={props.setModalContent} deleteRenter={deleteRenter} renterData={renter} key={index}/>)}
+          {props.renters.map((renter, index) => <Renter update={props.update} setModalContent={props.setModalContent} deleteRenter={deleteRenter} renterData={renter} key={index}/>)}
         </tbody>
       </table>
     </div>

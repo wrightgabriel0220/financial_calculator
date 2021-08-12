@@ -38,6 +38,7 @@ app.get('/listings', (req, res) => {
 })
 
 app.post('/renters', (req, res) => {
+  console.log(req.body);
   db.addRenter(req.body).then(results => {
     res.send(results);
   }).catch(err => {

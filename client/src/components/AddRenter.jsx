@@ -6,6 +6,7 @@ const AddRenter = props => {
   const submitRenter = renter => {
     return axios.post('/renters', renter)
       .then(results => {
+        props.update();
         return results;
       })
       .catch(err => {

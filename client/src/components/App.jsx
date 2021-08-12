@@ -12,10 +12,9 @@ const App = props => {
   const [ listings, setListings ] = useState([]);
   const [ maxRent, setMaxRent ] = useState(0);
   const [ modalContent, setModalContent ] = useState(null);
-  
-  useEffect(() => {
-    if (isLoading) {
-      axios.get('/renters')
+
+  const updateRenterList = () => {
+    return axios.get('/renters')
         .then(rentersInDB => {
           setRenters(rentersInDB.data);
           return rentersInDB;
@@ -27,27 +26,25 @@ const App = props => {
             setRenters([{ name: 'N/A', hourly_wages: 0, hours_working: 0, dog_count: 0, cat_count: 0, share: 0 }])
           }
         })
-        .then(() => {
-          axios.get('/listings')
-            .then(listingsInDB => {
-              setListings(listingsInDB.data);
-            })
-            .then(() => {
-              setIsLoading(false);
-            })
-            .catch(err => {
-              console.error(err);
-            })
-        })
-        .catch(err => {
-          console.error(err);
-        })
-    } else {}
-  }, []);
+  };
 
+  const updateListingList = () => {
+    return axios.get('/listings')
+      .then(listingsInDB => {
+        setListings(listingsInDB.data);
+      })
+      .catch(err => {
+        console.error(err);
+      })
+  };
+  
   useEffect(() => {
-    console.log(renters);
-  }, [renters])
+    if (isLoading) {
+      updateRenterList().then(updateListingList()).then(() => { setIsLoading(false); }).catch(err => {
+        console.error(err);
+      })
+    }
+  }, []);
 
   if (isLoading) {
     return (
@@ -60,9 +57,9 @@ const App = props => {
   return (
     <div id="app-body">
       <Modal closeModal={setModalContent.bind(null, null)} modalContent={modalContent} />
-      <RenterList maxRent={maxRent} renters={renters} setModalContent={setModalContent}/>
-      <ListingList renters={renters} maxRent={maxRent} listings={listings} />
-      <AddRenter setModalContent={setModalContent} />
+      <RenterList update={updateRenterList} maxRent={maxRent} renters={renters} setModalContent={setModalContent}/>
+      <ListingList update={updateListingList} renters={renters} maxRent={maxRent} listings={listings} />
+      <AddRenter update={updateRenterList} setModalContent={setModalContent} />
     </div> 
   );
 };
