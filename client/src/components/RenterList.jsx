@@ -1,9 +1,20 @@
 import React, { useState, useEffect } from 'react';
 import Renter from './Renter.jsx';
+import axios from 'axios';
 
 const RenterList = props => {
   const [ totalDogs, setTotalDogs ] = useState(props.renters.map(renter => renter.dog_count).reduce((a, b) => a + b));
   const [ totalCats, setTotalCats ] = useState(props.renters.map(renter => renter.cat_count).reduce((a, b) => a + b));
+
+  const deleteRenter = renterID => {
+    axios.delete('/renters', { headers: {}, data: {id: Number(renterID) } })
+      .then(results => {
+        console.log(results);
+      })
+      .catch(err => {
+        console.error(err);
+      })
+  };
 
   return (
     <div id="renters-tab">
@@ -33,7 +44,7 @@ const RenterList = props => {
             <td></td>
             <td>{props.maxRent}</td>
           </tr>
-          {props.renters.map((renter, index) => <Renter renterData={renter} key={index}/>)}
+          {props.renters.map((renter, index) => <Renter deleteRenter={deleteRenter} renterData={renter} key={index}/>)}
         </tbody>
       </table>
     </div>

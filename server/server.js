@@ -52,6 +52,7 @@ app.post('/listings', (req, res) => {
 });
 
 app.delete('/renters', (req, res) => {
+  console.log(req.body.id);
   db.deleteRenter(req.body.id).then(results => {
     res.send(results);
   }).catch(err => {

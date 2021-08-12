@@ -12,6 +12,7 @@ const Renter = props => {
       <td>{props.renterData.cat_count}</td>
       <td>{props.renterData.share}</td>
       <td>{Math.round(props.renterData.hourly_wages*props.renterData.hours_working*4.33333333333*.3)}</td>
+      <td><button onClick={props.deleteRenter.bind(null, props.renterData.id)}>X</button></td>
     </tr>
   );
 };

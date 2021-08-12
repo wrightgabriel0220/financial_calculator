@@ -18,7 +18,7 @@ const AddRenter = props => {
   };
 
   return (
-    <button onClick={addRenter}>AddRenter button</button>
+    <button onClick={addRenter}>Add Renter</button>
   );
 };
 
