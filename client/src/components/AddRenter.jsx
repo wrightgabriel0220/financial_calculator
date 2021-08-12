@@ -14,7 +14,7 @@ const AddRenter = props => {
   }
 
   const addRenter = () => {
-    props.setModalContent(<AddRenterModal submitRenter={submitRenter} closeModal={props.setModalContent.bind(null, null)}/>);
+    props.setModalContent(<AddRenterModal submitRenter={submitRenter} closeModal={props.setModalContent.bind(null, null)} />);
   };
 
   return (

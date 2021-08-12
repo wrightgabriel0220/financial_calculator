@@ -67,6 +67,7 @@ const deleteListing = id => {
 };
 
 const editRow = (table, id, column, value) => {
+  if (typeof(value) === 'string') { value = "'" + value + "'"; }
   return client.query(`UPDATE ${table} SET ${column} = ${value} WHERE (id = $1)`, [id])
     .then(result => {
       return result;

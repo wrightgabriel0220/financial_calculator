@@ -74,12 +74,14 @@ app.delete('/listings', (req, res) => {
 });
 
 app.put('/renters', (req, res) => {
-  db.editRow('renters', req.body.id, req.body.col, req.body.val).then(results => {
-    res.send(results);
-  }).catch(err => {
-    res.status(500);
-    res.end(err);
-  })
+  for (let column in req.body.updates) {
+    db.editRow('renters', req.body.id, column, req.body.updates[column]).then(results => {
+      res.send(results);
+    }).catch(err => {
+      res.status(500);
+      res.end(err);
+    })
+  }
 });
 
 app.put('/listings', (req, res) => {

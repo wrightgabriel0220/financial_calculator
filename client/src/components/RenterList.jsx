@@ -44,7 +44,7 @@ const RenterList = props => {
             <td></td>
             <td>{props.maxRent}</td>
           </tr>
-          {props.renters.map((renter, index) => <Renter deleteRenter={deleteRenter} renterData={renter} key={index}/>)}
+          {props.renters.map((renter, index) => <Renter setModalContent={props.setModalContent} deleteRenter={deleteRenter} renterData={renter} key={index}/>)}
         </tbody>
       </table>
     </div>

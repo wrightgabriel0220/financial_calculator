@@ -1,8 +1,33 @@
 import React from 'react';
+import EditRenterModal from './modals/EditRenterModal';
+import axios from 'axios';
+import RenterList from './RenterList';
 
 const Renter = props => {
+  const changeRenter = renter => {
+    axios.put('/renters', {
+      id: props.renterData.id,
+      updates: {
+        name: renter.name,
+        hourly_wages: renter.hourly,
+        hours_working: renter.hours,
+        dog_count: renter.dogs,
+        cat_count: renter.cats,
+        share: renter.share
+      }
+    }).then(results => {
+      // update RenterList
+    }).catch(err => {
+      console.error(err);
+    })
+  };
+
+  const editHandler = () => {
+    props.setModalContent(<EditRenterModal renterData={props.renterData} changeRenter={changeRenter} closeModal={props.setModalContent.bind(null, null)}/>);
+  };
+
   return (
-    <tr className="renter">
+    <tr className="renter" onClick={editHandler}>
       <td>{props.renterData.name}</td>
       <td>{props.renterData.hourly_wages}</td>
       <td>{Math.round(props.renterData.hourly_wages*props.renterData.hours_working)}</td>
