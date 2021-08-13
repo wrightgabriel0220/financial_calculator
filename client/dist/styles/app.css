@@ -1,7 +1,23 @@
+html, body {
+  padding: 0;
+  margin: 0;
+}
+
 #app, #app-body {
   width: 100%;
   height: 100%;
   margin: 0;
+}
+
+#navbar {
+  display: flex;
+  position: sticky;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #aaccff;
+  padding: 15px;
+  margin-bottom: 30px;
+  width: 98.75%;
 }
 
 #modal-disabled {

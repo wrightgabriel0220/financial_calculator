@@ -4,6 +4,7 @@ import ListingList from './ListingList';
 import AddRenter from './AddRenter';
 import AddListing from './AddListing';
 import Modal from './Modal';
+import Navbar from './Navbar';
 
 const axios = require('axios');
 
@@ -57,6 +58,7 @@ const App = () => {
 
   return (
     <div id="app-body">
+      <Navbar />
       <Modal closeModal={setModalContent.bind(null, null)} modalContent={modalContent} />
       <RenterList update={updateRenterList} maxRent={maxRent} renters={renters} setModalContent={setModalContent}/>
       <ListingList update={updateListingList} renters={renters} maxRent={maxRent} listings={listings} />

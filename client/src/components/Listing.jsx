@@ -82,7 +82,7 @@ const Listing = props => {
             {props.renters.map(renter => <td key={`blank${renter.name}`}></td>)}
           </tr>
           <tr>
-            <td>{String(props.renters.map(renter => getStartupCost(renterShares[renter.name])).reduce((a, b) => a + b))}</td>
+            <td>${String(props.renters.map(renter => getStartupCost(renterShares[renter.name])).reduce((a, b) => a + b))}</td>
             {props.renters.map(renter => <td key={`moveincost${renter.name}`}>${String(getStartupCost(renterShares[renter.name]))}</td>)}
           </tr>
         </tbody>
