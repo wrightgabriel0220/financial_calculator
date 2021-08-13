@@ -34,3 +34,15 @@
   width: 100%;
   margin: 15px 0px;
 }
+
+tr, td {
+  border-spacing: 0;
+  border: solid black;
+  border-width: 3px 1px;
+  margin: 0;
+  transition: background-color .25s;
+}
+
+tr.renter:hover {
+  background-color: #00ccffaa;
+}
