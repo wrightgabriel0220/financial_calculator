@@ -1,3 +1,4 @@
+import axios from 'axios';
 import React, { useState, useEffect } from 'react';
 
 const Listing = props => {
@@ -41,6 +42,21 @@ const Listing = props => {
     return Math.round(rentShare * 3 );
   };
 
+  const deleteHandler = () => {
+    axios.delete('/listings', {
+      headers: {},
+      data: {
+        id: props.listingData.id 
+      }
+    })
+      .then(() => {
+        props.update();
+      })
+      .catch(err => {
+        console.error(err);
+      })
+  };
+
   return (
     <li className="listing">
       <div className="listing-card">
@@ -71,6 +87,7 @@ const Listing = props => {
           </tr>
         </tbody>
       </table>
+      <button onClick={deleteHandler}>X</button>
     </li>
   );
 };

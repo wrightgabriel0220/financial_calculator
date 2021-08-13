@@ -65,6 +65,7 @@ app.delete('/renters', (req, res) => {
 });
 
 app.delete('/listings', (req, res) => {
+  console.log(req.body.id);
   db.deleteListing(req.body.id).then(results => {
     res.send(results);
   }).catch(err => {
