@@ -37,7 +37,7 @@ const addRenter = data => {
 };
 
 const addListing = data => {
-  return client.query('INSERT INTO listings (address, rent, summary, bedrooms, bathrooms, size, city) VALUES ($1, $2, $3, $4, $5, $6, $7)', [data.address, data.rent, data.summary, data.bedrooms, data.bathrooms, data.size, data.city])
+  return client.query('INSERT INTO listings (address, rent, summary, bedrooms, bathrooms, size, city, dog_deposit, cat_deposit) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)', [data.address, data.rent, data.summary, data.bedrooms, data.bathrooms, data.size, data.city, data.dogDeposit, data.catDeposit])
     .then(result => {
       return result;
     })

@@ -2,11 +2,12 @@ import React, { useState, useEffect } from 'react';
 import RenterList from './RenterList';
 import ListingList from './ListingList';
 import AddRenter from './AddRenter';
+import AddListing from './AddListing';
 import Modal from './Modal';
 
 const axios = require('axios');
 
-const App = props => {
+const App = () => {
   const [ isLoading, setIsLoading ] = useState(true);
   const [ renters, setRenters ] = useState([]);
   const [ listings, setListings ] = useState([]);
@@ -60,6 +61,7 @@ const App = props => {
       <RenterList update={updateRenterList} maxRent={maxRent} renters={renters} setModalContent={setModalContent}/>
       <ListingList update={updateListingList} renters={renters} maxRent={maxRent} listings={listings} />
       <AddRenter update={updateRenterList} setModalContent={setModalContent} />
+      <AddListing update={updateListingList} setModalContent={setModalContent} />
     </div> 
   );
 };
