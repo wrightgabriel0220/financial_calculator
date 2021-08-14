@@ -58,7 +58,7 @@ const Listing = props => {
   };
 
   return (
-    <li className="listing">
+    <li className="listing" onClick={props.focusListing ? props.focusListing.bind(null, props.listingData.id) : null}>
       <div className="listing-card">
         <div>Address: {props.listingData.address}</div>
         <div>Summary: {props.listingData.summary}</div>

@@ -35,10 +35,6 @@ const App = () => {
     }
   }, [listings]);
 
-  useEffect(() => {
-    console.log(focusedListing);
-  }, [focusedListing]);
-
   const updateRenterList = () => {
     return axios.get('/renters')
         .then(rentersInDB => {
@@ -73,6 +69,8 @@ const App = () => {
     return false;
   };
 
+  const focusListingById = id => { setFocusedListing(listings.filter(listing => listing.id === id)[0]); };
+
   if (isLoading) {
     return (
       <div id="app-body">
@@ -93,7 +91,7 @@ const App = () => {
       <section id="page-body">
         <section id="lists">
           <RenterList update={updateRenterList} maxRent={maxRent} renters={renters} setModalContent={setModalContent}/>
-          <ListingList update={updateListingList} renters={renters} maxRent={maxRent} listings={listings} />
+          <ListingList update={updateListingList} renters={renters} maxRent={maxRent} listings={listings} focusListing={ id => { focusListingById(id); } }/>
           <AddRenter update={updateRenterList} setModalContent={setModalContent} />
           <AddListing update={updateListingList} setModalContent={setModalContent} />
         </section>
