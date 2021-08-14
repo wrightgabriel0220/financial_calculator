@@ -95,7 +95,7 @@ const App = () => {
           <AddRenter update={updateRenterList} setModalContent={setModalContent} />
           <AddListing update={updateListingList} setModalContent={setModalContent} />
         </section>
-        <InfoTab renters={renters} update={updateListingList} focusedListing={focusedListing} isHidden={infoTabHidden} />
+        <InfoTab activeUser={activeUser} renters={renters} update={updateListingList} focusedListing={focusedListing} isHidden={infoTabHidden} />
       </section>
     </div> 
   );

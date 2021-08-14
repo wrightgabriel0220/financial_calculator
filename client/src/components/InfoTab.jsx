@@ -1,16 +1,14 @@
 import React from 'react';
-import Listing from './Listing';
+import RenterProfile from './RenterProfile';
 
 const InfoTab = props => {
   return props.isHidden ? null : (
     <div id="info-tab">
-      {props.focusedListing ? 
-        <ul>
-          <Listing update={props.update} renters={props.renters} listingData={props.focusedListing} />
-        </ul>
-        :
-        <div>Click on a listing to display related data</div>
-      }
+      <RenterProfile 
+        moveInCost={Number(Array.from(document.getElementsByClassName(`moveInCost${props.activeUser.name}`))[0].innerText.slice(1))} 
+        listing={props.focusedListing}
+        renter={props.activeUser} 
+      />
     </div>
   );
 };
