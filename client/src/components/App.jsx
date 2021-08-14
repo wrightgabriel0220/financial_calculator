@@ -5,6 +5,7 @@ import AddRenter from './AddRenter';
 import AddListing from './AddListing';
 import Modal from './Modal';
 import Navbar from './Navbar';
+import InfoTab from './InfoTab';
 
 const axios = require('axios');
 
@@ -15,6 +16,7 @@ const App = () => {
   const [ maxRent, setMaxRent ] = useState(0);
   const [ modalContent, setModalContent ] = useState(null);
   const [ activeUser, setActiveUser ] = useState(null);
+  const [ infoTabHidden, setInfoTabHidden ] = useState(true);
 
   const updateRenterList = () => {
     return axios.get('/renters')
@@ -68,12 +70,22 @@ const App = () => {
 
   return (
     <div id="app-body">
-      <Navbar logout={setActiveUser.bind(null, null)} activeUser={activeUser} attemptLogin={attemptLogin} setModalContent={setModalContent}/>
+      <Navbar 
+        toggleInfoTab={setInfoTabHidden.bind(null, !infoTabHidden)}
+        logout={setActiveUser.bind(null, null)} 
+        activeUser={activeUser} 
+        attemptLogin={attemptLogin} 
+        setModalContent={setModalContent}/>
       <Modal closeModal={setModalContent.bind(null, null)} modalContent={modalContent} />
-      <RenterList update={updateRenterList} maxRent={maxRent} renters={renters} setModalContent={setModalContent}/>
-      <ListingList update={updateListingList} renters={renters} maxRent={maxRent} listings={listings} />
-      <AddRenter update={updateRenterList} setModalContent={setModalContent} />
-      <AddListing update={updateListingList} setModalContent={setModalContent} />
+      <section id="page-body">
+        <section id="lists">
+          <RenterList update={updateRenterList} maxRent={maxRent} renters={renters} setModalContent={setModalContent}/>
+          <ListingList update={updateListingList} renters={renters} maxRent={maxRent} listings={listings} />
+          <AddRenter update={updateRenterList} setModalContent={setModalContent} />
+          <AddListing update={updateListingList} setModalContent={setModalContent} />
+        </section>
+        <InfoTab isHidden={infoTabHidden} />
+      </section>
     </div> 
   );
 };

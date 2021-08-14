@@ -1,4 +1,5 @@
 html, body {
+  height: 100%;
   padding: 0;
   margin: 0;
 }
@@ -9,6 +10,11 @@ html, body {
   margin: 0;
 }
 
+#page-body {
+  display: flex;
+  height: 89.5%;
+}
+
 #navbar {
   display: flex;
   position: sticky;
@@ -16,8 +22,20 @@ html, body {
   align-items: center;
   background-color: #aaccff;
   padding: 15px;
-  margin-bottom: 30px;
   width: 98.75%;
+}
+
+#lists {
+  margin-top: 30px;
+}
+
+#info-tab {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  margin-left: auto;
+  border-left: 1px solid black;
+  padding: 5px 15px;
 }
 
 #modal-disabled {
