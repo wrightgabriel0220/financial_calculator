@@ -94,6 +94,15 @@ app.put('/listings', (req, res) => {
   })
 });
 
+app.post('/issues', (req, res) => {
+  db.reportIssue({ description: req.body.description, reporterName: req.body.renterName }).then(results => {
+    res.send(results);
+  }).catch(err => {
+    res.status(500);
+    res.end(err);
+  })
+})
+
 app.listen(port, (err) => {
   console.log(`SERVER LISTENING AT PORT ${port}`);
 })

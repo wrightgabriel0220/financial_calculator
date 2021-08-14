@@ -66,6 +66,16 @@ const deleteListing = id => {
     })
 };
 
+const reportIssue = issue => {
+  return client.query('INSERT INTO issues (description, reporter_name) VALUES ($1, $2)', [issue.description, issue.reporterName])
+    .then(result => {
+      return result;
+    })
+    .catch(err => {
+      return err;
+    })
+}
+
 const editRow = (table, id, column, value) => {
   if (typeof(value) === 'string') { value = "'" + value + "'"; }
   return client.query(`UPDATE ${table} SET ${column} = ${value} WHERE (id = $1)`, [id])
@@ -78,4 +88,4 @@ const editRow = (table, id, column, value) => {
 };
 
 
-module.exports = { getDataFor, addRenter, addListing, deleteRenter, deleteListing, editRow };
+module.exports = { getDataFor, addRenter, addListing, deleteRenter, deleteListing, reportIssue, editRow };

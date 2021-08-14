@@ -30,4 +30,10 @@ CREATE TABLE items (
   name VARCHAR(255) NOT NULL,
   cost NUMERIC(6, 2) NOT NULL,
   amount INT NOT NULL
-)
+);
+
+CREATE TABLE issues (
+  id SERIAL PRIMARY KEY,
+  description TEXT NOT NULL,
+  reporter_name VARCHAR(255) NOT NULL
+);

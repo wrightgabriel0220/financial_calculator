@@ -12,19 +12,19 @@ const RenterProfile = props => {
     <div id="renter-profile-tab">
       <div id="rp-stat-list">
         <div className="rp-stat">
-          <span className="rp-stat-title">ETR:</span>
+          <span className="rp-stat-title">Move-out Timeline: </span>
           <span className="rp-stat-body">{Math.round((amountLeft / (props.renter.hourly_wages * props.renter.hours_working)) * 100) / 100} weeks</span>
         </div>
         <div className="rp-stat">
-          <span className="rp-stat-title">Amount to Moving:</span>
+          <span className="rp-stat-title">Amount to Moving: </span>
           <span className="rp-stat-body">${amountLeft}</span>
         </div>
         <div className="rp-stat">
-          <span className="rp-stat-title">Savings Amount:</span>
+          <span className="rp-stat-title">Savings Amount: </span>
           <span className="rp-stat-body">${savings}</span>
         </div>
         <div className="rp-stat">
-          <span className="rp-stat-title">Expenses:</span>
+          <span className="rp-stat-title">Expenses: </span>
           <span className="rp-stat-body">$0</span>
         </div>
       </div>
