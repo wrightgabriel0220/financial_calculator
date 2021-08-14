@@ -13,10 +13,31 @@ const App = () => {
   const [ isLoading, setIsLoading ] = useState(true);
   const [ renters, setRenters ] = useState([]);
   const [ listings, setListings ] = useState([]);
+  const [ focusedListing, setFocusedListing ] = useState(null);
   const [ maxRent, setMaxRent ] = useState(0);
   const [ modalContent, setModalContent ] = useState(null);
   const [ activeUser, setActiveUser ] = useState(null);
   const [ infoTabHidden, setInfoTabHidden ] = useState(true);
+
+  useEffect(() => {
+    if (isLoading) {
+      updateRenterList().then(updateListingList()).then(() => { setIsLoading(false); }).catch(err => {
+        console.error(err);
+      })
+    }
+  }, []);
+
+  useEffect(() => {
+    if (focusedListing) {
+      if (listings.filter(listing => listing.address === focusedListing.address).length === 0) {
+        setFocusedListing(null);
+      }
+    }
+  }, [listings]);
+
+  useEffect(() => {
+    console.log(focusedListing);
+  }, [focusedListing]);
 
   const updateRenterList = () => {
     return axios.get('/renters')
@@ -51,14 +72,6 @@ const App = () => {
     }
     return false;
   };
-  
-  useEffect(() => {
-    if (isLoading) {
-      updateRenterList().then(updateListingList()).then(() => { setIsLoading(false); }).catch(err => {
-        console.error(err);
-      })
-    }
-  }, []);
 
   if (isLoading) {
     return (
@@ -84,7 +97,7 @@ const App = () => {
           <AddRenter update={updateRenterList} setModalContent={setModalContent} />
           <AddListing update={updateListingList} setModalContent={setModalContent} />
         </section>
-        <InfoTab isHidden={infoTabHidden} />
+        <InfoTab renters={renters} update={updateListingList} focusedListing={focusedListing} isHidden={infoTabHidden} />
       </section>
     </div> 
   );
