@@ -29,6 +29,14 @@ html, body {
   margin-top: 30px;
 }
 
+.listing {
+  transition: background-color .25s;
+}
+
+.listing:hover {
+  background-color: #aaccff;
+}
+
 #info-tab {
   display: flex;
   flex-direction: column;
