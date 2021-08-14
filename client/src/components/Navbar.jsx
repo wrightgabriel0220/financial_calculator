@@ -13,7 +13,7 @@ const Navbar = props => {
         <span>Hello, {props.activeUser.name}!</span>
         <span id="navbar-buttons">
           <button id="renter-profile-button">Renter Profile</button>
-          <button id="logout-button">Log Out</button>
+          <button id="logout-button" onClick={props.logout}>Log Out</button>
         </span>
       </div>
     )

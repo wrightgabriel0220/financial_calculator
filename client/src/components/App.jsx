@@ -68,7 +68,7 @@ const App = () => {
 
   return (
     <div id="app-body">
-      <Navbar activeUser={activeUser} attemptLogin={attemptLogin} setModalContent={setModalContent}/>
+      <Navbar logout={setActiveUser.bind(null, null)} activeUser={activeUser} attemptLogin={attemptLogin} setModalContent={setModalContent}/>
       <Modal closeModal={setModalContent.bind(null, null)} modalContent={modalContent} />
       <RenterList update={updateRenterList} maxRent={maxRent} renters={renters} setModalContent={setModalContent}/>
       <ListingList update={updateListingList} renters={renters} maxRent={maxRent} listings={listings} />
