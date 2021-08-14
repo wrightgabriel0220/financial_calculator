@@ -14,6 +14,7 @@ const App = () => {
   const [ listings, setListings ] = useState([]);
   const [ maxRent, setMaxRent ] = useState(0);
   const [ modalContent, setModalContent ] = useState(null);
+  const [ activeUser, setActiveUser ] = useState(null);
 
   const updateRenterList = () => {
     return axios.get('/renters')
@@ -39,6 +40,15 @@ const App = () => {
         console.error(err);
       })
   };
+
+  const attemptLogin = (renterName) => {
+    let renterIndex = renters.map(renter => renter.name).indexOf(renterName);
+    if (renterIndex >= 0) {
+      setActiveUser(renters[renterIndex]);
+      return true;
+    }
+    return false;
+  };
   
   useEffect(() => {
     if (isLoading) {
@@ -58,7 +68,7 @@ const App = () => {
 
   return (
     <div id="app-body">
-      <Navbar />
+      <Navbar activeUser={activeUser} attemptLogin={attemptLogin} setModalContent={setModalContent}/>
       <Modal closeModal={setModalContent.bind(null, null)} modalContent={modalContent} />
       <RenterList update={updateRenterList} maxRent={maxRent} renters={renters} setModalContent={setModalContent}/>
       <ListingList update={updateListingList} renters={renters} maxRent={maxRent} listings={listings} />
