@@ -14,7 +14,6 @@ const Listing = props => {
       totalListingPrice -= currShare;
     }
     while (totalListingPrice >= 1) {
-      debugger;
       let remainingRent = totalListingPrice;
       for (let renter of props.renters) {
         let renterMax = renter.hourly_wages * renter.hours_working * 4.33333333 * .3 - 100 - renterShareTracker[renter.name];
@@ -26,14 +25,7 @@ const Listing = props => {
     for (let renter in renterShareTracker) {
       renterShareTracker[renter] = Math.round(renterShareTracker[renter]);
     }
-      // try to divvy out the proper shares to each person
-
-        // get the maximum that renter can reasonably afford
-        // if a third is more than that max, apply the max
-
-      // then try to cut an even share for everybody
-        // if any can't fit an even share, put them to their max
-        // if everyone is maxed out, force a third on everyone
+    
     setRenterShares(renterShareTracker);
   }, [])
 

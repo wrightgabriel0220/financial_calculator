@@ -81,7 +81,7 @@ const App = () => {
 
   return (
     <div id="app-body">
-      <Navbar 
+      <Navbar
         toggleInfoTab={setInfoTabHidden.bind(null, !infoTabHidden)}
         logout={setActiveUser.bind(null, null)} 
         activeUser={activeUser} 
