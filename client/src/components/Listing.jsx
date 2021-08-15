@@ -7,34 +7,41 @@ const Listing = props => {
   useEffect(() => {
     let totalListingPrice = props.listingData.rent;
     let renterShareTracker = {};
-    while (totalListingPrice > 0) {  
+    for (let renter of props.renters) {
+      let renterMax = renter.hourly_wages * renter.hours_working * 4.33333333 * .3 - 100;
+      let currShare = getRenterShare(props.listingData.rent, renter, renter.share, renterMax);
+      renterShareTracker[renter.name] = currShare;
+      totalListingPrice -= currShare;
+    }
+    while (totalListingPrice >= 1) {
+      debugger;
+      let remainingRent = totalListingPrice;
       for (let renter of props.renters) {
-        renterShareTracker[renter.name] = renterShareTracker[renter.name] || 0;
-        let renterMax = Number(renter.hourly_wages) * renter.hours_working * 4.3333333 * .3 - 100;
-        if (renterShareTracker[renter.name] > 0 && renterShareTracker[renter.name] < renterMax) {
-          let overflowToRenter = (renterMax - renterShareTracker[renter.name] - totalListingPrice) > 0 ?
-            renterMax - renterShareTracker[renter.name] - totalListingPrice : 
-            renterMax - renterShareTracker[renter.name];
-          renterShareTracker[renter.name] += Math.round(overflowToRenter);
-          totalListingPrice -= overflowToRenter;
-        } else {
-          renterShareTracker[renter.name] += Math.round(getRenterShare(totalListingPrice, renter));
-          totalListingPrice -= Math.round(renterShareTracker[renter.name]);
-        }
-        if (totalListingPrice <= 0) {
-          break;
-        }
+        let renterMax = renter.hourly_wages * renter.hours_working * 4.33333333 * .3 - 100 - renterShareTracker[renter.name];
+        let calculatedShare = getRenterShare(remainingRent, renter, renter.share, renterMax);
+        renterShareTracker[renter.name] += calculatedShare;
+        totalListingPrice -= calculatedShare;
       }
     }
+    for (let renter in renterShareTracker) {
+      renterShareTracker[renter] = Math.round(renterShareTracker[renter]);
+    }
+      // try to divvy out the proper shares to each person
+
+        // get the maximum that renter can reasonably afford
+        // if a third is more than that max, apply the max
+
+      // then try to cut an even share for everybody
+        // if any can't fit an even share, put them to their max
+        // if everyone is maxed out, force a third on everyone
     setRenterShares(renterShareTracker);
   }, [])
 
-  const getRenterShare = (rent, renter) => {
-    let renterMax = renter.hourly_wages * renter.hours_working * 4.33333333 * .3 - 100;
-    if (rent * (renter.share * .01) > renterMax) {
-      return Math.round(renterMax); 
+  const getRenterShare = (rent, renter, sharePercentage, renterMax) => {
+    if (rent * (sharePercentage * .01) > renterMax) {
+      return renterMax; 
     } else {
-      return Math.round(rent * (renter.share * .01));
+      return rent * (renter.share * .01);
     }
   };
 
