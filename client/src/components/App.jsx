@@ -6,6 +6,9 @@ import AddListing from './AddListing';
 import Modal from './Modal';
 import Navbar from './Navbar';
 import InfoTab from './InfoTab';
+import HostRegPage from './pages/HostRegPage';
+import MemberRegPage from './pages/MemberRegPage';
+import { BrowserRouter as Router, Switch, Link, Route } from 'react-router-dom';
 
 const axios = require('axios');
 
@@ -80,24 +83,44 @@ const App = () => {
   }
 
   return (
-    <div id="app-body">
-      <Navbar
-        toggleInfoTab={setInfoTabHidden.bind(null, !infoTabHidden)}
-        logout={setActiveUser.bind(null, null)} 
-        activeUser={activeUser} 
-        attemptLogin={attemptLogin} 
-        setModalContent={setModalContent}/>
-      <Modal closeModal={setModalContent.bind(null, null)} modalContent={modalContent} />
-      <section id="page-body">
-        <section id="lists">
-          <RenterList update={updateRenterList} maxRent={maxRent} renters={renters} setModalContent={setModalContent}/>
-          <ListingList update={updateListingList} renters={renters} maxRent={maxRent} listings={listings} focusListing={ id => { focusListingById(id); } }/>
-          <AddRenter update={updateRenterList} setModalContent={setModalContent} />
-          <AddListing update={updateListingList} setModalContent={setModalContent} />
-        </section>
-        <InfoTab activeUser={activeUser} renters={renters} update={updateListingList} focusedListing={focusedListing} isHidden={infoTabHidden} />
-      </section>
-    </div> 
+    <Router>
+      <div id="app-body">
+        <Navbar
+          toggleInfoTab={setInfoTabHidden.bind(null, !infoTabHidden)}
+          logout={setActiveUser.bind(null, null)} 
+          activeUser={activeUser} 
+          attemptLogin={attemptLogin} 
+          setModalContent={setModalContent}/>
+        <Switch>
+          <Route exact path="/">
+            <Modal closeModal={setModalContent.bind(null, null)} modalContent={modalContent} />
+            <section id="page-body">
+              <section id="lists">
+                <RenterList update={updateRenterList} maxRent={maxRent} renters={renters} setModalContent={setModalContent}/>
+                <ListingList update={updateListingList} renters={renters} maxRent={maxRent} listings={listings} focusListing={ id => { focusListingById(id); } }/>
+                <AddRenter update={updateRenterList} setModalContent={setModalContent} />
+                <AddListing update={updateListingList} setModalContent={setModalContent} />
+              </section>
+              <InfoTab activeUser={activeUser} renters={renters} update={updateListingList} focusedListing={focusedListing} isHidden={infoTabHidden} />
+            </section>
+          </Route>
+          <Route exact path="/register">
+            <h2 id="group-code-question">
+              Are you registering as a <Link to="/register/host">group host</Link> or <Link to="/register/member">group member</Link>?
+            </h2>
+          </Route>
+          <Route exact path="/register/host">
+            <HostRegPage />
+          </Route>
+          <Route exact path="/register/member">
+            <MemberRegPage />
+          </Route>
+          <Route path="/login">
+            <div>Log in here</div>
+          </Route>
+        </Switch>
+      </div> 
+    </Router>
   );
 };
 

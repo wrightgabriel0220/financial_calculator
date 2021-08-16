@@ -87,5 +87,15 @@ const editRow = (table, id, column, value) => {
     })
 };
 
+const registerUser = (username, saltedPassword, group_code, is_admin, is_host) => {
+  return client.query('INSERT INTO users (username, password, group_code, is_admin, is_host) VALUES ($1, $2, $3, $4, $5)', [username, saltedPassword, group_code, is_admin, is_host])
+    .then(result => {
+      return result;
+    })
+    .catch(err => {
+      return err;
+    })
+};
 
-module.exports = { getDataFor, addRenter, addListing, deleteRenter, deleteListing, reportIssue, editRow };
+
+module.exports = { getDataFor, addRenter, addListing, deleteRenter, deleteListing, reportIssue, editRow, registerUser };

@@ -11,14 +11,6 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use(express.static(path.join(config.root, 'client/dist')));
 
-app.get('/', (req, res) => {
-  console.log('Receiving a connection from ', req.ip);
-})
-
-app.get('/test', (req, res) => {
-  res.redirect('https://www.youtube.com/watch?v=dQw4w9WgXcQ');
-})
-
 app.get('/renters', (req, res) => {
   db.getDataFor('renters').then(results => {
     res.send(results.rows);
@@ -101,6 +93,10 @@ app.post('/issues', (req, res) => {
     res.status(500);
     res.end(err);
   })
+});
+
+app.get("/*", (req, res) => {
+  res.redirect('/');
 })
 
 app.listen(port, (err) => {

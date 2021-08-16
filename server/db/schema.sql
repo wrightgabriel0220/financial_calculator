@@ -37,3 +37,12 @@ CREATE TABLE issues (
   description TEXT NOT NULL,
   reporter_name VARCHAR(255) NOT NULL
 );
+
+CREATE TABLE users (
+  id SERIAL PRIMARY KEY,
+  username VARCHAR(255) NOT NULL,
+  password VARCHAR(255) NOT NULL,
+  group_code VARCHAR(255) NOT NULL,
+  is_admin BOOLEAN NOT NULL,
+  is_host BOOLEAN NOT NULL
+);
