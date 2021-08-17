@@ -3,14 +3,37 @@ import axios from 'axios';
 import bcrypt from 'bcryptjs';
 
 const MemberRegPage = props => {
+  const checkUsername = username => {
+    return axios.get('/users')
+      .then(results => {
+        if (results.data.map(user => user.username).includes(username.trim())) {
+          throw Error('username is already taken');
+        } else {
+          return true;
+        }
+      })
+  };
+
+  const checkGroupCode = groupcode => {
+    return axios.get('/groupcodes')
+      .then(results => {
+        console.log(results.data);
+        if (results.data.map(codeObj => codeObj.group_code).includes(groupcode.trim())) {
+          return true;
+        } else {
+          throw Error('not a valid group code');
+        }
+      })
+  }
+
   const handleRegistrationSubmit = event => {
     event.preventDefault();
-
+    let usernameInput = document.getElementById('username-input').value;
+    let groupCodeInput = document.getElementById('group-code-input').value;
     let form = document.getElementById('registration-form');
-    if (form.checkValidity()) {
-      /*axios.post('/users/register',*/ console.log({
-        username: document.getElementById('username-input').value,
-        hashedPassword: bcrypt.genSalt(10, (err, salt) => {
+    checkUsername(usernameInput).then(() => {
+      checkGroupCode(groupCodeInput).then(() => {
+        bcrypt.genSalt(10, (err, salt) => {
           if (err) {
             throw err;
           } else {
@@ -18,18 +41,31 @@ const MemberRegPage = props => {
               if (err) {
                 throw err;
               } else {
-                return hash;
+                if (form.checkValidity()) {
+                  axios.post('/users/register', {
+                    username: usernameInput,
+                    hashedPassword: hash,
+                    groupCode: groupCodeInput,
+                    isAdmin: false,
+                    isHost: false
+                  }).then(results => {
+                    console.log(results);
+                  }).catch(err => {
+                    console.error(err);
+                  });
+                } else {
+                  form.reportValidity();
+                }
               }
             });
           }
-        }),
-        groupCode: document.getElementById('group-code-input').value,
-        isAdmin: false,
-        isHost: false
-      });
-    } else {
-      form.reportValidity();
-    }
+        })
+      }).catch(err => {
+        alert(err);
+      })
+    }).catch(err => {
+      alert(err);
+    })
   };
 
   return (

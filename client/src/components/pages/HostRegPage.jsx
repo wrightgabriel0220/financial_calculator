@@ -1,7 +1,6 @@
 import React from 'react';
 import axios from 'axios';
 import bcrypt from 'bcryptjs';
-import { useParams } from 'react-router-dom';
 
 const HostRegPage = props => {
   const generateGroupCode = (length, cb) => {
@@ -28,13 +27,13 @@ const HostRegPage = props => {
     return axios.get('/users')
       .then(results => {
         console.log('userlist: ', results.data);
-        if (results.data.map(user => user.username).includes(username)) {
+        if (results.data.map(user => user.username).includes(username.trim())) {
           return false;
         } else {
-          return false;
+          return true;
         }
       })
-  }
+  };
 
   const handleRegistrationSubmit = event => {
     event.preventDefault();
