@@ -64,7 +64,7 @@ const HostRegPage = props => {
                   hashedPassword: hashedPass,
                   groupCode: code,
                   isAdmin: false,
-                  isHost: false
+                  isHost: true
                 });
               })
             }
