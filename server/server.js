@@ -95,6 +95,33 @@ app.post('/issues', (req, res) => {
   })
 });
 
+app.get('/users', (req, res) => {
+  db.getDataFor('users').then(results => {
+    res.send(results.rows);
+  }).catch(err => {
+    res.status(500);
+    res.end(err);
+  })
+})
+
+app.post('/users/register', (req, res) => {
+  db.registerUser(req.body).then(results => {
+    res.send(results);
+  }).catch(err => {
+    res.status(500);
+    res.end(err);
+  });
+});
+
+app.get('/groupcodes', (req, res) => {
+  db.getGroupCodes().then(groupCodes => {
+    res.send(groupCodes.rows);
+  }).catch(err => {
+    res.status(500);
+    res.end(err);
+  });
+});
+
 app.get("/*", (req, res) => {
   res.redirect('/');
 })
