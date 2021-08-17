@@ -31,7 +31,7 @@ const HostRegPage = props => {
         if (results.data.map(user => user.username).includes(username)) {
           return false;
         } else {
-          return true;
+          return false;
         }
       })
   }
@@ -46,35 +46,43 @@ const HostRegPage = props => {
       return;
     }
     let hashedPass = '';
-    let groupCode = '';
 
-    if (form.checkValidity()) {
-      bcrypt.genSalt(10, (err, salt) => {
-        if (err) {
-          throw err;
-        } else {
-          return bcrypt.hash(document.getElementById('password-input').value, salt, (err, hash) => {
+    checkUsername(usernameInput).then(isValidUsername => {
+      if (isValidUsername) {
+        if (form.checkValidity()) {
+          bcrypt.genSalt(10, (err, salt) => {
             if (err) {
               throw err;
             } else {
-              hashedPass = hash;
-              generateGroupCode(12, code => {
-                axios.post('/users/register', {
-                  username: document.getElementById('username-input').value,
-                  hashedPassword: hashedPass,
-                  groupCode: code,
-                  isAdmin: false,
-                  isHost: true
-                });
-              })
+              return bcrypt.hash(document.getElementById('password-input').value, salt, (err, hash) => {
+                if (err) {
+                  throw err;
+                } else {
+                  hashedPass = hash;
+                  generateGroupCode(12, code => {
+                    axios.post('/users/register', {
+                      username: document.getElementById('username-input').value,
+                      hashedPassword: hashedPass,
+                      groupCode: code,
+                      isAdmin: false,
+                      isHost: true
+                    });
+                  })
+                }
+              });
             }
           });
+        } else {
+          form.reportValidity();
         }
-      });
-    } else {
-      form.reportValidity();
-    }
-  }
+      } else {
+        alert('That username is already taken. Please try again.');
+        return;
+      }
+    }).catch(err => {
+      console.error(err);
+    });
+  };
 
   return (
     <form id="registration-form">
