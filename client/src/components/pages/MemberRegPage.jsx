@@ -1,8 +1,11 @@
 import React from 'react';
 import axios from 'axios';
 import bcrypt from 'bcryptjs';
+import { useHistory } from 'react-router-dom';
 
 const MemberRegPage = props => {
+  const history = useHistory();
+
   const checkUsername = username => {
     return axios.get('/users')
       .then(results => {
@@ -45,11 +48,12 @@ const MemberRegPage = props => {
                   axios.post('/users/register', {
                     username: usernameInput,
                     hashedPassword: hash,
+                    firstName: document.getElementById('first-name-input'),
                     groupCode: groupCodeInput,
                     isAdmin: false,
                     isHost: false
-                  }).then(results => {
-                    console.log(results);
+                  }).then(() => {
+                    history.push('/login');
                   }).catch(err => {
                     console.error(err);
                   });

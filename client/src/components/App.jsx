@@ -8,6 +8,7 @@ import Navbar from './Navbar';
 import InfoTab from './InfoTab';
 import HostRegPage from './pages/HostRegPage';
 import MemberRegPage from './pages/MemberRegPage';
+import LoginPage from './pages/LoginPage';
 import { BrowserRouter as Router, Switch, Link, Route } from 'react-router-dom';
 
 const axios = require('axios');
@@ -20,6 +21,7 @@ const App = () => {
   const [ maxRent, setMaxRent ] = useState(0);
   const [ modalContent, setModalContent ] = useState(null);
   const [ activeUser, setActiveUser ] = useState(null);
+  const [ activeRenter, setActiveRenter ] = useState(null);
   const [ infoTabHidden, setInfoTabHidden ] = useState(true);
 
   useEffect(() => {
@@ -37,6 +39,14 @@ const App = () => {
       }
     }
   }, [listings]);
+
+  useEffect(() => {
+    if (activeUser === null) {
+      setActiveRenter(null);
+    } else {
+      setActiveRenter(renters.find(renter => renter.name === activeUser.first_name));
+    }
+  }, [activeUser]);
 
   const updateRenterList = () => {
     return axios.get('/renters')
@@ -63,15 +73,6 @@ const App = () => {
       })
   };
 
-  const attemptLogin = (renterName) => {
-    let renterIndex = renters.map(renter => renter.name).indexOf(renterName);
-    if (renterIndex >= 0) {
-      setActiveUser(renters[renterIndex]);
-      return true;
-    }
-    return false;
-  };
-
   const focusListingById = id => { setFocusedListing(listings.filter(listing => listing.id === id)[0]); };
 
   if (isLoading) {
@@ -88,8 +89,7 @@ const App = () => {
         <Navbar
           toggleInfoTab={setInfoTabHidden.bind(null, !infoTabHidden)}
           logout={setActiveUser.bind(null, null)} 
-          activeUser={activeUser} 
-          attemptLogin={attemptLogin} 
+          activeRenter={activeRenter} 
           setModalContent={setModalContent}/>
         <Switch>
           <Route exact path="/">
@@ -101,8 +101,9 @@ const App = () => {
                 <AddRenter update={updateRenterList} setModalContent={setModalContent} />
                 <AddListing update={updateListingList} setModalContent={setModalContent} />
               </section>
-              <InfoTab activeUser={activeUser} renters={renters} update={updateListingList} focusedListing={focusedListing} isHidden={infoTabHidden} />
+              <InfoTab activeRenter={activeRenter} renters={renters} update={updateListingList} focusedListing={focusedListing} isHidden={infoTabHidden} />
             </section>
+            <div></div>
           </Route>
           <Route exact path="/register">
             <h2 id="group-code-question">
@@ -116,7 +117,7 @@ const App = () => {
             <MemberRegPage />
           </Route>
           <Route path="/login">
-            <div>Log in here</div>
+            <LoginPage login={setActiveUser}/>
           </Route>
         </Switch>
       </div> 

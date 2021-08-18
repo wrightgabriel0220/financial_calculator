@@ -88,14 +88,7 @@ const editRow = (table, id, column, value) => {
 };
 
 const registerUser = user => {
-  console.log({
-    username: user.username,
-    hashedPassword: user.hashedPassword,
-    groupcode: user.groupCode,
-    is_admin: user.isAdmin,
-    is_host: user.isHost
-  });
-  return client.query('INSERT INTO users (username, password, group_code, is_admin, is_host) VALUES ($1, $2, $3, $4, $5)', [user.username, user.hashedPassword, user.groupCode, user.isAdmin, user.isHost])
+  return client.query('INSERT INTO users (username, password, first_name, group_code, is_admin, is_host) VALUES ($1, $2, $3, $4, $5, $6)', [user.username, user.hashedPassword, user.firstName, user.groupCode, user.isAdmin, user.isHost])
     .then(result => {
       return result;
     })
@@ -103,6 +96,16 @@ const registerUser = user => {
       return err;
     })
 };
+
+const getUserInfoFor = username => {
+  return client.query('SELECT * FROM users WHERE (username = $1)', [username])
+    .then(result => {
+      return result;
+    })
+    .catch(err => {
+      return err;
+    })
+}
 
 const getGroupCodes = () => {
   return client.query('SELECT DISTINCT group_code FROM users;')
@@ -115,4 +118,4 @@ const getGroupCodes = () => {
 }
 
 
-module.exports = { getDataFor, addRenter, addListing, deleteRenter, deleteListing, reportIssue, editRow, registerUser, getGroupCodes };
+module.exports = { getDataFor, addRenter, addListing, deleteRenter, deleteListing, reportIssue, editRow, registerUser, getUserInfoFor, getGroupCodes };

@@ -104,6 +104,15 @@ app.get('/users', (req, res) => {
   })
 })
 
+app.get('/users/:username', (req, res) => {
+  db.getUserInfoFor(req.params.username).then(results => {
+    res.send(results);
+  }).catch(err => {
+    res.status(500);
+    res.end(err);
+  })
+})
+
 app.post('/users/register', (req, res) => {
   db.registerUser(req.body).then(results => {
     res.send(results);

@@ -1,8 +1,11 @@
 import React from 'react';
 import axios from 'axios';
 import bcrypt from 'bcryptjs';
+import { useHistory } from 'react-router-dom';
 
 const HostRegPage = props => {
+  const history = useHistory();
+  
   const generateGroupCode = (length, cb) => {
     let charList = 'abcdefghijklmnopqrstuvwxyz0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
     let groupCode = '';
@@ -60,11 +63,16 @@ const HostRegPage = props => {
                   hashedPass = hash;
                   generateGroupCode(12, code => {
                     axios.post('/users/register', {
-                      username: document.getElementById('username-input').value,
+                      username: usernameInput,
                       hashedPassword: hashedPass,
+                      firstName: document.getElementById('first-name-input'),
                       groupCode: code,
                       isAdmin: false,
                       isHost: true
+                    }).then(() => {
+                      history.push('/login')
+                    }).catch(err => {
+                      console.error(err);
                     });
                   })
                 }
