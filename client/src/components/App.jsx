@@ -1,14 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import RenterList from './RenterList';
-import ListingList from './ListingList';
-import AddRenter from './AddRenter';
-import AddListing from './AddListing';
-import Modal from './Modal';
 import Navbar from './Navbar';
-import InfoTab from './InfoTab';
 import HostRegPage from './pages/HostRegPage';
 import MemberRegPage from './pages/MemberRegPage';
 import LoginPage from './pages/LoginPage';
+import HomePage from './pages/HomePage';
+import DashboardPage from './pages/DashboardPage';
 import { BrowserRouter as Router, Switch, Link, Route } from 'react-router-dom';
 
 const axios = require('axios');
@@ -93,17 +89,18 @@ const App = () => {
           setModalContent={setModalContent}/>
         <Switch>
           <Route exact path="/">
-            <Modal closeModal={setModalContent.bind(null, null)} modalContent={modalContent} />
-            <section id="page-body">
-              <section id="lists">
-                <RenterList update={updateRenterList} maxRent={maxRent} renters={renters} setModalContent={setModalContent}/>
-                <ListingList update={updateListingList} renters={renters} maxRent={maxRent} listings={listings} focusListing={ id => { focusListingById(id); } }/>
-                <AddRenter update={updateRenterList} setModalContent={setModalContent} />
-                <AddListing update={updateListingList} setModalContent={setModalContent} />
-              </section>
-              <InfoTab activeRenter={activeRenter} renters={renters} update={updateListingList} focusedListing={focusedListing} isHidden={infoTabHidden} />
-            </section>
-            <div></div>
+            {activeUser ? <DashboardPage 
+              updateRenterList={updateRenterList}
+              updateListingList={updateListingList}
+              maxRent={maxRent}
+              renters={renters}
+              setModalContent={setModalContent}
+              listings={listings}
+              focusListingById={focusListingById}
+              infoTabHidden={infoTabHidden}
+              focusedListing={focusedListing}
+              modalContent={modalContent}
+            /> : <HomePage />}
           </Route>
           <Route exact path="/register">
             <h2 id="group-code-question">
