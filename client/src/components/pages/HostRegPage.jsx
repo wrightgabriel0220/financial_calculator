@@ -94,13 +94,17 @@ const HostRegPage = props => {
   return (
     <form id="registration-form">
       <h2>Register as Host</h2>
-      <label>Username:
+      <label>Username*:
         <input required type="text" id="username-input" className="form-element"></input>
       </label>
-      <label>Password:
+      <label>Password*:
         <input required type="password" id="password-input" className="form-element"></input>
       </label>
+      <label>First Name*:
+        <input required type="text" id="first-name-input" className="form-element"></input>
+      </label>
       <button id="submit-user-registration" onClick={handleRegistrationSubmit}>Register</button>
+      <sub>*: indicates that a field is required</sub>
     </form>
   );
 };

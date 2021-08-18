@@ -75,13 +75,16 @@ const MemberRegPage = props => {
   return (
     <form id="registration-form">
       <h2>Register as Member</h2>
-      <label>Username:
+      <label>Username*:
         <input required id="username-input" className="form-element" type="text"></input>
       </label>
-      <label>Password:
+      <label>Password*:
         <input required id="password-input" className="form-element" type="password"></input>
       </label>
-      <label>Group Code:
+      <label>First Name*:
+        <input required id="first-name-input" className="form-element" type="text"></input>
+      </label>
+      <label>Group Code*:
         <input required id="group-code-input" className="form-element" type="text"></input>
       </label>
       <button id="submit-user-registration" onClick={handleRegistrationSubmit}>Register</button>
