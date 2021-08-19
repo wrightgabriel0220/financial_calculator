@@ -5,7 +5,7 @@ import MemberRegPage from './pages/MemberRegPage';
 import LoginPage from './pages/LoginPage';
 import HomePage from './pages/HomePage';
 import DashboardPage from './pages/DashboardPage';
-import { BrowserRouter as Router, Switch, Link, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Switch, Link, Route, useHistory } from 'react-router-dom';
 
 const axios = require('axios');
 
@@ -41,21 +41,27 @@ const App = () => {
     if (activeUser === null) {
       setActiveRenter(null);
     } else {
-      console.log('first-name: ', activeUser.first_name);
       updateRenterList().then(updateListingList()).then(() => {
         setDashIsReady(true);
         setIsLoading(false); 
       }).catch(err => { 
         console.error(err); 
       })
-      setActiveRenter(renters.find(renter => renter.name === activeUser.first_name));
     }
   }, [activeUser]);
+
+  useEffect(() => {
+    setActiveRenter(renters.find(renter => renter.name === activeUser.first_name));
+  }, [renters])
+
+  const logout = () => {
+    setActiveUser(null);
+    setDashIsReady(false);
+  }
 
   const updateRenterList = () => {
     return axios.post('/renters/get', { groupCode: activeUser.group_code })
         .then(rentersInDB => {
-          console.log(rentersInDB);
           setRenters(rentersInDB.data);
           return rentersInDB;
         })
@@ -93,7 +99,7 @@ const App = () => {
       <div id="app-body">
         <Navbar
           toggleInfoTab={setInfoTabHidden.bind(null, !infoTabHidden)}
-          logout={setActiveUser.bind(null, null)} 
+          logout={logout} 
           activeRenter={activeRenter} 
           setModalContent={setModalContent}/>
         <Switch>
