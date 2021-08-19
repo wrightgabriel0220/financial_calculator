@@ -26,6 +26,17 @@ const getDataFor = table => {
     })
 };
 
+const getRentersForGroup = groupCode => {
+  console.log(groupCode);
+  return client.query(`SELECT renters.name, renters.hourly_wages, renters.hours_working, renters.dog_count, renters.cat_count, renters.share FROM renters, users WHERE renters.name = users.first_name AND users.group_code = '${groupCode}'`)
+    .then(result => {
+      return result.rows;
+    })
+    .catch(err => {
+      return err;
+    })
+}
+
 const addRenter = data => {
   return client.query('INSERT INTO renters (name, hourly_wages, hours_working, dog_count, cat_count, share) VALUES ($1, $2, $3, $4, $5, $6)', [data.name, data.hourly, data.hours, data.dogs, data.cats, data.percentageShare])
     .then(result => {
@@ -118,4 +129,4 @@ const getGroupCodes = () => {
 }
 
 
-module.exports = { getDataFor, addRenter, addListing, deleteRenter, deleteListing, reportIssue, editRow, registerUser, getUserInfoFor, getGroupCodes };
+module.exports = { getDataFor, getRentersForGroup, addRenter, addListing, deleteRenter, deleteListing, reportIssue, editRow, registerUser, getUserInfoFor, getGroupCodes };

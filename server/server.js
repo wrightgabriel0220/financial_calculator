@@ -11,9 +11,11 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use(express.static(path.join(config.root, 'client/dist')));
 
-app.get('/renters', (req, res) => {
-  db.getDataFor('renters').then(results => {
-    res.send(results.rows);
+app.post('/renters/get', (req, res) => {
+  console.log('body: ', req.body);
+  db.getRentersForGroup(req.body.groupCode).then(results => {
+    console.log(results);
+    res.send(results);
   }).catch(err => {
     res.status(404);
     res.end(err);

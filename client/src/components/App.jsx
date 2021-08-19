@@ -10,7 +10,6 @@ import { BrowserRouter as Router, Switch, Link, Route } from 'react-router-dom';
 const axios = require('axios');
 
 const App = () => {
-  const [ isLoading, setIsLoading ] = useState(true);
   const [ renters, setRenters ] = useState([]);
   const [ listings, setListings ] = useState([]);
   const [ focusedListing, setFocusedListing ] = useState(null);
@@ -19,6 +18,8 @@ const App = () => {
   const [ activeUser, setActiveUser ] = useState(null);
   const [ activeRenter, setActiveRenter ] = useState(null);
   const [ infoTabHidden, setInfoTabHidden ] = useState(true);
+  const [ isLoading, setIsLoading ] = useState(activeUser ? true : false);
+  const [ dashIsReady, setDashIsReady ] = useState(false);
 
   useEffect(() => {
     if (isLoading) {
@@ -40,19 +41,27 @@ const App = () => {
     if (activeUser === null) {
       setActiveRenter(null);
     } else {
+      console.log('first-name: ', activeUser.first_name);
+      updateRenterList().then(updateListingList()).then(() => {
+        setDashIsReady(true);
+        setIsLoading(false); 
+      }).catch(err => { 
+        console.error(err); 
+      })
       setActiveRenter(renters.find(renter => renter.name === activeUser.first_name));
     }
   }, [activeUser]);
 
   const updateRenterList = () => {
-    return axios.get('/renters')
+    return axios.post('/renters/get', { groupCode: activeUser.group_code })
         .then(rentersInDB => {
+          console.log(rentersInDB);
           setRenters(rentersInDB.data);
           return rentersInDB;
         })
         .then(rentersInDB => {
           if (rentersInDB.data.length !== 0) {
-            setMaxRent(rentersInDB.data.map(renter => Math.round(renter.hourly_wages * renter.hours_working*4.33333333333*.3 - 100)).reduce((a, b) => a + b));
+            setMaxRent(rentersInDB.data.map(renter => Math.round(renter.hourly_wages * renter.hours_working * 4.33333333333 * .3 - 100)).reduce((a, b) => a + b));
           } else {
             setRenters([{ name: 'N/A', hourly_wages: 0, hours_working: 0, dog_count: 0, cat_count: 0, share: 0 }])
           }
@@ -89,7 +98,7 @@ const App = () => {
           setModalContent={setModalContent}/>
         <Switch>
           <Route exact path="/">
-            {activeUser ? <DashboardPage 
+            {dashIsReady ? <DashboardPage 
               updateRenterList={updateRenterList}
               updateListingList={updateListingList}
               maxRent={maxRent}
@@ -100,6 +109,7 @@ const App = () => {
               infoTabHidden={infoTabHidden}
               focusedListing={focusedListing}
               modalContent={modalContent}
+              activeRenter={activeRenter}
             /> : <HomePage />}
           </Route>
           <Route exact path="/register">

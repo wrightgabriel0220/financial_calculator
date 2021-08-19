@@ -48,7 +48,7 @@ const MemberRegPage = props => {
                   axios.post('/users/register', {
                     username: usernameInput,
                     hashedPassword: hash,
-                    firstName: document.getElementById('first-name-input'),
+                    firstName: document.getElementById('first-name-input').value,
                     groupCode: groupCodeInput,
                     isAdmin: false,
                     isHost: false

@@ -1,5 +1,4 @@
 import React from 'react';
-import LoginModal from './modals/LoginModal';
 import ReportIssueModal from './modals/ReportIssueModal';
 import { Link } from 'react-router-dom';
 
@@ -11,7 +10,7 @@ const Navbar = props => {
   if (props.activeRenter) {
     return (
       <div id="navbar">
-        <h1>FINCALC</h1>
+        <h1>HOUSECALC</h1>
         <span>Hello, {props.activeRenter.name}!</span>
         <span id="navbar-buttons">
           <button id="report-issue-button" onClick={reportHandler}>Report Issue</button>
@@ -23,7 +22,7 @@ const Navbar = props => {
   } else {
     return (
       <div id="navbar">
-        <h1>FINCALC</h1>
+        <h1>HOUSECALC</h1>
         <button id="report-issue-button" onClick={reportHandler}>Report Issue</button>
         <Link to="/register"><button id="register-button">Register</button></Link>
         <Link to="/login"><button id="login-button">Log In</button></Link>
