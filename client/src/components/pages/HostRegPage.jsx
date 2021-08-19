@@ -29,7 +29,6 @@ const HostRegPage = props => {
   const checkUsername = username => {
     return axios.get('/users')
       .then(results => {
-        console.log('userlist: ', results.data);
         if (results.data.map(user => user.username).includes(username.trim())) {
           return false;
         } else {
@@ -68,7 +67,8 @@ const HostRegPage = props => {
                       firstName: document.getElementById('first-name-input').value,
                       groupCode: code,
                       isAdmin: false,
-                      isHost: true
+                      isHost: true,
+                      has_logged_once: false
                     }).then(() => {
                       history.push('/login')
                     }).catch(err => {

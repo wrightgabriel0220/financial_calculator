@@ -20,7 +20,6 @@ const MemberRegPage = props => {
   const checkGroupCode = groupcode => {
     return axios.get('/groupcodes')
       .then(results => {
-        console.log(results.data);
         if (results.data.map(codeObj => codeObj.group_code).includes(groupcode.trim())) {
           return true;
         } else {
@@ -51,7 +50,8 @@ const MemberRegPage = props => {
                     firstName: document.getElementById('first-name-input').value,
                     groupCode: groupCodeInput,
                     isAdmin: false,
-                    isHost: false
+                    isHost: false,
+                    has_logged_once: false
                   }).then(() => {
                     history.push('/login');
                   }).catch(err => {

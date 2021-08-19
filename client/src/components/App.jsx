@@ -5,6 +5,7 @@ import MemberRegPage from './pages/MemberRegPage';
 import LoginPage from './pages/LoginPage';
 import HomePage from './pages/HomePage';
 import DashboardPage from './pages/DashboardPage';
+import RenterProfileSetupPage from './pages/RenterProfileSetupPage';
 import { BrowserRouter as Router, Switch, Link, Route, useHistory } from 'react-router-dom';
 
 const axios = require('axios');
@@ -104,7 +105,8 @@ const App = () => {
           setModalContent={setModalContent}/>
         <Switch>
           <Route exact path="/">
-            {dashIsReady ? <DashboardPage 
+            {dashIsReady ? 
+            (activeUser.has_logged_once ? <DashboardPage 
               updateRenterList={updateRenterList}
               updateListingList={updateListingList}
               maxRent={maxRent}
@@ -116,7 +118,8 @@ const App = () => {
               focusedListing={focusedListing}
               modalContent={modalContent}
               activeRenter={activeRenter}
-            /> : <HomePage />}
+            /> : <RenterProfileSetupPage />) 
+            : <HomePage />}
           </Route>
           <Route exact path="/register">
             <h2 id="group-code-question">
