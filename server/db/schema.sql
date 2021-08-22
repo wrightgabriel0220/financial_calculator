@@ -3,6 +3,7 @@ DROP TABLE IF EXISTS listings;
 DROP TABLE IF EXISTS items;
 DROP TABLE IF EXISTS issues;
 DROP TABLE IF EXISTS users;
+DROP TABLE IF EXISTS expenses;
 
 CREATE TABLE renters (
   id SERIAL PRIMARY KEY,
@@ -48,4 +49,13 @@ CREATE TABLE users (
   group_code VARCHAR(255) NOT NULL,
   is_admin BOOLEAN NOT NULL,
   is_host BOOLEAN NOT NULL
+);
+
+CREATE TABLE expenses (
+  id SERIAL PRIMARY KEY,
+  user_id INTEGER NOT NULL,
+  title VARCHAR(255) NOT NULL,
+  cost INTEGER NOT NULL,
+  FOREIGN KEY(user_id)
+  REFERENCES users(id)
 );

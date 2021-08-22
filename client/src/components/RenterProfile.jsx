@@ -1,12 +1,41 @@
 import React, { useState, useEffect } from 'react';
+import Expense from './Expense';
+import axios from 'axios';
 
 const RenterProfile = props => {
   const [ savings, setSavings ] = useState(0);
+  const [ expenseList, setExpenseList ] = useState([]);
+  const [ expenseTotal, setExpenseTotal ] = useState(0)
   const [ amountLeft, setAmountLeft ] = useState(0);
+  const [ isLoading, setIsLoading ] = useState(true);
+
+  useEffect(() => {
+    axios.get('/expenses')
+      .then(expenseData => {
+        setExpenseList(expenseData.data);
+        setIsLoading(false);
+      }).catch(err => {
+        console.error(err);
+      })
+  }, []);
 
   useEffect(() => {
     setAmountLeft(props.moveInCost - savings);
   }, [savings]);
+
+  useEffect(() => {
+    if (expenseList.length > 0) {
+      setExpenseTotal(expenseList.map(expense => expense.cost).reduce((costA, costB) => costA + costB));
+    } else {
+      setExpenseTotal(0);
+    }
+  }, [expenseList]);
+
+  if (isLoading) {
+    return (
+      <div>Loading...</div>
+    );
+  }
 
   return props.listing ? (
     <div id="renter-profile-tab">
@@ -25,7 +54,7 @@ const RenterProfile = props => {
         </div>
         <div className="rp-stat">
           <span className="rp-stat-title">Expenses: </span>
-          <span className="rp-stat-body">$0</span>
+          <span className="rp-stat-body">${expenseTotal}</span>
         </div>
       </div>
       <table id="expenses-table">
@@ -36,7 +65,7 @@ const RenterProfile = props => {
           </tr>
         </thead>
         <tbody>
-          {/*map through a list of expenses here*/}
+          {expenseList.map((expense, index) => <Expense key={expense.title + index} expense={expense} />)}
         </tbody>
       </table>
     </div>

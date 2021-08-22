@@ -38,7 +38,7 @@ const getRentersForGroup = groupCode => {
 }
 
 const addRenter = data => {
-  return client.query('INSERT INTO renters (name, hourly_wages, hours_working, dog_count, cat_count, share) VALUES ($1, $2, $3, $4, $5, $6)', [data.name, data.hourly, data.hours, data.dogs, data.cats, data.percentageShare])
+  return client.query('INSERT INTO renters (name, hourly_wages, hours_working, dog_count, cat_count, share, group_code) VALUES ($1, $2, $3, $4, $5, $6, $7)', [data.name, data.hourly, data.hours, data.dogs, data.cats, data.percentageShare, data.groupCode])
     .then(result => {
       return result;
     })
@@ -116,7 +116,7 @@ const getUserInfoFor = username => {
     .catch(err => {
       return err;
     })
-}
+};
 
 const getGroupCodes = () => {
   return client.query('SELECT DISTINCT group_code FROM users;')
@@ -126,7 +126,6 @@ const getGroupCodes = () => {
     .catch(err => {
       return err;
     })
-}
-
+};
 
 module.exports = { getDataFor, getRentersForGroup, addRenter, addListing, deleteRenter, deleteListing, reportIssue, editRow, registerUser, getUserInfoFor, getGroupCodes };

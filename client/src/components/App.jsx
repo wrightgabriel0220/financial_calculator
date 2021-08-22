@@ -118,7 +118,7 @@ const App = () => {
               focusedListing={focusedListing}
               modalContent={modalContent}
               activeRenter={activeRenter}
-            /> : <RenterProfileSetupPage />) 
+            /> : <RenterProfileSetupPage activeUser={activeUser}/>) 
             : <HomePage />}
           </Route>
           <Route exact path="/register">

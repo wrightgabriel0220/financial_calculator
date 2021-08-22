@@ -124,9 +124,27 @@ app.post('/users/register', (req, res) => {
   });
 });
 
+app.put('/users/firstlog', (req, res) => {
+  db.editRowFor('users', req.body.userId, 'has_logged_once', true).then(results => {
+    res.send(results);
+  }).catch(err => {
+    res.status(500);
+    res.end(err);
+  })
+})
+
 app.get('/groupcodes', (req, res) => {
   db.getGroupCodes().then(groupCodes => {
     res.send(groupCodes.rows);
+  }).catch(err => {
+    res.status(500);
+    res.end(err);
+  });
+});
+
+app.get('/expenses', (req, res) => {
+  db.getDataFor('expenses').then(expenseList => {
+    res.send(expenseList.rows);
   }).catch(err => {
     res.status(500);
     res.end(err);
