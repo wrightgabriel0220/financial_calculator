@@ -10,7 +10,7 @@ const RenterProfile = props => {
   const [ isLoading, setIsLoading ] = useState(true);
 
   useEffect(() => {
-    axios.get('/expenses')
+    axios.get(`/expenses/${props.activeUser.id}`)
       .then(expenseData => {
         setExpenseList(expenseData.data);
         setIsLoading(false);
@@ -42,7 +42,7 @@ const RenterProfile = props => {
       <div id="rp-stat-list">
         <div className="rp-stat">
           <span className="rp-stat-title">Move-out Timeline: </span>
-          <span className="rp-stat-body">{Math.round((amountLeft / (props.renter.hourly_wages * props.renter.hours_working)) * 100) / 100} weeks</span>
+          <span className="rp-stat-body">{Math.round(((amountLeft + expenseTotal) / (props.renter.hourly_wages * props.renter.hours_working)) * 100) / 100} weeks</span>
         </div>
         <div className="rp-stat">
           <span className="rp-stat-title">Amount to Moving: </span>

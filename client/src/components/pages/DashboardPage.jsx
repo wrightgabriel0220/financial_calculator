@@ -17,7 +17,14 @@ const DashboardPage = props => {
           <AddRenter update={props.updateRenterList} setModalContent={props.setModalContent} />
           <AddListing update={props.updateListingList} setModalContent={props.setModalContent} />
         </section>
-        <InfoTab activeRenter={props.activeRenter} renters={props.renters} update={props.updateListingList} focusedListing={props.focusedListing} isHidden={props.infoTabHidden} />
+        <InfoTab 
+          activeUser={props.activeUser} 
+          activeRenter={props.activeRenter} 
+          renters={props.renters} 
+          update={props.updateListingList} 
+          focusedListing={props.focusedListing} 
+          isHidden={props.infoTabHidden}
+        />
       </div>
     </section>
   );

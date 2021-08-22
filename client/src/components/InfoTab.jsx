@@ -7,7 +7,8 @@ const InfoTab = props => {
       <RenterProfile 
         moveInCost={Number(Array.from(document.getElementsByClassName(`moveInCost${props.activeRenter.name}`))[0].innerText.slice(1))} 
         listing={props.focusedListing}
-        renter={props.activeRenter} 
+        renter={props.activeRenter}
+        activeUser={props.activeUser} 
       />
     </div>
   );

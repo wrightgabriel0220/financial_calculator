@@ -118,6 +118,7 @@ const App = () => {
               focusedListing={focusedListing}
               modalContent={modalContent}
               activeRenter={activeRenter}
+              activeUser={activeUser}
             /> : <RenterProfileSetupPage activeUser={activeUser}/>) 
             : <HomePage />}
           </Route>

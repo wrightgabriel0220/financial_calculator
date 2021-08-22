@@ -12,9 +12,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(config.root, 'client/dist')));
 
 app.post('/renters/get', (req, res) => {
-  console.log('body: ', req.body);
   db.getRentersForGroup(req.body.groupCode).then(results => {
-    console.log(results);
     res.send(results);
   }).catch(err => {
     res.status(404);
@@ -59,7 +57,6 @@ app.delete('/renters', (req, res) => {
 });
 
 app.delete('/listings', (req, res) => {
-  console.log(req.body.id);
   db.deleteListing(req.body.id).then(results => {
     res.send(results);
   }).catch(err => {
@@ -142,9 +139,9 @@ app.get('/groupcodes', (req, res) => {
   });
 });
 
-app.get('/expenses', (req, res) => {
+app.get('/expenses/:userId', (req, res) => {
   db.getDataFor('expenses').then(expenseList => {
-    res.send(expenseList.rows);
+    res.send(expenseList.rows.filter(expense => expense.user_id === Number(req.params.userId)));
   }).catch(err => {
     res.status(500);
     res.end(err);
