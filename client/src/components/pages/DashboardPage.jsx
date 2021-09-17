@@ -15,9 +15,9 @@ const DashboardPage = props => {
           <RenterList update={props.updateRenterList} maxRent={props.maxRent} renters={props.renters} setModalContent={props.setModalContent}/>
           <ListingList update={props.updateListingList} renters={props.renters} maxRent={props.maxRent} listings={props.listings} focusListing={ id => { props.focusListingById(id); } }/>
           <AddRenter update={props.updateRenterList} setModalContent={props.setModalContent} />
-          <AddListing update={props.updateListingList} setModalContent={props.setModalContent} />
+          <AddListing update={props.updateListingList} setModalContent={props.setModalContent} maxRent={props.maxRent} />
         </section>
-        <InfoTab 
+        <InfoTab
           activeUser={props.activeUser} 
           activeRenter={props.activeRenter} 
           renters={props.renters} 

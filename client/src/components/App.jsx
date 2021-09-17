@@ -46,7 +46,7 @@ const App = () => {
         setDashIsReady(true);
         setIsLoading(false); 
       }).catch(err => { 
-        console.error(err); 
+        console.error(err);
       })
     }
   }, [activeUser]);

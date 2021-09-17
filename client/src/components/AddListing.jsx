@@ -4,6 +4,10 @@ import axios from 'axios';
 
 const AddListing = props => {
   const submitListing = listing => {
+    if (listing.rent > props.maxRent) {
+      console.log("Rent too high for this listing");
+      return;
+    }
     return axios.post('/listings', listing)
       .then(results => {
         props.update();

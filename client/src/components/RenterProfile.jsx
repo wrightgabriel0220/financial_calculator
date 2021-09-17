@@ -66,6 +66,7 @@ const RenterProfile = props => {
         </thead>
         <tbody>
           {expenseList.map((expense, index) => <Expense key={expense.title + index} expense={expense} />)}
+          <tr><td><button id="add-expense-button">Add Expense</button></td></tr>
         </tbody>
       </table>
     </div>

@@ -5,37 +5,16 @@ const Listing = props => {
   const [ renterShares, setRenterShares ] = useState({});
 
   useEffect(() => {
-    let totalListingPrice = props.listingData.rent;
     let renterShareTracker = {};
     for (let renter of props.renters) {
-      let renterMax = renter.hourly_wages * renter.hours_working * 4.33333333 * .3 - 100;
-      let currShare = getRenterShare(props.listingData.rent, renter, renter.share, renterMax);
-      renterShareTracker[renter.name] = currShare;
-      totalListingPrice -= currShare;
-    }
-    while (totalListingPrice >= 1) {
-      let remainingRent = totalListingPrice;
-      for (let renter of props.renters) {
-        let renterMax = renter.hourly_wages * renter.hours_working * 4.33333333 * .3 - 100 - renterShareTracker[renter.name];
-        let calculatedShare = getRenterShare(remainingRent, renter, renter.share, renterMax);
-        renterShareTracker[renter.name] += calculatedShare;
-        totalListingPrice -= calculatedShare;
-      }
-    }
-    for (let renter in renterShareTracker) {
-      renterShareTracker[renter] = Math.round(renterShareTracker[renter]);
+      console.log(renter);
+      renterShareTracker[renter.name] = getRenterShare(renter);
     }
     
     setRenterShares(renterShareTracker);
   }, [])
 
-  const getRenterShare = (rent, renter, sharePercentage, renterMax) => {
-    if (rent * (sharePercentage * .01) > renterMax) {
-      return renterMax; 
-    } else {
-      return rent * (renter.share * .01);
-    }
-  };
+  const getRenterShare = renter => props.listingData.rent * (renter.share * .01);
 
   const getStartupCost = rentShare => {
     return Math.round(rentShare * 3 );

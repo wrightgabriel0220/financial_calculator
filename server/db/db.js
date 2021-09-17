@@ -88,6 +88,7 @@ const reportIssue = issue => {
 }
 
 const editRow = (table, id, column, value) => {
+  console.log(`UPDATE ${table} SET ${column} = ${value} WHERE (id = ${id})`)
   if (typeof(value) === 'string') { value = "'" + value + "'"; }
   return client.query(`UPDATE ${table} SET ${column} = ${value} WHERE (id = $1)`, [id])
     .then(result => {
