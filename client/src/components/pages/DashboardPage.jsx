@@ -7,24 +7,18 @@ import Modal from './../Modal';
 import InfoTab from './../InfoTab';
 
 const DashboardPage = props => {
+
   return (
     <section id="dashboard">
-      <Modal closeModal={props.setModalContent.bind(null, null)} modalContent={props.modalContent} />
+      <Modal />
       <div id="page-body">
         <section id="lists">
-          <RenterList update={props.updateRenterList} maxRent={props.maxRent} renters={props.renters} setModalContent={props.setModalContent}/>
-          <ListingList update={props.updateListingList} renters={props.renters} maxRent={props.maxRent} listings={props.listings} focusListing={ id => { props.focusListingById(id); } }/>
-          <AddRenter update={props.updateRenterList} setModalContent={props.setModalContent} />
-          <AddListing update={props.updateListingList} setModalContent={props.setModalContent} maxRent={props.maxRent} />
+          <RenterList update={props.updateRenterList} />
+          <ListingList update={props.updateListingList} focusListing={ id => { props.focusListingById(id); } }/>
+          <AddRenter update={props.updateRenterList} />
+          <AddListing update={props.updateListingList} />
         </section>
-        <InfoTab
-          activeUser={props.activeUser} 
-          activeRenter={props.activeRenter} 
-          renters={props.renters} 
-          update={props.updateListingList} 
-          focusedListing={props.focusedListing} 
-          isHidden={props.infoTabHidden}
-        />
+        <InfoTab update={props.updateListingList} />
       </div>
     </section>
   );

@@ -1,20 +1,27 @@
 import React from 'react';
 import ReportIssueModal from './modals/ReportIssueModal';
 import { Link } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
+import actions from './../actions.js';
 
 const Navbar = props => {
-  const reportHandler = () => {
-    props.setModalContent(<ReportIssueModal closeModal={props.setModalContent.bind(null, null)}/>);
-  }
+  const dispatch = useDispatch();
 
-  if (props.activeRenter) {
+  const activeRenter = useSelector(state => state.activeRenter);
+  const infoTabHidden = useSelector(state => state.infoTabHidden);
+
+  const reportHandler = () => {
+    dispatch(actions.doChangeModalContent(<ReportIssueModal />));
+  };
+
+  if (activeRenter) {
     return (
       <div id="navbar">
         <h1>HOUSECALC</h1>
-        <span>Hello, {props.activeRenter.name}!</span>
+        <span>Hello, {activeRenter.name}!</span>
         <span id="navbar-buttons">
           <button id="report-issue-button" onClick={reportHandler}>Report Issue</button>
-          <button id="renter-profile-button" onClick={props.toggleInfoTab}>Renter Profile</button>
+          <button id="renter-profile-button" onClick={dispatch.bind(null, actions.doToggleInfoTabHidden(!infoTabHidden))}>Renter Profile</button>
           <button id="logout-button" onClick={props.logout}>Log Out</button>
         </span>
       </div>

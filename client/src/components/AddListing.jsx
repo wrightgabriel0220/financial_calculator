@@ -1,10 +1,15 @@
 import React from 'react';
 import AddListingModal from './modals/AddListingModal';
 import axios from 'axios';
+import { useSelector, useDispatch } from 'react-redux';
+import actions from './../actions';
+
 
 const AddListing = props => {
+  const dispatch = useDispatch();
+  
   const submitListing = listing => {
-    if (listing.rent > props.maxRent) {
+    if (listing.rent > useSelector(state => state.maxRent)) {
       console.log("Rent too high for this listing");
       return;
     }
@@ -19,7 +24,7 @@ const AddListing = props => {
   };
 
   const addListing = () => {
-    props.setModalContent(<AddListingModal closeModal={props.setModalContent.bind(null, null)} submitListing={submitListing}/>)
+    dispatch(actions.doChangeModalContent(<AddListingModal closeModal={dispatch.bind(null, actions.doChangeModalContent(null))} submitListing={submitListing}/>));
   };
 
   return (

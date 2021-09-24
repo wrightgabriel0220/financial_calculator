@@ -1,10 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import Renter from './Renter.jsx';
 import axios from 'axios';
+import { useSelector, useDispatch } from 'react-redux';
+
 
 const RenterList = props => {
-  const [ totalDogs, setTotalDogs ] = useState(props.renters.map(renter => renter.dog_count).reduce((a, b) => a + b));
-  const [ totalCats, setTotalCats ] = useState(props.renters.map(renter => renter.cat_count).reduce((a, b) => a + b));
+  const dispatch = useDispatch();
+  
+  const maxRent = useSelector(state => state.maxRent);
+  const renters = useSelector(state => state.renters);
+  const [ totalDogs, setTotalDogs ] = useState(renters.map(renter => renter.dog_count).reduce((a, b) => a + b));
+  const [ totalCats, setTotalCats ] = useState(renters.map(renter => renter.cat_count).reduce((a, b) => a + b));
 
   const deleteRenter = renterID => {
     axios.delete('/renters', { headers: {}, data: {id: Number(renterID) } })
@@ -42,9 +48,15 @@ const RenterList = props => {
             <td>{totalDogs}</td>
             <td>{totalCats}</td>
             <td></td>
-            <td>{props.maxRent}</td>
+            <td>{maxRent}</td>
           </tr>
-          {props.renters.map((renter, index) => <Renter update={props.update} setModalContent={props.setModalContent} deleteRenter={deleteRenter} renterData={renter} key={index}/>)}
+          {renters.map((renter, index) => <Renter
+            update={props.update}
+            setModalContent={content => { dispatch(actions.doChangeModalContent(content)); }}
+            deleteRenter={deleteRenter}
+            renterData={renter}
+            key={index}
+          />)}
         </tbody>
       </table>
     </div>

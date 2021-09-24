@@ -6,21 +6,23 @@ import LoginPage from './pages/LoginPage';
 import HomePage from './pages/HomePage';
 import DashboardPage from './pages/DashboardPage';
 import RenterProfileSetupPage from './pages/RenterProfileSetupPage';
-import { BrowserRouter as Router, Switch, Link, Route, useHistory } from 'react-router-dom';
+import { BrowserRouter as Router, Switch, Link, Route } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
+import actions from './../actions.js';
 
 const axios = require('axios');
 
+const {doChangeRenterList, doChangeListingList, doChangeFocusedListing, doChangeMaxRent, doChangeActiveUser, doChangeActiveRenter} = actions;
+
 const App = () => {
-  const [ renters, setRenters ] = useState([]);
-  const [ listings, setListings ] = useState([]);
-  const [ focusedListing, setFocusedListing ] = useState(null);
-  const [ maxRent, setMaxRent ] = useState(0);
-  const [ modalContent, setModalContent ] = useState(null);
-  const [ activeUser, setActiveUser ] = useState(null);
-  const [ activeRenter, setActiveRenter ] = useState(null);
-  const [ infoTabHidden, setInfoTabHidden ] = useState(true);
+  const renters = useSelector(state => state.renters);
+  const listings = useSelector(state => state.listings);
+  const focusedListing = useSelector(state => state.focusedListing);
+  const activeUser = useSelector(state => state.activeUser);
   const [ isLoading, setIsLoading ] = useState(activeUser ? true : false);
   const [ dashIsReady, setDashIsReady ] = useState(false);
+
+  const dispatch = useDispatch();
 
   useEffect(() => {
     if (isLoading) {
@@ -33,14 +35,14 @@ const App = () => {
   useEffect(() => {
     if (focusedListing) {
       if (listings.filter(listing => listing.address === focusedListing.address).length === 0) {
-        setFocusedListing(null);
+        dispatch(doChangeFocusedListing(null));
       }
     }
   }, [listings]);
 
   useEffect(() => {
     if (activeUser === null) {
-      setActiveRenter(null);
+      dispatch(doChangeActiveRenter(null));
     } else {
       updateRenterList().then(updateListingList()).then(() => {
         setDashIsReady(true);
@@ -52,25 +54,25 @@ const App = () => {
   }, [activeUser]);
 
   useEffect(() => {
-    setActiveRenter(renters.find(renter => renter.name === activeUser.first_name));
+    dispatch(doChangeActiveRenter(renters.find(renter => renter.name === activeUser.first_name)));
   }, [renters])
 
   const logout = () => {
-    setActiveUser(null);
+    dispatch(doChangeActiveUser(null));
     setDashIsReady(false);
   }
 
   const updateRenterList = () => {
     return axios.post('/renters/get', { groupCode: activeUser.group_code })
         .then(rentersInDB => {
-          setRenters(rentersInDB.data);
+          dispatch(doChangeRenterList(rentersInDB.data));
           return rentersInDB;
         })
         .then(rentersInDB => {
           if (rentersInDB.data.length !== 0) {
-            setMaxRent(rentersInDB.data.map(renter => Math.round(renter.hourly_wages * renter.hours_working * 4.33333333333 * .3 - 100)).reduce((a, b) => a + b));
+            dispatch(doChangeMaxRent(rentersInDB.data.map(renter => Math.round(renter.hourly_wages * renter.hours_working * 4.33333333333 * .3 -100)).reduce((a, b) => a + b)));
           } else {
-            setRenters([{ name: 'N/A', hourly_wages: 0, hours_working: 0, dog_count: 0, cat_count: 0, share: 0 }])
+            dispatch(doChangeRenterList([{ name: 'N/A', hourly_wages: 0, hours_working: 0, dog_count: 0, cat_count: 0, share: 0 }]));
           }
         })
   };
@@ -78,14 +80,14 @@ const App = () => {
   const updateListingList = () => {
     return axios.get('/listings')
       .then(listingsInDB => {
-        setListings(listingsInDB.data);
+        dispatch(doChangeListingList(listingsInDB.data));
       })
       .catch(err => {
         console.error(err);
       })
   };
 
-  const focusListingById = id => { setFocusedListing(listings.filter(listing => listing.id === id)[0]); };
+  const focusListingById = id => { dispatch(doChangeFocusedListing(listings.filter(listing => listing.id === id)[0])) };
 
   if (isLoading) {
     return (
@@ -98,28 +100,15 @@ const App = () => {
   return (
     <Router>
       <div id="app-body">
-        <Navbar
-          toggleInfoTab={setInfoTabHidden.bind(null, !infoTabHidden)}
-          logout={logout} 
-          activeRenter={activeRenter} 
-          setModalContent={setModalContent}/>
+        <Navbar logout={logout} />
         <Switch>
           <Route exact path="/">
             {dashIsReady ? 
             (activeUser.has_logged_once ? <DashboardPage 
               updateRenterList={updateRenterList}
               updateListingList={updateListingList}
-              maxRent={maxRent}
-              renters={renters}
-              setModalContent={setModalContent}
-              listings={listings}
               focusListingById={focusListingById}
-              infoTabHidden={infoTabHidden}
-              focusedListing={focusedListing}
-              modalContent={modalContent}
-              activeRenter={activeRenter}
-              activeUser={activeUser}
-            /> : <RenterProfileSetupPage activeUser={activeUser}/>) 
+            /> : <RenterProfileSetupPage />) 
             : <HomePage />}
           </Route>
           <Route exact path="/register">
@@ -134,7 +123,7 @@ const App = () => {
             <MemberRegPage />
           </Route>
           <Route path="/login">
-            <LoginPage login={setActiveUser}/>
+            <LoginPage login={ payload => { dispatch(doChangeActiveUser(payload)) } }/>
           </Route>
         </Switch>
       </div> 

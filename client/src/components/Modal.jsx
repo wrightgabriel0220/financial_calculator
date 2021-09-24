@@ -1,11 +1,18 @@
 import React from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import actions from './../actions';
+
 
 const Modal = props => {
-  if (props.modalContent) {
+  const dispatch = useDispatch();
+  
+  const modalContent = useSelector(state => state.modalContent);
+
+  if (modalContent) {
     return (
       <div id="modal-aura">
-        <button id="close-modal-button" onClick={props.closeModal}>X</button>
-        {props.modalContent}
+        <button id="close-modal-button" onClick={dispatch.bind(null, actions.doChangeModalContent(null))}>X</button>
+        {modalContent}
       </div>
     );
   } else {

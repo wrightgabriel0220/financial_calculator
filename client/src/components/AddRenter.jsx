@@ -1,8 +1,13 @@
 import React from 'react';
 import AddRenterModal from './modals/AddRenterModal';
 import axios from 'axios';
+import { useDispatch } from 'react-redux';
+import actions from './../actions';
+
 
 const AddRenter = props => {
+  const dispatch = useDispatch();
+  
   const submitRenter = renter => {
     return axios.post('/renters', renter)
       .then(results => {
@@ -15,7 +20,7 @@ const AddRenter = props => {
   }
 
   const addRenter = () => {
-    props.setModalContent(<AddRenterModal submitRenter={submitRenter} closeModal={props.setModalContent.bind(null, null)} />);
+    dispatch(actions.doChangeModalContent(<AddRenterModal submitRenter={submitRenter} closeModal={dispatch.bind(null, actions.doChangeModalContent(null))} />));
   };
 
   return (
