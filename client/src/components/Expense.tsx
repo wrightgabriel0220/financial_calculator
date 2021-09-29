@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 
 const Expense = props => {
   const handleToggle = event => {
@@ -9,7 +9,7 @@ const Expense = props => {
     <tr className="expense-row">
       <td className="expense-row-title">{props.expense.title}</td>
       <td className="expense-row-cost">{props.expense.cost}</td>
-      <td><button className="toggle-expense" type="checkbox" onClick={handleToggle}></button></td>
+      <td><input className="toggle-expense" type="checkbox" onClick={handleToggle}></input></td>
     </tr>
   );
 };

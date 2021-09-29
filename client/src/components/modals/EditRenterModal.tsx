@@ -1,18 +1,21 @@
-import React from 'react';
+import * as React from 'react';
 
 const EditRenterModal = props => {
   const submitHandler = event => {
     event.preventDefault();
 
-    let form = document.getElementById('modal');
+    let form: HTMLFormElement = document.getElementById('modal') as HTMLFormElement;
+
+    const getAndCastInputElementById = (id: string) => document.getElementById(id) as HTMLInputElement;
+
     if (form.checkValidity()) {
       props.changeRenter({
-        name: document.getElementById('name-input').value,
-        hourly: document.getElementById('hourly-wages-input').value,
-        hours: document.getElementById('hours-working-input').value,
-        dogs: document.getElementById('dog-count-input').value || 0,
-        cats: document.getElementById('cat-count-input').value || 0,
-        share: document.getElementById('share-input').value || 0,
+        name: getAndCastInputElementById('name-input').value,
+        hourly: getAndCastInputElementById('hourly-wages-input').value,
+        hours: getAndCastInputElementById('hours-working-input').value,
+        dogs: getAndCastInputElementById('dog-count-input').value || 0,
+        cats: getAndCastInputElementById('cat-count-input').value || 0,
+        share: getAndCastInputElementById('share-input').value || 0,
       });
     } else {
       form.reportValidity();

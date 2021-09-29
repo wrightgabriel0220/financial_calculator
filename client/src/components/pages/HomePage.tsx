@@ -1,6 +1,6 @@
-import React from 'react';
+import * as React from 'react';
 
-const HomePage = props => {
+const HomePage = () => {
   return (
     <div id="homepage">
       <h2>Welcome to HouseCalc, please sign in or register using the buttons above to use this application.</h2>

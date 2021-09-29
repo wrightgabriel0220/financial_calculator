@@ -2,10 +2,11 @@ const initialState = {
   renters: [],
   listings: [],
   focusedListing: null,
-  maxRentForAllRenters: 0,
+  maxRent: 0,
   activeUser: null,
   activeRenter: null,
   infoTabHidden: true,
+  modalContent: null,
 };
 
 export default function rootReducer(state = initialState, action) {

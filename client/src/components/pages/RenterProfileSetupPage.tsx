@@ -1,22 +1,24 @@
-import React from 'react';
+import * as React from 'react';
 import axios from 'axios';
-import { useSelector } from 'react-redux';
+import { useAppSelector } from './../../hooks';
 
-const RenterProfileSetupPage = props => {
-  const activeUser = useSelector(state => state.activeUser);
+const RenterProfileSetupPage = () => {
+  const activeUser = useAppSelector(state => state.activeUser);
 
   const submitHandler = event => {
     event.preventDefault();
 
-    let form = document.getElementById('renter-profile-setup-form');
+    const getAndCastInputElementById = (id: string) => document.getElementById(id) as HTMLInputElement;
+
+    let form: HTMLFormElement = document.getElementById('renter-profile-setup-form') as HTMLFormElement;
     if (form.checkValidity()) {
       axios.post('/renters', {
         name: activeUser.first_name,
-        hourly: document.getElementById('hourly-input').value,
-        hours: document.getElementById('hours-input').value,
-        dogs: document.getElementById('dog-count-input').value,
-        cats: document.getElementById('cat-count-input').value,
-        percentageShare: document.getElementById('share-input').value,
+        hourly: getAndCastInputElementById('hourly-input').value,
+        hours: getAndCastInputElementById('hours-input').value,
+        dogs: getAndCastInputElementById('dog-count-input').value,
+        cats: getAndCastInputElementById('cat-count-input').value,
+        percentageShare: getAndCastInputElementById('share-input').value,
         groupCode: activeUser.group_code
       })
         .then(postResults => {

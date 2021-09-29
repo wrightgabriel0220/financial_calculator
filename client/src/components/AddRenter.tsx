@@ -1,12 +1,12 @@
-import React from 'react';
+import * as React from 'react';
 import AddRenterModal from './modals/AddRenterModal';
 import axios from 'axios';
-import { useDispatch } from 'react-redux';
-import actions from './../actions';
+import { useAppDispatch } from './../hooks';
+import actions from '../actions';
 
 
 const AddRenter = props => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   
   const submitRenter = renter => {
     return axios.post('/renters', renter)

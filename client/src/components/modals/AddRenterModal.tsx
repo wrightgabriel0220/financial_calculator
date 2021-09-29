@@ -1,19 +1,21 @@
-import React from 'react';
+import * as React from 'react';
 
 const AddRenterModal = props => {
   const submitHandler = event => {
     event.preventDefault();
 
-    const form = document.getElementById('modal');
+    const form: HTMLFormElement = document.getElementById('modal') as HTMLFormElement;
+
+    const getAndCastInputElementById = (id: string) => document.getElementById(id) as HTMLInputElement;
 
     if (form.checkValidity()) {
       props.submitRenter({
-        name: document.getElementById('name-input').value,
-        hourly: Number(document.getElementById('hourly-rate-input').value),
-        hours: Number(document.getElementById('hours-working-input').value),
-        dogs: Number(document.getElementById('dog-count-input').value) || 0,
-        cats: Number(document.getElementById('cat-count-input').value) || 0,
-        percentageShare: Number(document.getElementById('share-input').value) || 0
+        name: getAndCastInputElementById('name-input')?.value,
+        hourly: Number(getAndCastInputElementById('hourly-rate-input')?.value),
+        hours: Number(getAndCastInputElementById('hours-working-input')?.value),
+        dogs: Number(getAndCastInputElementById('dog-count-input')?.value) || 0,
+        cats: Number(getAndCastInputElementById('cat-count-input')?.value) || 0,
+        percentageShare: Number(getAndCastInputElementById('share-input')?.value) || 0
       })
         .then(() => {
           props.closeModal();

@@ -1,10 +1,10 @@
-import React from 'react';
-import Listing from './Listing.jsx';
-import { useSelector } from 'react-redux';
+import * as React from 'react';
+import Listing from './Listing';
+import { useAppSelector } from './../hooks';
 
 const ListingList = props => {
-  const renters = useSelector(state => state.renters);
-  const listings = useSelector(state => state.listings);
+  const renters = useAppSelector(state => state.renters);
+  const listings = useAppSelector(state => state.listings);
 
   return (
     <div id="listings-tab">

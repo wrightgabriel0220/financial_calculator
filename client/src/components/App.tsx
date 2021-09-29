@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import * as React from 'react';
 import Navbar from './Navbar';
 import HostRegPage from './pages/HostRegPage';
 import MemberRegPage from './pages/MemberRegPage';
@@ -7,24 +7,24 @@ import HomePage from './pages/HomePage';
 import DashboardPage from './pages/DashboardPage';
 import RenterProfileSetupPage from './pages/RenterProfileSetupPage';
 import { BrowserRouter as Router, Switch, Link, Route } from 'react-router-dom';
-import { useSelector, useDispatch } from 'react-redux';
-import actions from './../actions.js';
+import { useAppSelector, useAppDispatch } from './../hooks';
+import actions from '../actions.js';
 
 const axios = require('axios');
 
 const {doChangeRenterList, doChangeListingList, doChangeFocusedListing, doChangeMaxRent, doChangeActiveUser, doChangeActiveRenter} = actions;
 
 const App = () => {
-  const renters = useSelector(state => state.renters);
-  const listings = useSelector(state => state.listings);
-  const focusedListing = useSelector(state => state.focusedListing);
-  const activeUser = useSelector(state => state.activeUser);
-  const [ isLoading, setIsLoading ] = useState(activeUser ? true : false);
-  const [ dashIsReady, setDashIsReady ] = useState(false);
+  const renters = useAppSelector(state => state.renters);
+  const listings = useAppSelector(state => state.listings);
+  const focusedListing = useAppSelector(state => state.focusedListing);
+  const activeUser = useAppSelector(state => state.activeUser);
+  const [ isLoading, setIsLoading ] = React.useState(activeUser ? true : false);
+  const [ dashIsReady, setDashIsReady ] = React.useState(false);
 
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
-  useEffect(() => {
+  React.useEffect(() => {
     if (isLoading) {
       updateRenterList().then(updateListingList()).then(() => { setIsLoading(false); }).catch(err => {
         console.error(err);
@@ -32,7 +32,7 @@ const App = () => {
     }
   }, []);
 
-  useEffect(() => {
+  React.useEffect(() => {
     if (focusedListing) {
       if (listings.filter(listing => listing.address === focusedListing.address).length === 0) {
         dispatch(doChangeFocusedListing(null));
@@ -40,7 +40,7 @@ const App = () => {
     }
   }, [listings]);
 
-  useEffect(() => {
+  React.useEffect(() => {
     if (activeUser === null) {
       dispatch(doChangeActiveRenter(null));
     } else {
@@ -53,7 +53,7 @@ const App = () => {
     }
   }, [activeUser]);
 
-  useEffect(() => {
+  React.useEffect(() => {
     dispatch(doChangeActiveRenter(renters.find(renter => renter.name === activeUser.first_name)));
   }, [renters])
 

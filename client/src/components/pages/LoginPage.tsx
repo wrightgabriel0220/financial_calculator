@@ -1,10 +1,12 @@
-import React from 'react';
+import * as React from 'react';
 import axios from 'axios';
 import bcrypt from 'bcryptjs';
 import { useHistory } from 'react-router-dom';
 
 const LoginPage = props => {
   const history = useHistory();
+
+  const getAndCastInputElementById = (id: string) => document.getElementById(id) as HTMLInputElement;
 
   const checkUsername = username => {
     return axios.get('/users')
@@ -20,10 +22,10 @@ const LoginPage = props => {
   const attemptLogin = event => {
     event.preventDefault();
 
-    let form = document.getElementById('login-form');
+    let form: HTMLFormElement = document.getElementById('login-form') as HTMLFormElement;
     if (form.checkValidity()) {
-      let usernameInput = document.getElementById('username-input').value.trim();
-      let passwordInput = document.getElementById('password-input').value.trim();
+      let usernameInput = getAndCastInputElementById('username-input').value.trim();
+      let passwordInput = getAndCastInputElementById('password-input').value.trim();
       checkUsername(usernameInput).then(() => {
         axios.get(`/users/${usernameInput}`)
         .then(userData => {

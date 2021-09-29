@@ -1,10 +1,10 @@
-import React from 'react';
-import RenterList from './../RenterList';
-import ListingList from './../ListingList';
-import AddRenter from './../AddRenter';
-import AddListing from './../AddListing';
-import Modal from './../Modal';
-import InfoTab from './../InfoTab';
+import * as React from 'react';
+import RenterList from '../RenterList';
+import ListingList from '../ListingList';
+import AddRenter from '../AddRenter';
+import AddListing from '../AddListing';
+import Modal from '../Modal';
+import InfoTab from '../InfoTab';
 
 const DashboardPage = props => {
 
@@ -18,7 +18,7 @@ const DashboardPage = props => {
           <AddRenter update={props.updateRenterList} />
           <AddListing update={props.updateListingList} />
         </section>
-        <InfoTab update={props.updateListingList} />
+        <InfoTab />
       </div>
     </section>
   );

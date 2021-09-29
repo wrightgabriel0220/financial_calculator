@@ -1,14 +1,14 @@
-import React from 'react';
+import * as React from 'react';
 import ReportIssueModal from './modals/ReportIssueModal';
 import { Link } from 'react-router-dom';
-import { useSelector, useDispatch } from 'react-redux';
-import actions from './../actions.js';
+import { useAppSelector, useAppDispatch } from './../hooks';
+import actions from '../actions.js';
 
 const Navbar = props => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
-  const activeRenter = useSelector(state => state.activeRenter);
-  const infoTabHidden = useSelector(state => state.infoTabHidden);
+  const activeRenter = useAppSelector(state => state.activeRenter);
+  const infoTabHidden = useAppSelector(state => state.infoTabHidden);
 
   const reportHandler = () => {
     dispatch(actions.doChangeModalContent(<ReportIssueModal />));

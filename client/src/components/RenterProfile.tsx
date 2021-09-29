@@ -1,15 +1,15 @@
-import React, { useState, useEffect } from 'react';
+import * as React from 'react';
 import Expense from './Expense';
 import axios from 'axios';
 
 const RenterProfile = props => {
-  const [ savings, setSavings ] = useState(0);
-  const [ expenseList, setExpenseList ] = useState([]);
-  const [ expenseTotal, setExpenseTotal ] = useState(0)
-  const [ amountLeft, setAmountLeft ] = useState(0);
-  const [ isLoading, setIsLoading ] = useState(true);
+  const [ savings, setSavings ] = React.useState(0);
+  const [ expenseList, setExpenseList ] = React.useState<any[]>([]);
+  const [ expenseTotal, setExpenseTotal ] = React.useState(0)
+  const [ amountLeft, setAmountLeft ] = React.useState(0);
+  const [ isLoading, setIsLoading ] = React.useState(true);
 
-  useEffect(() => {
+  React.useEffect(() => {
     axios.get(`/expenses/${props.activeUser.id}`)
       .then(expenseData => {
         setExpenseList(expenseData.data);
@@ -17,13 +17,13 @@ const RenterProfile = props => {
       }).catch(err => {
         console.error(err);
       })
-  }, []);
+  });
 
-  useEffect(() => {
+  React.useEffect(() => {
     setAmountLeft(props.moveInCost - savings);
   }, [savings]);
 
-  useEffect(() => {
+  React.useEffect(() => {
     if (expenseList.length > 0) {
       setExpenseTotal(expenseList.map(expense => expense.cost).reduce((costA, costB) => costA + costB));
     } else {

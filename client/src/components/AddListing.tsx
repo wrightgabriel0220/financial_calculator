@@ -1,15 +1,14 @@
-import React from 'react';
+import * as React from 'react';
 import AddListingModal from './modals/AddListingModal';
 import axios from 'axios';
-import { useSelector, useDispatch } from 'react-redux';
-import actions from './../actions';
-
+import { useAppSelector, useAppDispatch } from './../hooks';
+import actions from '../actions';
 
 const AddListing = props => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   
   const submitListing = listing => {
-    if (listing.rent > useSelector(state => state.maxRent)) {
+    if (listing.rent > useAppSelector(state => state.maxRent)) {
       console.log("Rent too high for this listing");
       return;
     }

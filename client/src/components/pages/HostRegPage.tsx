@@ -1,12 +1,14 @@
-import React from 'react';
+import * as React from 'react';
 import axios from 'axios';
 import bcrypt from 'bcryptjs';
 import { useHistory } from 'react-router-dom';
 
-const HostRegPage = props => {
+const HostRegPage = () => {
   const history = useHistory();
+
+  const getAndCastInputElementById = (id: string) => document.getElementById(id) as HTMLInputElement;
   
-  const generateGroupCode = (length, cb) => {
+  const generateGroupCode = (length?, cb?) => {
     let charList = 'abcdefghijklmnopqrstuvwxyz0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
     let groupCode = '';
 
@@ -40,8 +42,8 @@ const HostRegPage = props => {
   const handleRegistrationSubmit = event => {
     event.preventDefault();
 
-    let form = document.getElementById('registration-form');
-    let usernameInput = document.getElementById('username-input').value;
+    let form: HTMLFormElement = document.getElementById('registration-form') as HTMLFormElement;
+    let usernameInput = getAndCastInputElementById('username-input').value;
     if (!checkUsername(usernameInput)) {
       alert('That username is already taken. Please try again.');
       return;
@@ -55,7 +57,7 @@ const HostRegPage = props => {
             if (err) {
               throw err;
             } else {
-              return bcrypt.hash(document.getElementById('password-input').value, salt, (err, hash) => {
+              return bcrypt.hash(getAndCastInputElementById('password-input').value, salt, (err, hash) => {
                 if (err) {
                   throw err;
                 } else {
@@ -64,7 +66,7 @@ const HostRegPage = props => {
                     axios.post('/users/register', {
                       username: usernameInput,
                       hashedPassword: hashedPass,
-                      firstName: document.getElementById('first-name-input').value,
+                      firstName: getAndCastInputElementById('first-name-input').value,
                       groupCode: code,
                       isAdmin: false,
                       isHost: true,

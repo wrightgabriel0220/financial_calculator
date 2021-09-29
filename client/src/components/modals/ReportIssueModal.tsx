@@ -1,15 +1,18 @@
 import axios from 'axios';
-import React from 'react';
+import * as React from 'react';
 
 const ReportIssueModal = props => {
   const submitHandler = event => {
     event.preventDefault();
 
-    let form = document.getElementById('modal');
+    let form: HTMLFormElement = document.getElementById('modal') as HTMLFormElement;
+
+    const getAndCastInputElementById = (id: string) => document.getElementById(id) as HTMLInputElement;
+
     if (form.checkValidity()) {
       axios.post('/issues', {
-        description: document.getElementById('report-issue').value,
-        renterName: document.getElementById('report-username').value
+        description: getAndCastInputElementById('report-issue').value,
+        renterName: getAndCastInputElementById('report-username').value
       })
         .then(results => {
           console.log(results);

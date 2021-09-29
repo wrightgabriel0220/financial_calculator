@@ -1,10 +1,10 @@
 import axios from 'axios';
-import React, { useState, useEffect } from 'react';
+import * as React from 'react';
 
 const Listing = props => {
-  const [ renterShares, setRenterShares ] = useState({});
+  const [ renterShares, setRenterShares ] = React.useState({});
 
-  useEffect(() => {
+  React.useEffect(() => {
     let renterShareTracker = {};
     for (let renter of props.renters) {
       console.log(renter);

@@ -1,12 +1,12 @@
-import React from 'react';
+import * as React from 'react';
 
 const LoginModal = props => {
   const submitHandler = event => {
     event.preventDefault();
-    let form = document.getElementById('modal');
+    let form: HTMLFormElement = document.getElementById('modal') as HTMLFormElement;
 
     if (form.checkValidity()) {
-      if (props.attemptLogin(document.getElementById('renter-username').value)) {
+      if (props.attemptLogin((document.getElementById('renter-username') as HTMLInputElement).value)) {
         props.closeModal();
       } else {
         console.log('Failed to login with this username. Check capitalization and try again?');

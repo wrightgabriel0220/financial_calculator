@@ -1,22 +1,24 @@
-import React from 'react';
+import * as React from 'react';
 
 const AddListingModal = props => {
   const submitHandler = event => {
     event.preventDefault();
   
-    const form = document.getElementById('modal');
+    const form: HTMLFormElement = document.getElementById('modal') as HTMLFormElement;
+
+    const getAndCastInputElementById = (id: string) => document.getElementById(id) as HTMLInputElement;
   
     if (form.checkValidity()) {
       props.submitListing({
-        address: document.getElementById('address-input').value,
-        rent: Number(document.getElementById('rent-input').value),
-        summary: document.getElementById('summary-input').value,
-        bedrooms: Number(document.getElementById('bedroom-count-input').value),
-        bathrooms: Number(document.getElementById('bathroom-count-input').value),
-        size: Number(document.getElementById('size-input').value),
-        city: document.getElementById('city-input').value,
-        dogDeposit: Number(document.getElementById('dog-deposit-input').value),
-        catDeposit: Number(document.getElementById('cat-deposit-input').value)
+        address: getAndCastInputElementById('address-input')?.value,
+        rent: Number(getAndCastInputElementById('rent-input')?.value),
+        summary: getAndCastInputElementById('summary-input')?.value,
+        bedrooms: Number(getAndCastInputElementById('bedroom-count-input')?.value),
+        bathrooms: Number(getAndCastInputElementById('bathroom-count-input')?.value),
+        size: Number(getAndCastInputElementById('size-input')?.value),
+        city: getAndCastInputElementById('city-input')?.value,
+        dogDeposit: Number(getAndCastInputElementById('dog-deposit-input')?.value),
+        catDeposit: Number(getAndCastInputElementById('cat-deposit-input')?.value)
       })
         .then(() => {
           props.closeModal();

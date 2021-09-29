@@ -1,10 +1,12 @@
-import React from 'react';
+import * as React from 'react';
 import axios from 'axios';
 import bcrypt from 'bcryptjs';
 import { useHistory } from 'react-router-dom';
 
-const MemberRegPage = props => {
+const MemberRegPage = () => {
   const history = useHistory();
+
+  const getAndCastInputElementById = (id: string) => document.getElementById(id) as HTMLInputElement;
 
   const checkUsername = username => {
     return axios.get('/users')
@@ -30,16 +32,16 @@ const MemberRegPage = props => {
 
   const handleRegistrationSubmit = event => {
     event.preventDefault();
-    let usernameInput = document.getElementById('username-input').value;
-    let groupCodeInput = document.getElementById('group-code-input').value;
-    let form = document.getElementById('registration-form');
+    let usernameInput = getAndCastInputElementById('username-input').value;
+    let groupCodeInput = getAndCastInputElementById('group-code-input').value;
+    let form: HTMLFormElement = document.getElementById('registration-form') as HTMLFormElement;
     checkUsername(usernameInput).then(() => {
       checkGroupCode(groupCodeInput).then(() => {
         bcrypt.genSalt(10, (err, salt) => {
           if (err) {
             throw err;
           } else {
-            bcrypt.hash(document.getElementById('password-input').value, salt, (err, hash) => {
+            bcrypt.hash(getAndCastInputElementById('password-input').value, salt, (err, hash) => {
               if (err) {
                 throw err;
               } else {
@@ -47,7 +49,7 @@ const MemberRegPage = props => {
                   axios.post('/users/register', {
                     username: usernameInput,
                     hashedPassword: hash,
-                    firstName: document.getElementById('first-name-input').value,
+                    firstName: getAndCastInputElementById('first-name-input').value,
                     groupCode: groupCodeInput,
                     isAdmin: false,
                     isHost: false,
