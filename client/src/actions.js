@@ -1,4 +1,4 @@
-const doChange = (type, payload) => ({type, payload})
+const doChange = (type, payload) => ({ type, payload });
 
 export default {
   doChangeRenterList: payload => doChange('renters', payload),

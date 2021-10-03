@@ -39699,36 +39699,41 @@ var doChange = function (type, payload) { return ({ type: type, payload: payload
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var _modals_AddListingModal__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./modals/AddListingModal */ "./client/src/components/modals/AddListingModal.tsx");
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _hooks__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./../hooks */ "./client/src/hooks.ts");
-/* harmony import */ var _actions__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../actions */ "./client/src/actions.js");
+/* harmony import */ var _modals_AddListingModal__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./modals/AddListingModal */ "./client/src/components/modals/AddListingModal.tsx");
+/* harmony import */ var _hooks__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../hooks */ "./client/src/hooks.ts");
+/* harmony import */ var _actions__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../actions */ "./client/src/actions.js");
 
 
 
 
 
-var AddListing = function (props) {
-    var dispatch = (0,_hooks__WEBPACK_IMPORTED_MODULE_3__.useAppDispatch)();
+
+var AddListing = function (_a) {
+    var update = _a.update;
+    var dispatch = (0,_hooks__WEBPACK_IMPORTED_MODULE_4__.useAppDispatch)();
     var submitListing = function (listing) {
-        if (listing.rent > (0,_hooks__WEBPACK_IMPORTED_MODULE_3__.useAppSelector)(function (state) { return state.maxRent; })) {
-            console.log("Rent too high for this listing");
-            return;
+        if (listing.rent > (0,_hooks__WEBPACK_IMPORTED_MODULE_4__.useAppSelector)(function (state) { return state.maxRent; })) {
+            console.log('Rent too high for this listing');
+            return null;
         }
         return axios__WEBPACK_IMPORTED_MODULE_2___default().post('/listings', listing)
             .then(function (results) {
-            props.update();
+            update();
             return results;
         })
-            .catch(function (err) {
-            return err;
-        });
+            .catch(function (err) { return err; });
     };
     var addListing = function () {
-        dispatch(_actions__WEBPACK_IMPORTED_MODULE_4__.default.doChangeModalContent(react__WEBPACK_IMPORTED_MODULE_0__.createElement(_modals_AddListingModal__WEBPACK_IMPORTED_MODULE_1__.default, { closeModal: dispatch.bind(null, _actions__WEBPACK_IMPORTED_MODULE_4__.default.doChangeModalContent(null)), submitListing: submitListing })));
+        dispatch(_actions__WEBPACK_IMPORTED_MODULE_5__.default.doChangeModalContent(react__WEBPACK_IMPORTED_MODULE_0__.createElement(_modals_AddListingModal__WEBPACK_IMPORTED_MODULE_3__.default, { closeModal: function () { dispatch(_actions__WEBPACK_IMPORTED_MODULE_5__.default.doChangeModalContent(null)); }, submitListing: submitListing })));
     };
-    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", { id: "add-listing-button", onClick: addListing }, "Add Listing"));
+    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", { type: "submit", id: "add-listing-button", onClick: addListing }, "Add Listing"));
+};
+AddListing.propTypes = {
+    update: prop_types__WEBPACK_IMPORTED_MODULE_1__.func.isRequired,
 };
 /* harmony default export */ __webpack_exports__["default"] = (AddListing);
 
@@ -39744,32 +39749,35 @@ var AddListing = function (props) {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var _modals_AddRenterModal__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./modals/AddRenterModal */ "./client/src/components/modals/AddRenterModal.tsx");
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _hooks__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./../hooks */ "./client/src/hooks.ts");
-/* harmony import */ var _actions__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../actions */ "./client/src/actions.js");
+/* harmony import */ var _modals_AddRenterModal__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./modals/AddRenterModal */ "./client/src/components/modals/AddRenterModal.tsx");
+/* harmony import */ var _hooks__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../hooks */ "./client/src/hooks.ts");
+/* harmony import */ var _actions__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../actions */ "./client/src/actions.js");
 
 
 
 
 
-var AddRenter = function (props) {
-    var dispatch = (0,_hooks__WEBPACK_IMPORTED_MODULE_3__.useAppDispatch)();
-    var submitRenter = function (renter) {
-        return axios__WEBPACK_IMPORTED_MODULE_2___default().post('/renters', renter)
-            .then(function (results) {
-            props.update();
-            return results;
-        })
-            .catch(function (err) {
-            return err;
-        });
-    };
+
+var AddRenter = function (_a) {
+    var update = _a.update;
+    var dispatch = (0,_hooks__WEBPACK_IMPORTED_MODULE_4__.useAppDispatch)();
+    var submitRenter = function (renter) { return (axios__WEBPACK_IMPORTED_MODULE_2___default().post('/renters', renter)
+        .then(function (results) {
+        update();
+        return results;
+    })
+        .catch(function (err) { return err; })); };
     var addRenter = function () {
-        dispatch(_actions__WEBPACK_IMPORTED_MODULE_4__.default.doChangeModalContent(react__WEBPACK_IMPORTED_MODULE_0__.createElement(_modals_AddRenterModal__WEBPACK_IMPORTED_MODULE_1__.default, { submitRenter: submitRenter, closeModal: dispatch.bind(null, _actions__WEBPACK_IMPORTED_MODULE_4__.default.doChangeModalContent(null)) })));
+        dispatch(_actions__WEBPACK_IMPORTED_MODULE_5__.default.doChangeModalContent(react__WEBPACK_IMPORTED_MODULE_0__.createElement(_modals_AddRenterModal__WEBPACK_IMPORTED_MODULE_3__.default, { submitRenter: submitRenter, closeModal: function () { dispatch(_actions__WEBPACK_IMPORTED_MODULE_5__.default.doChangeModalContent(null)); } })));
     };
-    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", { onClick: addRenter }, "Add Renter"));
+    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", { type: "submit", onClick: addRenter }, "Add Renter"));
+};
+AddRenter.propTypes = {
+    update: prop_types__WEBPACK_IMPORTED_MODULE_1__.func.isRequired,
 };
 /* harmony default export */ __webpack_exports__["default"] = (AddRenter);
 
@@ -39785,6 +39793,8 @@ var AddRenter = function (props) {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router/esm/react-router.js");
 /* harmony import */ var _Navbar__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Navbar */ "./client/src/components/Navbar.tsx");
 /* harmony import */ var _pages_HostRegPage__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./pages/HostRegPage */ "./client/src/components/pages/HostRegPage.tsx");
 /* harmony import */ var _pages_MemberRegPage__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./pages/MemberRegPage */ "./client/src/components/pages/MemberRegPage.tsx");
@@ -39792,10 +39802,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _pages_HomePage__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./pages/HomePage */ "./client/src/components/pages/HomePage.tsx");
 /* harmony import */ var _pages_DashboardPage__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./pages/DashboardPage */ "./client/src/components/pages/DashboardPage.tsx");
 /* harmony import */ var _pages_RenterProfileSetupPage__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./pages/RenterProfileSetupPage */ "./client/src/components/pages/RenterProfileSetupPage.tsx");
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router/esm/react-router.js");
-/* harmony import */ var _hooks__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./../hooks */ "./client/src/hooks.ts");
+/* harmony import */ var _hooks__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../hooks */ "./client/src/hooks.ts");
 /* harmony import */ var _actions_js__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../actions.js */ "./client/src/actions.js");
+/* eslint-disable react/jsx-closing-tag-location */
+/* eslint-disable react/jsx-one-expression-per-line */
 
 
 
@@ -39814,7 +39824,7 @@ var App = function () {
     var listings = (0,_hooks__WEBPACK_IMPORTED_MODULE_8__.useAppSelector)(function (state) { return state.listings; });
     var focusedListing = (0,_hooks__WEBPACK_IMPORTED_MODULE_8__.useAppSelector)(function (state) { return state.focusedListing; });
     var activeUser = (0,_hooks__WEBPACK_IMPORTED_MODULE_8__.useAppSelector)(function (state) { return state.activeUser; });
-    var _a = react__WEBPACK_IMPORTED_MODULE_0__.useState(activeUser ? true : false), isLoading = _a[0], setIsLoading = _a[1];
+    var _a = react__WEBPACK_IMPORTED_MODULE_0__.useState(Boolean(activeUser)), isLoading = _a[0], setIsLoading = _a[1];
     var _b = react__WEBPACK_IMPORTED_MODULE_0__.useState(false), dashIsReady = _b[0], setDashIsReady = _b[1];
     var dispatch = (0,_hooks__WEBPACK_IMPORTED_MODULE_8__.useAppDispatch)();
     react__WEBPACK_IMPORTED_MODULE_0__.useEffect(function () {
@@ -39851,31 +39861,40 @@ var App = function () {
         dispatch(doChangeActiveUser(null));
         setDashIsReady(false);
     };
-    var updateRenterList = function () {
-        return axios.post('/renters/get', { groupCode: activeUser.group_code })
-            .then(function (rentersInDB) {
-            dispatch(doChangeRenterList(rentersInDB.data));
-            return rentersInDB;
-        })
-            .then(function (rentersInDB) {
-            if (rentersInDB.data.length !== 0) {
-                dispatch(doChangeMaxRent(rentersInDB.data.map(function (renter) { return Math.round(renter.hourly_wages * renter.hours_working * 4.33333333333 * .3 - 100); }).reduce(function (a, b) { return a + b; })));
-            }
-            else {
-                dispatch(doChangeRenterList([{ name: 'N/A', hourly_wages: 0, hours_working: 0, dog_count: 0, cat_count: 0, share: 0 }]));
-            }
-        });
+    var updateRenterList = function () { return (axios.post('/renters/get', { groupCode: activeUser.group_code })
+        .then(function (rentersInDB) {
+        dispatch(doChangeRenterList(rentersInDB.data));
+        return rentersInDB;
+    })
+        .then(function (rentersInDB) {
+        if (rentersInDB.data.length !== 0) {
+            dispatch(doChangeMaxRent(rentersInDB.data.map(function (renter) { return Math.round(renter.hourly_wages * renter.hours_working * 4.33333333333 * 0.3 - 100); }).reduce(function (a, b) { return a + b; })));
+        }
+        else {
+            dispatch(doChangeRenterList([{
+                    name: 'N/A', hourly_wages: 0, hours_working: 0, dog_count: 0, cat_count: 0, share: 0,
+                }]));
+        }
+    })); };
+    var updateListingList = function () { return (axios.get('/listings')
+        .then(function (listingsInDB) {
+        dispatch(doChangeListingList(listingsInDB.data));
+    })
+        .catch(function (err) {
+        console.error(err);
+    })); };
+    var focusListingById = function (id) {
+        dispatch(doChangeFocusedListing(listings.filter(function (listing) { return listing.id === id; })[0]));
     };
-    var updateListingList = function () {
-        return axios.get('/listings')
-            .then(function (listingsInDB) {
-            dispatch(doChangeListingList(listingsInDB.data));
-        })
-            .catch(function (err) {
-            console.error(err);
-        });
+    var getBasePage = function () {
+        if (dashIsReady) {
+            if (activeUser.has_logged_once) {
+                return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(_pages_DashboardPage__WEBPACK_IMPORTED_MODULE_6__.default, { updateRenterList: updateRenterList, updateListingList: updateListingList, focusListingById: focusListingById }));
+            }
+            return react__WEBPACK_IMPORTED_MODULE_0__.createElement(_pages_RenterProfileSetupPage__WEBPACK_IMPORTED_MODULE_7__.default, null);
+        }
+        return react__WEBPACK_IMPORTED_MODULE_0__.createElement(_pages_HomePage__WEBPACK_IMPORTED_MODULE_5__.default, null);
     };
-    var focusListingById = function (id) { dispatch(doChangeFocusedListing(listings.filter(function (listing) { return listing.id === id; })[0])); };
     if (isLoading) {
         return (react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", { id: "app-body" }, "Loading..."));
     }
@@ -39883,9 +39902,7 @@ var App = function () {
         react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", { id: "app-body" },
             react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Navbar__WEBPACK_IMPORTED_MODULE_1__.default, { logout: logout }),
             react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_11__.Switch, null,
-                react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_11__.Route, { exact: true, path: "/" }, dashIsReady ?
-                    (activeUser.has_logged_once ? react__WEBPACK_IMPORTED_MODULE_0__.createElement(_pages_DashboardPage__WEBPACK_IMPORTED_MODULE_6__.default, { updateRenterList: updateRenterList, updateListingList: updateListingList, focusListingById: focusListingById }) : react__WEBPACK_IMPORTED_MODULE_0__.createElement(_pages_RenterProfileSetupPage__WEBPACK_IMPORTED_MODULE_7__.default, null))
-                    : react__WEBPACK_IMPORTED_MODULE_0__.createElement(_pages_HomePage__WEBPACK_IMPORTED_MODULE_5__.default, null)),
+                react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_11__.Route, { exact: true, path: "/" }, getBasePage()),
                 react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_11__.Route, { exact: true, path: "/register" },
                     react__WEBPACK_IMPORTED_MODULE_0__.createElement("h2", { id: "group-code-question" },
                         "Are you registering as a ",
@@ -39914,16 +39931,27 @@ var App = function () {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_1__);
 
-var Expense = function (props) {
+
+var Expense = function (_a) {
+    var expense = _a.expense;
     var handleToggle = function (event) {
         console.log(event.target.value);
+        console.log(expense);
     };
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement("tr", { className: "expense-row" },
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement("td", { className: "expense-row-title" }, props.expense.title),
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement("td", { className: "expense-row-cost" }, props.expense.cost),
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement("td", { className: "expense-row-title" }, expense.title),
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement("td", { className: "expense-row-cost" }, expense.cost),
         react__WEBPACK_IMPORTED_MODULE_0__.createElement("td", null,
             react__WEBPACK_IMPORTED_MODULE_0__.createElement("input", { className: "toggle-expense", type: "checkbox", onClick: handleToggle }))));
+};
+Expense.propTypes = {
+    expense: prop_types__WEBPACK_IMPORTED_MODULE_1__.shape({
+        title: prop_types__WEBPACK_IMPORTED_MODULE_1__.string.isRequired,
+        cost: prop_types__WEBPACK_IMPORTED_MODULE_1__.number.isRequired,
+    }).isRequired,
 };
 /* harmony default export */ __webpack_exports__["default"] = (Expense);
 
@@ -39940,7 +39968,7 @@ var Expense = function (props) {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var _RenterProfile__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./RenterProfile */ "./client/src/components/RenterProfile.tsx");
-/* harmony import */ var _hooks__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./../hooks */ "./client/src/hooks.ts");
+/* harmony import */ var _hooks__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../hooks */ "./client/src/hooks.ts");
 
 
 
@@ -39969,77 +39997,97 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_2__);
 
 
-var Listing = function (props) {
-    var _a = react__WEBPACK_IMPORTED_MODULE_1__.useState({}), renterShares = _a[0], setRenterShares = _a[1];
+
+// eslint-disable-next-line object-curly-newline
+var Listing = function (_a) {
+    var renters = _a.renters, listingData = _a.listingData, focusListing = _a.focusListing, update = _a.update;
+    var _b = react__WEBPACK_IMPORTED_MODULE_1__.useState({}), renterShares = _b[0], setRenterShares = _b[1];
     react__WEBPACK_IMPORTED_MODULE_1__.useEffect(function () {
         var renterShareTracker = {};
-        for (var _i = 0, _a = props.renters; _i < _a.length; _i++) {
-            var renter = _a[_i];
+        for (var _i = 0, renters_1 = renters; _i < renters_1.length; _i++) {
+            var renter = renters_1[_i];
             console.log(renter);
             renterShareTracker[renter.name] = getRenterShare(renter);
         }
         setRenterShares(renterShareTracker);
     }, []);
-    var getRenterShare = function (renter) { return props.listingData.rent * (renter.share * .01); };
-    var getStartupCost = function (rentShare) {
-        return Math.round(rentShare * 3);
-    };
+    var getRenterShare = function (renter) { return listingData.rent * (renter.share * 0.01); };
+    var getStartupCost = function (rentShare) { return Math.round(rentShare * 3); };
     var deleteHandler = function () {
         axios__WEBPACK_IMPORTED_MODULE_0___default().delete('/listings', {
             headers: {},
             data: {
-                id: props.listingData.id
-            }
+                id: listingData.id,
+            },
         })
             .then(function () {
-            props.update();
+            update();
         })
             .catch(function (err) {
             console.error(err);
         });
     };
-    return (react__WEBPACK_IMPORTED_MODULE_1__.createElement("li", { className: "listing", onClick: props.focusListing ? props.focusListing.bind(null, props.listingData.id) : null },
+    return (
+    // TODO: Fix this li for accessbility
+    // eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions, jsx-a11y/click-events-have-key-events
+    react__WEBPACK_IMPORTED_MODULE_1__.createElement("li", { className: "listing", onClick: focusListing ? focusListing.bind(null, listingData.id) : null },
         react__WEBPACK_IMPORTED_MODULE_1__.createElement("div", { className: "listing-card" },
             react__WEBPACK_IMPORTED_MODULE_1__.createElement("div", null,
-                "Address: ",
-                props.listingData.address),
+                "Address:",
+                listingData.address),
             react__WEBPACK_IMPORTED_MODULE_1__.createElement("div", null,
-                "Summary: ",
-                props.listingData.summary),
+                "Summary:",
+                listingData.summary),
             react__WEBPACK_IMPORTED_MODULE_1__.createElement("div", null,
-                props.listingData.bedrooms,
+                listingData.bedrooms,
                 "bd/",
-                props.listingData.bathrooms,
+                listingData.bathrooms,
                 "br"),
             react__WEBPACK_IMPORTED_MODULE_1__.createElement("div", null,
-                props.listingData.size,
+                listingData.size,
                 "sqft.")),
         react__WEBPACK_IMPORTED_MODULE_1__.createElement("table", { className: "listing-rent-info" },
             react__WEBPACK_IMPORTED_MODULE_1__.createElement("thead", null,
                 react__WEBPACK_IMPORTED_MODULE_1__.createElement("tr", null,
                     react__WEBPACK_IMPORTED_MODULE_1__.createElement("td", null, "Rent for this listing"),
-                    props.renters.map(function (renter) { return react__WEBPACK_IMPORTED_MODULE_1__.createElement("td", { key: renter.name }, renter.name); }))),
+                    renters.map(function (renter) { return react__WEBPACK_IMPORTED_MODULE_1__.createElement("td", { key: renter.name }, renter.name); }))),
             react__WEBPACK_IMPORTED_MODULE_1__.createElement("tbody", null,
                 react__WEBPACK_IMPORTED_MODULE_1__.createElement("tr", null,
                     react__WEBPACK_IMPORTED_MODULE_1__.createElement("td", null,
                         "$",
-                        props.listingData.rent),
-                    props.renters.map(function (renter) { return react__WEBPACK_IMPORTED_MODULE_1__.createElement("td", { key: "share" + renter.name },
+                        listingData.rent),
+                    renters.map(function (renter) { return (react__WEBPACK_IMPORTED_MODULE_1__.createElement("td", { key: "share" + renter.name },
                         "$",
-                        String(renterShares[renter.name])); })),
+                        String(renterShares[renter.name]))); })),
                 react__WEBPACK_IMPORTED_MODULE_1__.createElement("tr", null,
                     react__WEBPACK_IMPORTED_MODULE_1__.createElement("td", null, "Move-in Cost"),
-                    props.renters.map(function (renter) { return react__WEBPACK_IMPORTED_MODULE_1__.createElement("td", { key: "blank" + renter.name }); })),
+                    renters.map(function (renter) { return react__WEBPACK_IMPORTED_MODULE_1__.createElement("td", { key: "blank" + renter.name }); })),
                 react__WEBPACK_IMPORTED_MODULE_1__.createElement("tr", null,
                     react__WEBPACK_IMPORTED_MODULE_1__.createElement("td", null,
                         "$",
-                        String(props.renters.map(function (renter) { return getStartupCost(renterShares[renter.name]); }).reduce(function (a, b) { return a + b; }))),
-                    props.renters.map(function (renter) { return react__WEBPACK_IMPORTED_MODULE_1__.createElement("td", { className: "moveInCost" + renter.name, key: "moveincost" + renter.name },
+                        String(renters.map(function (renter) { return getStartupCost(renterShares[renter.name]); }).reduce(function (a, b) { return a + b; }))),
+                    renters.map(function (renter) { return (react__WEBPACK_IMPORTED_MODULE_1__.createElement("td", { className: "moveInCost" + renter.name, key: "moveincost" + renter.name },
                         "$",
-                        String(getStartupCost(renterShares[renter.name]))); })))),
-        react__WEBPACK_IMPORTED_MODULE_1__.createElement("button", { onClick: deleteHandler }, "X")));
+                        String(getStartupCost(renterShares[renter.name])))); })))),
+        react__WEBPACK_IMPORTED_MODULE_1__.createElement("button", { type: "button", onClick: deleteHandler }, "X")));
+};
+Listing.propTypes = {
+    renters: prop_types__WEBPACK_IMPORTED_MODULE_2__.arrayOf(prop_types__WEBPACK_IMPORTED_MODULE_2__.object.isRequired).isRequired,
+    listingData: prop_types__WEBPACK_IMPORTED_MODULE_2__.shape({
+        rent: prop_types__WEBPACK_IMPORTED_MODULE_2__.number.isRequired,
+        summary: prop_types__WEBPACK_IMPORTED_MODULE_2__.string.isRequired,
+        address: prop_types__WEBPACK_IMPORTED_MODULE_2__.string.isRequired,
+        bathrooms: prop_types__WEBPACK_IMPORTED_MODULE_2__.number.isRequired,
+        bedrooms: prop_types__WEBPACK_IMPORTED_MODULE_2__.number.isRequired,
+        size: prop_types__WEBPACK_IMPORTED_MODULE_2__.number.isRequired,
+        id: prop_types__WEBPACK_IMPORTED_MODULE_2__.number.isRequired,
+    }).isRequired,
+    update: prop_types__WEBPACK_IMPORTED_MODULE_2__.func.isRequired,
+    focusListing: prop_types__WEBPACK_IMPORTED_MODULE_2__.func.isRequired,
 };
 /* harmony default export */ __webpack_exports__["default"] = (Listing);
 
@@ -40055,16 +40103,24 @@ var Listing = function (props) {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var _Listing__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Listing */ "./client/src/components/Listing.tsx");
-/* harmony import */ var _hooks__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./../hooks */ "./client/src/hooks.ts");
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _Listing__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Listing */ "./client/src/components/Listing.tsx");
+/* harmony import */ var _hooks__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../hooks */ "./client/src/hooks.ts");
 
 
 
-var ListingList = function (props) {
-    var renters = (0,_hooks__WEBPACK_IMPORTED_MODULE_2__.useAppSelector)(function (state) { return state.renters; });
-    var listings = (0,_hooks__WEBPACK_IMPORTED_MODULE_2__.useAppSelector)(function (state) { return state.listings; });
+
+var ListingList = function (_a) {
+    var update = _a.update, focusListing = _a.focusListing;
+    var renters = (0,_hooks__WEBPACK_IMPORTED_MODULE_3__.useAppSelector)(function (state) { return state.renters; });
+    var listings = (0,_hooks__WEBPACK_IMPORTED_MODULE_3__.useAppSelector)(function (state) { return state.listings; });
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", { id: "listings-tab" },
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement("ul", { id: "listing-list" }, listings.map(function (listing, index) { return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Listing__WEBPACK_IMPORTED_MODULE_1__.default, { update: props.update, renters: renters, listingData: listing, focusListing: props.focusListing, key: index })); }))));
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement("ul", { id: "listing-list" }, listings.map(function (listing, index) { return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Listing__WEBPACK_IMPORTED_MODULE_2__.default, { update: update, renters: renters, listingData: listing, focusListing: focusListing, key: "" + (listing.name + index) })); }))));
+};
+ListingList.propTypes = {
+    update: prop_types__WEBPACK_IMPORTED_MODULE_1__.func.isRequired,
+    focusListing: prop_types__WEBPACK_IMPORTED_MODULE_1__.func.isRequired,
 };
 /* harmony default export */ __webpack_exports__["default"] = (ListingList);
 
@@ -40080,7 +40136,7 @@ var ListingList = function (props) {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var _hooks__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./../hooks */ "./client/src/hooks.ts");
+/* harmony import */ var _hooks__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../hooks */ "./client/src/hooks.ts");
 /* harmony import */ var _actions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../actions */ "./client/src/actions.js");
 
 
@@ -40090,12 +40146,10 @@ var Modal = function () {
     var modalContent = (0,_hooks__WEBPACK_IMPORTED_MODULE_1__.useAppSelector)(function (state) { return state.modalContent; });
     if (modalContent) {
         return (react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", { id: "modal-aura" },
-            react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", { id: "close-modal-button", onClick: dispatch.bind(null, _actions__WEBPACK_IMPORTED_MODULE_2__.default.doChangeModalContent(null)) }, "X"),
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", { type: "button", id: "close-modal-button", onClick: dispatch.bind(null, _actions__WEBPACK_IMPORTED_MODULE_2__.default.doChangeModalContent(null)) }, "X"),
             modalContent));
     }
-    else {
-        return (react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", { id: "modal-disabled" }));
-    }
+    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", { id: "modal-disabled" }));
 };
 /* harmony default export */ __webpack_exports__["default"] = (Modal);
 
@@ -40111,43 +40165,49 @@ var Modal = function () {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var _modals_ReportIssueModal__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./modals/ReportIssueModal */ "./client/src/components/modals/ReportIssueModal.tsx");
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
-/* harmony import */ var _hooks__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./../hooks */ "./client/src/hooks.ts");
-/* harmony import */ var _actions_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../actions.js */ "./client/src/actions.js");
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
+/* harmony import */ var _modals_ReportIssueModal__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./modals/ReportIssueModal */ "./client/src/components/modals/ReportIssueModal.tsx");
+/* harmony import */ var _hooks__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../hooks */ "./client/src/hooks.ts");
+/* harmony import */ var _actions_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../actions.js */ "./client/src/actions.js");
 
 
 
 
 
-var Navbar = function (props) {
-    var dispatch = (0,_hooks__WEBPACK_IMPORTED_MODULE_2__.useAppDispatch)();
-    var activeRenter = (0,_hooks__WEBPACK_IMPORTED_MODULE_2__.useAppSelector)(function (state) { return state.activeRenter; });
-    var infoTabHidden = (0,_hooks__WEBPACK_IMPORTED_MODULE_2__.useAppSelector)(function (state) { return state.infoTabHidden; });
+
+var Navbar = function (_a) {
+    var logout = _a.logout;
+    var dispatch = (0,_hooks__WEBPACK_IMPORTED_MODULE_3__.useAppDispatch)();
+    var activeRenter = (0,_hooks__WEBPACK_IMPORTED_MODULE_3__.useAppSelector)(function (state) { return state.activeRenter; });
+    var infoTabHidden = (0,_hooks__WEBPACK_IMPORTED_MODULE_3__.useAppSelector)(function (state) { return state.infoTabHidden; });
     var reportHandler = function () {
-        dispatch(_actions_js__WEBPACK_IMPORTED_MODULE_3__.default.doChangeModalContent(react__WEBPACK_IMPORTED_MODULE_0__.createElement(_modals_ReportIssueModal__WEBPACK_IMPORTED_MODULE_1__.default, null)));
+        dispatch(_actions_js__WEBPACK_IMPORTED_MODULE_4__.default.doChangeModalContent(react__WEBPACK_IMPORTED_MODULE_0__.createElement(_modals_ReportIssueModal__WEBPACK_IMPORTED_MODULE_2__.default, null)));
     };
+    var toggleInfoTabHidden = function () { dispatch(_actions_js__WEBPACK_IMPORTED_MODULE_4__.default.doToggleInfoTabHidden(!infoTabHidden)); };
     if (activeRenter) {
         return (react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", { id: "navbar" },
             react__WEBPACK_IMPORTED_MODULE_0__.createElement("h1", null, "HOUSECALC"),
             react__WEBPACK_IMPORTED_MODULE_0__.createElement("span", null,
-                "Hello, ",
+                "Hello,",
                 activeRenter.name,
                 "!"),
             react__WEBPACK_IMPORTED_MODULE_0__.createElement("span", { id: "navbar-buttons" },
-                react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", { id: "report-issue-button", onClick: reportHandler }, "Report Issue"),
-                react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", { id: "renter-profile-button", onClick: dispatch.bind(null, _actions_js__WEBPACK_IMPORTED_MODULE_3__.default.doToggleInfoTabHidden(!infoTabHidden)) }, "Renter Profile"),
-                react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", { id: "logout-button", onClick: props.logout }, "Log Out"))));
+                react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", { type: "button", id: "report-issue-button", onClick: reportHandler }, "Report Issue"),
+                react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", { type: "button", id: "renter-profile-button", onClick: toggleInfoTabHidden }, "Renter Profile"),
+                react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", { type: "button", id: "logout-button", onClick: logout }, "Log Out"))));
     }
-    else {
-        return (react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", { id: "navbar" },
-            react__WEBPACK_IMPORTED_MODULE_0__.createElement("h1", null, "HOUSECALC"),
-            react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", { id: "report-issue-button", onClick: reportHandler }, "Report Issue"),
-            react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_4__.Link, { to: "/register" },
-                react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", { id: "register-button" }, "Register")),
-            react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_4__.Link, { to: "/login" },
-                react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", { id: "login-button" }, "Log In"))));
-    }
+    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", { id: "navbar" },
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement("h1", null, "HOUSECALC"),
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", { type: "button", id: "report-issue-button", onClick: reportHandler }, "Report Issue"),
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_5__.Link, { to: "/register" },
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", { type: "button", id: "register-button" }, "Register")),
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_5__.Link, { to: "/login" },
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", { type: "button", id: "login-button" }, "Log In"))));
+};
+Navbar.propTypes = {
+    logout: prop_types__WEBPACK_IMPORTED_MODULE_1__.func.isRequired,
 };
 /* harmony default export */ __webpack_exports__["default"] = (Navbar);
 
@@ -40163,48 +40223,67 @@ var Navbar = function (props) {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var _modals_EditRenterModal__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./modals/EditRenterModal */ "./client/src/components/modals/EditRenterModal.tsx");
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _modals_EditRenterModal__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./modals/EditRenterModal */ "./client/src/components/modals/EditRenterModal.tsx");
 
 
 
-var Renter = function (props) {
+
+var Renter = function (_a) {
+    var renterData = _a.renterData, update = _a.update, setModalContent = _a.setModalContent, deleteRenter = _a.deleteRenter;
     var changeRenter = function (renter) {
         axios__WEBPACK_IMPORTED_MODULE_2___default().put('/renters', {
-            id: props.renterData.id,
+            id: renterData.id,
             updates: {
                 name: renter.name,
                 hourly_wages: renter.hourly,
                 hours_working: renter.hours,
                 dog_count: renter.dogs,
                 cat_count: renter.cats,
-                share: renter.share
-            }
-        }).then(function (results) {
-            props.update();
+                share: renter.share,
+            },
+        }).then(function () {
+            update();
         }).catch(function (err) {
             console.error(err);
         });
     };
+    var closeModal = function () { setModalContent(null); };
     var editHandler = function (event) {
         if (Array.from(event.target.classList).includes('delete-button')) {
             return;
         }
-        props.setModalContent(react__WEBPACK_IMPORTED_MODULE_0__.createElement(_modals_EditRenterModal__WEBPACK_IMPORTED_MODULE_1__.default, { renterData: props.renterData, changeRenter: changeRenter, closeModal: props.setModalContent.bind(null, null) }));
+        setModalContent(react__WEBPACK_IMPORTED_MODULE_0__.createElement(_modals_EditRenterModal__WEBPACK_IMPORTED_MODULE_3__.default, { renterData: renterData, changeRenter: changeRenter, closeModal: closeModal }));
     };
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement("tr", { className: "renter", onClick: editHandler },
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement("td", null, props.renterData.name),
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement("td", null, props.renterData.hourly_wages),
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement("td", null, Math.round(props.renterData.hourly_wages * props.renterData.hours_working)),
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement("td", null, Math.round(props.renterData.hourly_wages * props.renterData.hours_working * 4.33333333333)),
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement("td", null, Math.round(props.renterData.hourly_wages * props.renterData.hours_working * 4.33333333333 * 12)),
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement("td", null, props.renterData.dog_count),
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement("td", null, props.renterData.cat_count),
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement("td", null, props.renterData.share),
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement("td", null, Math.round(props.renterData.hourly_wages * props.renterData.hours_working * 4.33333333333 * .3)),
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement("td", null, renterData.name),
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement("td", null, renterData.hourly_wages),
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement("td", null, Math.round(renterData.hourly_wages * renterData.hours_working)),
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement("td", null, Math.round(renterData.hourly_wages * renterData.hours_working * 4.33333333333)),
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement("td", null, Math.round(renterData.hourly_wages * renterData.hours_working * 4.33333333333 * 12)),
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement("td", null, renterData.dog_count),
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement("td", null, renterData.cat_count),
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement("td", null, renterData.share),
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement("td", null, Math.round(renterData.hourly_wages * renterData.hours_working * 4.33333333333 * 0.3)),
         react__WEBPACK_IMPORTED_MODULE_0__.createElement("td", null,
-            react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", { className: "delete-button", onClick: props.deleteRenter.bind(null, props.renterData.id) }, "X"))));
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", { type: "button", className: "delete-button", onClick: deleteRenter.bind(null, renterData.id) }, "X"))));
+};
+Renter.propTypes = {
+    renterData: prop_types__WEBPACK_IMPORTED_MODULE_1__.shape({
+        name: prop_types__WEBPACK_IMPORTED_MODULE_1__.string.isRequired,
+        hourly_wages: prop_types__WEBPACK_IMPORTED_MODULE_1__.number.isRequired,
+        hours_working: prop_types__WEBPACK_IMPORTED_MODULE_1__.number.isRequired,
+        dog_count: prop_types__WEBPACK_IMPORTED_MODULE_1__.number.isRequired,
+        cat_count: prop_types__WEBPACK_IMPORTED_MODULE_1__.number.isRequired,
+        share: prop_types__WEBPACK_IMPORTED_MODULE_1__.number.isRequired,
+        id: prop_types__WEBPACK_IMPORTED_MODULE_1__.number.isRequired,
+    }).isRequired,
+    update: prop_types__WEBPACK_IMPORTED_MODULE_1__.func.isRequired,
+    setModalContent: prop_types__WEBPACK_IMPORTED_MODULE_1__.func.isRequired,
+    deleteRenter: prop_types__WEBPACK_IMPORTED_MODULE_1__.func.isRequired,
 };
 /* harmony default export */ __webpack_exports__["default"] = (Renter);
 
@@ -40220,26 +40299,30 @@ var Renter = function (props) {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var _Renter__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Renter */ "./client/src/components/Renter.tsx");
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _hooks__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./../hooks */ "./client/src/hooks.ts");
-/* harmony import */ var _actions__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./../actions */ "./client/src/actions.js");
+/* harmony import */ var _Renter__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Renter */ "./client/src/components/Renter.tsx");
+/* harmony import */ var _hooks__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../hooks */ "./client/src/hooks.ts");
+/* harmony import */ var _actions__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../actions */ "./client/src/actions.js");
 
 
 
 
 
-var RenterList = function (props) {
-    var dispatch = (0,_hooks__WEBPACK_IMPORTED_MODULE_3__.useAppDispatch)();
-    var maxRent = (0,_hooks__WEBPACK_IMPORTED_MODULE_3__.useAppSelector)(function (state) { return state.maxRent; });
-    var renters = (0,_hooks__WEBPACK_IMPORTED_MODULE_3__.useAppSelector)(function (state) { return state.renters; });
-    var _a = react__WEBPACK_IMPORTED_MODULE_0__.useState(renters.map(function (renter) { return renter.dog_count; }).reduce(function (a, b) { return a + b; })), totalDogs = _a[0], setTotalDogs = _a[1];
-    var _b = react__WEBPACK_IMPORTED_MODULE_0__.useState(renters.map(function (renter) { return renter.cat_count; }).reduce(function (a, b) { return a + b; })), totalCats = _b[0], setTotalCats = _b[1];
+
+var RenterList = function (_a) {
+    var update = _a.update;
+    var dispatch = (0,_hooks__WEBPACK_IMPORTED_MODULE_4__.useAppDispatch)();
+    var maxRent = (0,_hooks__WEBPACK_IMPORTED_MODULE_4__.useAppSelector)(function (state) { return state.maxRent; });
+    var renters = (0,_hooks__WEBPACK_IMPORTED_MODULE_4__.useAppSelector)(function (state) { return state.renters; });
+    var totalDogs = react__WEBPACK_IMPORTED_MODULE_0__.useState(renters.map(function (renter) { return renter.dog_count; }).reduce(function (a, b) { return a + b; }))[0];
+    var totalCats = react__WEBPACK_IMPORTED_MODULE_0__.useState(renters.map(function (renter) { return renter.cat_count; }).reduce(function (a, b) { return a + b; }))[0];
     var deleteRenter = function (renterID) {
         axios__WEBPACK_IMPORTED_MODULE_2___default().delete('/renters', { headers: {}, data: { id: Number(renterID) } })
-            .then(function (results) {
-            props.update();
+            .then(function () {
+            update();
         })
             .catch(function (err) {
             console.error(err);
@@ -40269,7 +40352,10 @@ var RenterList = function (props) {
                     react__WEBPACK_IMPORTED_MODULE_0__.createElement("td", null, totalCats),
                     react__WEBPACK_IMPORTED_MODULE_0__.createElement("td", null),
                     react__WEBPACK_IMPORTED_MODULE_0__.createElement("td", null, maxRent)),
-                renters.map(function (renter, index) { return react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Renter__WEBPACK_IMPORTED_MODULE_1__.default, { update: props.update, setModalContent: function (content) { dispatch(_actions__WEBPACK_IMPORTED_MODULE_4__.default.doChangeModalContent(content)); }, deleteRenter: deleteRenter, renterData: renter, key: index }); })))));
+                renters.map(function (renter, index) { return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Renter__WEBPACK_IMPORTED_MODULE_3__.default, { update: update, setModalContent: function (content) { dispatch(_actions__WEBPACK_IMPORTED_MODULE_5__.default.doChangeModalContent(content)); }, deleteRenter: deleteRenter, renterData: renter, key: "" + (renter.name + index) })); })))));
+};
+RenterList.propTypes = {
+    update: prop_types__WEBPACK_IMPORTED_MODULE_1__.func.isRequired,
 };
 /* harmony default export */ __webpack_exports__["default"] = (RenterList);
 
@@ -40285,20 +40371,24 @@ var RenterList = function (props) {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var _Expense__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Expense */ "./client/src/components/Expense.tsx");
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _Expense__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Expense */ "./client/src/components/Expense.tsx");
 
 
 
-var RenterProfile = function (props) {
-    var _a = react__WEBPACK_IMPORTED_MODULE_0__.useState(0), savings = _a[0], setSavings = _a[1];
+
+var RenterProfile = function (_a) {
+    var activeUser = _a.activeUser, moveInCost = _a.moveInCost, renter = _a.renter, listing = _a.listing;
+    var savings = react__WEBPACK_IMPORTED_MODULE_0__.useState(0)[0];
     var _b = react__WEBPACK_IMPORTED_MODULE_0__.useState([]), expenseList = _b[0], setExpenseList = _b[1];
     var _c = react__WEBPACK_IMPORTED_MODULE_0__.useState(0), expenseTotal = _c[0], setExpenseTotal = _c[1];
     var _d = react__WEBPACK_IMPORTED_MODULE_0__.useState(0), amountLeft = _d[0], setAmountLeft = _d[1];
     var _e = react__WEBPACK_IMPORTED_MODULE_0__.useState(true), isLoading = _e[0], setIsLoading = _e[1];
     react__WEBPACK_IMPORTED_MODULE_0__.useEffect(function () {
-        axios__WEBPACK_IMPORTED_MODULE_2___default().get("/expenses/" + props.activeUser.id)
+        axios__WEBPACK_IMPORTED_MODULE_2___default().get("/expenses/" + activeUser.id)
             .then(function (expenseData) {
             setExpenseList(expenseData.data);
             setIsLoading(false);
@@ -40307,7 +40397,7 @@ var RenterProfile = function (props) {
         });
     });
     react__WEBPACK_IMPORTED_MODULE_0__.useEffect(function () {
-        setAmountLeft(props.moveInCost - savings);
+        setAmountLeft(moveInCost - savings);
     }, [savings]);
     react__WEBPACK_IMPORTED_MODULE_0__.useEffect(function () {
         if (expenseList.length > 0) {
@@ -40320,13 +40410,13 @@ var RenterProfile = function (props) {
     if (isLoading) {
         return (react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, "Loading..."));
     }
-    return props.listing ? (react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", { id: "renter-profile-tab" },
+    return listing ? (react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", { id: "renter-profile-tab" },
         react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", { id: "rp-stat-list" },
             react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", { className: "rp-stat" },
                 react__WEBPACK_IMPORTED_MODULE_0__.createElement("span", { className: "rp-stat-title" }, "Move-out Timeline: "),
                 react__WEBPACK_IMPORTED_MODULE_0__.createElement("span", { className: "rp-stat-body" },
-                    Math.round(((amountLeft + expenseTotal) / (props.renter.hourly_wages * props.renter.hours_working)) * 100) / 100,
-                    " weeks")),
+                    Math.round(((amountLeft + expenseTotal) / (renter.hourly_wages * renter.hours_working)) * 100) / 100,
+                    "weeks")),
             react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", { className: "rp-stat" },
                 react__WEBPACK_IMPORTED_MODULE_0__.createElement("span", { className: "rp-stat-title" }, "Amount to Moving: "),
                 react__WEBPACK_IMPORTED_MODULE_0__.createElement("span", { className: "rp-stat-body" },
@@ -40348,10 +40438,25 @@ var RenterProfile = function (props) {
                     react__WEBPACK_IMPORTED_MODULE_0__.createElement("td", null, "Title"),
                     react__WEBPACK_IMPORTED_MODULE_0__.createElement("td", null, "Amount"))),
             react__WEBPACK_IMPORTED_MODULE_0__.createElement("tbody", null,
-                expenseList.map(function (expense, index) { return react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Expense__WEBPACK_IMPORTED_MODULE_1__.default, { key: expense.title + index, expense: expense }); }),
+                expenseList.map(function (expense, index) { return react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Expense__WEBPACK_IMPORTED_MODULE_3__.default, { key: expense.title + index, expense: expense }); }),
                 react__WEBPACK_IMPORTED_MODULE_0__.createElement("tr", null,
                     react__WEBPACK_IMPORTED_MODULE_0__.createElement("td", null,
-                        react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", { id: "add-expense-button" }, "Add Expense"))))))) : (react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", { id: "renter-profile-tab" }, "Please select a listing to display renter data for."));
+                        react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", { type: "button", id: "add-expense-button" }, "Add Expense"))))))) : (react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", { id: "renter-profile-tab" }, "Please select a listing to display renter data for."));
+};
+RenterProfile.propTypes = {
+    activeUser: prop_types__WEBPACK_IMPORTED_MODULE_1__.shape({
+        id: prop_types__WEBPACK_IMPORTED_MODULE_1__.number.isRequired,
+    }).isRequired,
+    moveInCost: prop_types__WEBPACK_IMPORTED_MODULE_1__.number.isRequired,
+    renter: prop_types__WEBPACK_IMPORTED_MODULE_1__.shape({
+        hourly_wages: prop_types__WEBPACK_IMPORTED_MODULE_1__.number.isRequired,
+        hours_working: prop_types__WEBPACK_IMPORTED_MODULE_1__.number.isRequired,
+    }).isRequired,
+    listing: prop_types__WEBPACK_IMPORTED_MODULE_1__.shape({
+        address: prop_types__WEBPACK_IMPORTED_MODULE_1__.string.isRequired,
+        id: prop_types__WEBPACK_IMPORTED_MODULE_1__.number.isRequired,
+        summary: prop_types__WEBPACK_IMPORTED_MODULE_1__.string.isRequired,
+    }).isRequired,
 };
 /* harmony default export */ __webpack_exports__["default"] = (RenterProfile);
 
@@ -40367,15 +40472,19 @@ var RenterProfile = function (props) {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_1__);
 
-var AddListingModal = function (props) {
+
+var AddListingModal = function (_a) {
+    var submitListing = _a.submitListing, closeModal = _a.closeModal;
     var submitHandler = function (event) {
         var _a, _b, _c, _d, _e, _f, _g, _h, _j;
         event.preventDefault();
         var form = document.getElementById('modal');
         var getAndCastInputElementById = function (id) { return document.getElementById(id); };
         if (form.checkValidity()) {
-            props.submitListing({
+            submitListing({
                 address: (_a = getAndCastInputElementById('address-input')) === null || _a === void 0 ? void 0 : _a.value,
                 rent: Number((_b = getAndCastInputElementById('rent-input')) === null || _b === void 0 ? void 0 : _b.value),
                 summary: (_c = getAndCastInputElementById('summary-input')) === null || _c === void 0 ? void 0 : _c.value,
@@ -40384,13 +40493,14 @@ var AddListingModal = function (props) {
                 size: Number((_f = getAndCastInputElementById('size-input')) === null || _f === void 0 ? void 0 : _f.value),
                 city: (_g = getAndCastInputElementById('city-input')) === null || _g === void 0 ? void 0 : _g.value,
                 dogDeposit: Number((_h = getAndCastInputElementById('dog-deposit-input')) === null || _h === void 0 ? void 0 : _h.value),
-                catDeposit: Number((_j = getAndCastInputElementById('cat-deposit-input')) === null || _j === void 0 ? void 0 : _j.value)
+                catDeposit: Number((_j = getAndCastInputElementById('cat-deposit-input')) === null || _j === void 0 ? void 0 : _j.value),
             })
                 .then(function () {
-                props.closeModal();
+                closeModal();
             })
                 .catch(function (err) {
                 console.log('Failed to submit listing data! Try again');
+                console.error("ERROR: " + err);
             });
         }
         else {
@@ -40399,34 +40509,38 @@ var AddListingModal = function (props) {
     };
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement("form", { id: "modal" },
         react__WEBPACK_IMPORTED_MODULE_0__.createElement("h2", null, "Add Listing"),
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement("label", { className: "form-element" },
-            " Address:",
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement("label", { htmlFor: "address-input", className: "form-element" },
+            "Address:",
             react__WEBPACK_IMPORTED_MODULE_0__.createElement("input", { id: "address-input", required: true, type: "text" })),
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement("label", { className: "form-element" },
-            " Rent:",
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement("label", { htmlFor: "rent-input", className: "form-element" },
+            "Rent:",
             react__WEBPACK_IMPORTED_MODULE_0__.createElement("input", { id: "rent-input", required: true, type: "text" })),
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement("label", { className: "form-element" },
-            " Summary:",
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement("label", { htmlFor: "summary-input", className: "form-element" },
+            "Summary:",
             react__WEBPACK_IMPORTED_MODULE_0__.createElement("input", { id: "summary-input", required: true, type: "text" })),
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement("label", { className: "form-element" },
-            " Bedrooms:",
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement("label", { htmlFor: "bedroom-count-input", className: "form-element" },
+            "Bedrooms:",
             react__WEBPACK_IMPORTED_MODULE_0__.createElement("input", { id: "bedroom-count-input", type: "text" })),
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement("label", { className: "form-element" },
-            " Bathrooms:",
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement("label", { htmlFor: "bathroom-count-input", className: "form-element" },
+            "Bathrooms:",
             react__WEBPACK_IMPORTED_MODULE_0__.createElement("input", { id: "bathroom-count-input", type: "text" })),
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement("label", { className: "form-element" },
-            " Size (in sqrft):",
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement("label", { htmlFor: "size-input", className: "form-element" },
+            "Size (in sqrft):",
             react__WEBPACK_IMPORTED_MODULE_0__.createElement("input", { id: "size-input", type: "text" })),
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement("label", { className: "form-element" },
-            " City:",
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement("label", { htmlFor: "city-input", className: "form-element" },
+            "City:",
             react__WEBPACK_IMPORTED_MODULE_0__.createElement("input", { id: "city-input", type: "text" })),
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement("label", { className: "form-element" },
-            " Dog Deposit Cost:",
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement("label", { htmlFor: "dog-deposit-input", className: "form-element" },
+            "Dog Deposit Cost:",
             react__WEBPACK_IMPORTED_MODULE_0__.createElement("input", { id: "dog-deposit-input", type: "text" })),
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement("label", { className: "form-element" },
-            " Cat Deposit Cost:",
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement("label", { htmlFor: "cat-deposit-input", className: "form-element" },
+            "Cat Deposit Cost:",
             react__WEBPACK_IMPORTED_MODULE_0__.createElement("input", { id: "cat-deposit-input", type: "text" })),
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", { onClick: submitHandler }, "Submit")));
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", { type: "submit", onClick: submitHandler }, "Submit")));
+};
+AddListingModal.propTypes = {
+    submitListing: prop_types__WEBPACK_IMPORTED_MODULE_1__.func.isRequired,
+    closeModal: prop_types__WEBPACK_IMPORTED_MODULE_1__.func.isRequired,
 };
 /* harmony default export */ __webpack_exports__["default"] = (AddListingModal);
 
@@ -40442,26 +40556,30 @@ var AddListingModal = function (props) {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_1__);
 
-var AddRenterModal = function (props) {
+
+var AddRenterModal = function (_a) {
+    var submitRenter = _a.submitRenter, closeModal = _a.closeModal;
     var submitHandler = function (event) {
         var _a, _b, _c, _d, _e, _f;
         event.preventDefault();
         var form = document.getElementById('modal');
         var getAndCastInputElementById = function (id) { return document.getElementById(id); };
         if (form.checkValidity()) {
-            props.submitRenter({
+            submitRenter({
                 name: (_a = getAndCastInputElementById('name-input')) === null || _a === void 0 ? void 0 : _a.value,
                 hourly: Number((_b = getAndCastInputElementById('hourly-rate-input')) === null || _b === void 0 ? void 0 : _b.value),
                 hours: Number((_c = getAndCastInputElementById('hours-working-input')) === null || _c === void 0 ? void 0 : _c.value),
                 dogs: Number((_d = getAndCastInputElementById('dog-count-input')) === null || _d === void 0 ? void 0 : _d.value) || 0,
                 cats: Number((_e = getAndCastInputElementById('cat-count-input')) === null || _e === void 0 ? void 0 : _e.value) || 0,
-                percentageShare: Number((_f = getAndCastInputElementById('share-input')) === null || _f === void 0 ? void 0 : _f.value) || 0
+                percentageShare: Number((_f = getAndCastInputElementById('share-input')) === null || _f === void 0 ? void 0 : _f.value) || 0,
             })
                 .then(function () {
-                props.closeModal();
+                closeModal();
             })
-                .catch(function (err) {
+                .catch(function () {
                 console.log('Failed to submit renter data! Try again');
             });
         }
@@ -40471,25 +40589,29 @@ var AddRenterModal = function (props) {
     };
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement("form", { id: "modal" },
         react__WEBPACK_IMPORTED_MODULE_0__.createElement("h2", null, "Add Renter"),
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement("label", { className: "form-element" },
-            " Name:",
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement("label", { htmlFor: "name-input", className: "form-element" },
+            "Name:",
             react__WEBPACK_IMPORTED_MODULE_0__.createElement("input", { id: "name-input", required: true, type: "text" })),
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement("label", { className: "form-element" },
-            " Hourly Rate:",
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement("label", { htmlFor: "hourly-rate-input", className: "form-element" },
+            "Hourly Rate:",
             react__WEBPACK_IMPORTED_MODULE_0__.createElement("input", { id: "hourly-rate-input", required: true, type: "text" })),
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement("label", { className: "form-element" },
-            " Hours Working:",
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement("label", { htmlFor: "hours-working-input", className: "form-element" },
+            "Hours Working:",
             react__WEBPACK_IMPORTED_MODULE_0__.createElement("input", { id: "hours-working-input", required: true, type: "text" })),
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement("label", { className: "form-element" },
-            " # of Dogs:",
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement("label", { htmlFor: "dog-count-input", className: "form-element" },
+            "# of Dogs:",
             react__WEBPACK_IMPORTED_MODULE_0__.createElement("input", { id: "dog-count-input", type: "text" })),
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement("label", { className: "form-element" },
-            " # of Cats:",
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement("label", { htmlFor: "cat-count-input", className: "form-element" },
+            "# of Cats:",
             react__WEBPACK_IMPORTED_MODULE_0__.createElement("input", { id: "cat-count-input", type: "text" })),
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement("label", { className: "form-element" },
-            " Share of Rent (decimal from 0 to 1):",
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement("label", { htmlFor: "share-input", className: "form-element" },
+            "Share of Rent (decimal from 0 to 1):",
             react__WEBPACK_IMPORTED_MODULE_0__.createElement("input", { disabled: true, id: "share-input", type: "text" })),
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", { onClick: submitHandler }, "Submit")));
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", { type: "submit", onClick: submitHandler }, "Submit")));
+};
+AddRenterModal.propTypes = {
+    submitRenter: prop_types__WEBPACK_IMPORTED_MODULE_1__.func.isRequired,
+    closeModal: prop_types__WEBPACK_IMPORTED_MODULE_1__.func.isRequired,
 };
 /* harmony default export */ __webpack_exports__["default"] = (AddRenterModal);
 
@@ -40505,14 +40627,18 @@ var AddRenterModal = function (props) {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_1__);
 
-var EditRenterModal = function (props) {
+
+var EditRenterModal = function (_a) {
+    var changeRenter = _a.changeRenter, closeModal = _a.closeModal, renterData = _a.renterData;
     var submitHandler = function (event) {
         event.preventDefault();
         var form = document.getElementById('modal');
         var getAndCastInputElementById = function (id) { return document.getElementById(id); };
         if (form.checkValidity()) {
-            props.changeRenter({
+            changeRenter({
                 name: getAndCastInputElementById('name-input').value,
                 hourly: getAndCastInputElementById('hourly-wages-input').value,
                 hours: getAndCastInputElementById('hours-working-input').value,
@@ -40524,29 +40650,41 @@ var EditRenterModal = function (props) {
         else {
             form.reportValidity();
         }
-        props.closeModal();
+        closeModal();
     };
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement("form", { id: "modal" },
         react__WEBPACK_IMPORTED_MODULE_0__.createElement("h2", null, "Edit Renter"),
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement("label", { className: "form-element" },
-            " Name:",
-            react__WEBPACK_IMPORTED_MODULE_0__.createElement("input", { id: "name-input", type: "text", defaultValue: props.renterData.name })),
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement("label", { className: "form-element" },
-            " Hourly Wages:",
-            react__WEBPACK_IMPORTED_MODULE_0__.createElement("input", { id: "hourly-wages-input", type: "text", defaultValue: props.renterData.hourly_wages })),
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement("label", { className: "form-element" },
-            " Hours Working:",
-            react__WEBPACK_IMPORTED_MODULE_0__.createElement("input", { id: "hours-working-input", type: "text", defaultValue: props.renterData.hours_working })),
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement("label", { className: "form-element" },
-            " # of Dogs:",
-            react__WEBPACK_IMPORTED_MODULE_0__.createElement("input", { id: "dog-count-input", type: "text", defaultValue: props.renterData.dog_count })),
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement("label", { className: "form-element" },
-            " # of Cats:",
-            react__WEBPACK_IMPORTED_MODULE_0__.createElement("input", { id: "cat-count-input", type: "text", defaultValue: props.renterData.cat_count })),
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement("label", { className: "form-element" },
-            " Share:",
-            react__WEBPACK_IMPORTED_MODULE_0__.createElement("input", { id: "share-input", type: "text", defaultValue: props.renterData.share })),
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", { onClick: submitHandler }, "Submit")));
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement("label", { htmlFor: "name-input", className: "form-element" },
+            "Name:",
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement("input", { id: "name-input", type: "text", defaultValue: renterData.name })),
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement("label", { htmlFor: "hourly-wages-input", className: "form-element" },
+            "Hourly Wages:",
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement("input", { id: "hourly-wages-input", type: "text", defaultValue: renterData.hourly_wages })),
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement("label", { htmlFor: "hours-working-input", className: "form-element" },
+            "Hours Working:",
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement("input", { id: "hours-working-input", type: "text", defaultValue: renterData.hours_working })),
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement("label", { htmlFor: "dog-count-input", className: "form-element" },
+            "# of Dogs:",
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement("input", { id: "dog-count-input", type: "text", defaultValue: renterData.dog_count })),
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement("label", { htmlFor: "cat-count-input", className: "form-element" },
+            "# of Cats:",
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement("input", { id: "cat-count-input", type: "text", defaultValue: renterData.cat_count })),
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement("label", { htmlFor: "share-input", className: "form-element" },
+            "Share:",
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement("input", { id: "share-input", type: "text", defaultValue: renterData.share })),
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", { type: "submit", onClick: submitHandler }, "Submit")));
+};
+EditRenterModal.propTypes = {
+    changeRenter: prop_types__WEBPACK_IMPORTED_MODULE_1__.func.isRequired,
+    closeModal: prop_types__WEBPACK_IMPORTED_MODULE_1__.func.isRequired,
+    renterData: prop_types__WEBPACK_IMPORTED_MODULE_1__.shape({
+        name: prop_types__WEBPACK_IMPORTED_MODULE_1__.string.isRequired,
+        hourly_wages: prop_types__WEBPACK_IMPORTED_MODULE_1__.number.isRequired,
+        hours_working: prop_types__WEBPACK_IMPORTED_MODULE_1__.number.isRequired,
+        dog_count: prop_types__WEBPACK_IMPORTED_MODULE_1__.number.isRequired,
+        cat_count: prop_types__WEBPACK_IMPORTED_MODULE_1__.number.isRequired,
+        share: prop_types__WEBPACK_IMPORTED_MODULE_1__.number.isRequired,
+    }).isRequired,
 };
 /* harmony default export */ __webpack_exports__["default"] = (EditRenterModal);
 
@@ -40566,7 +40704,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 
 
-var ReportIssueModal = function (props) {
+var ReportIssueModal = function () {
     var submitHandler = function (event) {
         event.preventDefault();
         var form = document.getElementById('modal');
@@ -40574,7 +40712,7 @@ var ReportIssueModal = function (props) {
         if (form.checkValidity()) {
             axios__WEBPACK_IMPORTED_MODULE_0___default().post('/issues', {
                 description: getAndCastInputElementById('report-issue').value,
-                renterName: getAndCastInputElementById('report-username').value
+                renterName: getAndCastInputElementById('report-username').value,
             })
                 .then(function (results) {
                 console.log(results);
@@ -40589,13 +40727,13 @@ var ReportIssueModal = function (props) {
     };
     return (react__WEBPACK_IMPORTED_MODULE_1__.createElement("form", { id: "modal" },
         react__WEBPACK_IMPORTED_MODULE_1__.createElement("h2", null, "Report an Issue"),
-        react__WEBPACK_IMPORTED_MODULE_1__.createElement("label", null,
+        react__WEBPACK_IMPORTED_MODULE_1__.createElement("label", { htmlFor: "report-username" },
             "Username:",
             react__WEBPACK_IMPORTED_MODULE_1__.createElement("input", { required: true, className: "form-element", type: "text", id: "report-username" })),
-        react__WEBPACK_IMPORTED_MODULE_1__.createElement("label", null,
+        react__WEBPACK_IMPORTED_MODULE_1__.createElement("label", { htmlFor: "report-issue" },
             "Issue:",
             react__WEBPACK_IMPORTED_MODULE_1__.createElement("input", { required: true, className: "form-element", type: "textarea", id: "report-issue" })),
-        react__WEBPACK_IMPORTED_MODULE_1__.createElement("button", { id: "submit-report", onClick: submitHandler }, "Submit")));
+        react__WEBPACK_IMPORTED_MODULE_1__.createElement("button", { type: "submit", id: "submit-report", onClick: submitHandler }, "Submit")));
 };
 /* harmony default export */ __webpack_exports__["default"] = (ReportIssueModal);
 
@@ -40611,12 +40749,14 @@ var ReportIssueModal = function (props) {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var _RenterList__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../RenterList */ "./client/src/components/RenterList.tsx");
-/* harmony import */ var _ListingList__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../ListingList */ "./client/src/components/ListingList.tsx");
-/* harmony import */ var _AddRenter__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../AddRenter */ "./client/src/components/AddRenter.tsx");
-/* harmony import */ var _AddListing__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../AddListing */ "./client/src/components/AddListing.tsx");
-/* harmony import */ var _Modal__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../Modal */ "./client/src/components/Modal.tsx");
-/* harmony import */ var _InfoTab__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../InfoTab */ "./client/src/components/InfoTab.tsx");
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _RenterList__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../RenterList */ "./client/src/components/RenterList.tsx");
+/* harmony import */ var _ListingList__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../ListingList */ "./client/src/components/ListingList.tsx");
+/* harmony import */ var _AddRenter__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../AddRenter */ "./client/src/components/AddRenter.tsx");
+/* harmony import */ var _AddListing__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../AddListing */ "./client/src/components/AddListing.tsx");
+/* harmony import */ var _Modal__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../Modal */ "./client/src/components/Modal.tsx");
+/* harmony import */ var _InfoTab__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../InfoTab */ "./client/src/components/InfoTab.tsx");
 
 
 
@@ -40624,16 +40764,23 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-var DashboardPage = function (props) {
+
+var DashboardPage = function (_a) {
+    var updateRenterList = _a.updateRenterList, updateListingList = _a.updateListingList, focusListingById = _a.focusListingById;
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement("section", { id: "dashboard" },
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Modal__WEBPACK_IMPORTED_MODULE_5__.default, null),
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Modal__WEBPACK_IMPORTED_MODULE_6__.default, null),
         react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", { id: "page-body" },
             react__WEBPACK_IMPORTED_MODULE_0__.createElement("section", { id: "lists" },
-                react__WEBPACK_IMPORTED_MODULE_0__.createElement(_RenterList__WEBPACK_IMPORTED_MODULE_1__.default, { update: props.updateRenterList }),
-                react__WEBPACK_IMPORTED_MODULE_0__.createElement(_ListingList__WEBPACK_IMPORTED_MODULE_2__.default, { update: props.updateListingList, focusListing: function (id) { props.focusListingById(id); } }),
-                react__WEBPACK_IMPORTED_MODULE_0__.createElement(_AddRenter__WEBPACK_IMPORTED_MODULE_3__.default, { update: props.updateRenterList }),
-                react__WEBPACK_IMPORTED_MODULE_0__.createElement(_AddListing__WEBPACK_IMPORTED_MODULE_4__.default, { update: props.updateListingList })),
-            react__WEBPACK_IMPORTED_MODULE_0__.createElement(_InfoTab__WEBPACK_IMPORTED_MODULE_6__.default, null))));
+                react__WEBPACK_IMPORTED_MODULE_0__.createElement(_RenterList__WEBPACK_IMPORTED_MODULE_2__.default, { update: updateRenterList }),
+                react__WEBPACK_IMPORTED_MODULE_0__.createElement(_ListingList__WEBPACK_IMPORTED_MODULE_3__.default, { update: updateListingList, focusListing: function (id) { focusListingById(id); } }),
+                react__WEBPACK_IMPORTED_MODULE_0__.createElement(_AddRenter__WEBPACK_IMPORTED_MODULE_4__.default, { update: updateRenterList }),
+                react__WEBPACK_IMPORTED_MODULE_0__.createElement(_AddListing__WEBPACK_IMPORTED_MODULE_5__.default, { update: updateListingList })),
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(_InfoTab__WEBPACK_IMPORTED_MODULE_7__.default, null))));
+};
+DashboardPage.propTypes = {
+    updateRenterList: prop_types__WEBPACK_IMPORTED_MODULE_1__.func.isRequired,
+    updateListingList: prop_types__WEBPACK_IMPORTED_MODULE_1__.func.isRequired,
+    focusListingById: prop_types__WEBPACK_IMPORTED_MODULE_1__.func.isRequired,
 };
 /* harmony default export */ __webpack_exports__["default"] = (DashboardPage);
 
@@ -40650,10 +40797,8 @@ var DashboardPage = function (props) {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 
-var HomePage = function () {
-    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", { id: "homepage" },
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement("h2", null, "Welcome to HouseCalc, please sign in or register using the buttons above to use this application.")));
-};
+var HomePage = function () { return (react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", { id: "homepage" },
+    react__WEBPACK_IMPORTED_MODULE_0__.createElement("h2", null, "Welcome to HouseCalc, please sign in or register using the buttons above to use this application."))); };
 /* harmony default export */ __webpack_exports__["default"] = (HomePage);
 
 
@@ -40689,27 +40834,23 @@ var HostRegPage = function () {
         return axios__WEBPACK_IMPORTED_MODULE_1___default().get('/groupcodes')
             .then(function (results) {
             if (results.data.includes(groupCode)) {
-                return generateGroupCode();
+                return generateGroupCode(length, cb);
             }
-            else {
-                cb(groupCode);
-            }
+            // TODO: Adjust how this is called to use a return instead of a callback; it should not have to return null
+            cb(groupCode);
+            return null;
         })
             .catch(function (err) {
             throw err;
         });
     };
-    var checkUsername = function (username) {
-        return axios__WEBPACK_IMPORTED_MODULE_1___default().get('/users')
-            .then(function (results) {
-            if (results.data.map(function (user) { return user.username; }).includes(username.trim())) {
-                return false;
-            }
-            else {
-                return true;
-            }
-        });
-    };
+    var checkUsername = function (username) { return (axios__WEBPACK_IMPORTED_MODULE_1___default().get('/users')
+        .then(function (results) {
+        if (results.data.map(function (user) { return user.username; }).includes(username.trim())) {
+            return false;
+        }
+        return true;
+    })); };
     var handleRegistrationSubmit = function (event) {
         event.preventDefault();
         var form = document.getElementById('registration-form');
@@ -40727,7 +40868,7 @@ var HostRegPage = function () {
                             throw err;
                         }
                         else {
-                            return bcryptjs__WEBPACK_IMPORTED_MODULE_2___default().hash(getAndCastInputElementById('password-input').value, salt, function (err, hash) {
+                            return bcryptjs__WEBPACK_IMPORTED_MODULE_2___default().hash(getAndCastInputElementById('password-input').value, salt, function (err2, hash) {
                                 if (err) {
                                     throw err;
                                 }
@@ -40741,11 +40882,11 @@ var HostRegPage = function () {
                                             groupCode: code,
                                             isAdmin: false,
                                             isHost: true,
-                                            has_logged_once: false
+                                            has_logged_once: false,
                                         }).then(function () {
                                             history.push('/login');
-                                        }).catch(function (err) {
-                                            console.error(err);
+                                        }).catch(function (err3) {
+                                            console.error(err3);
                                         });
                                     });
                                 }
@@ -40759,7 +40900,6 @@ var HostRegPage = function () {
             }
             else {
                 alert('That username is already taken. Please try again.');
-                return;
             }
         }).catch(function (err) {
             console.error(err);
@@ -40767,16 +40907,16 @@ var HostRegPage = function () {
     };
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement("form", { id: "registration-form" },
         react__WEBPACK_IMPORTED_MODULE_0__.createElement("h2", null, "Register as Host"),
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement("label", null,
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement("label", { htmlFor: "username-input" },
             "Username*:",
             react__WEBPACK_IMPORTED_MODULE_0__.createElement("input", { required: true, type: "text", id: "username-input", className: "form-element" })),
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement("label", null,
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement("label", { htmlFor: "password-input" },
             "Password*:",
             react__WEBPACK_IMPORTED_MODULE_0__.createElement("input", { required: true, type: "password", id: "password-input", className: "form-element" })),
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement("label", null,
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement("label", { htmlFor: "first-name-input" },
             "First Name*:",
             react__WEBPACK_IMPORTED_MODULE_0__.createElement("input", { required: true, type: "text", id: "first-name-input", className: "form-element" })),
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", { id: "submit-user-registration", onClick: handleRegistrationSubmit }, "Register"),
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", { type: "submit", id: "submit-user-registration", onClick: handleRegistrationSubmit }, "Register"),
         react__WEBPACK_IMPORTED_MODULE_0__.createElement("sub", null, "*: indicates that a field is required")));
 };
 /* harmony default export */ __webpack_exports__["default"] = (HostRegPage);
@@ -40793,29 +40933,29 @@ var HostRegPage = function () {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var bcryptjs__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! bcryptjs */ "./node_modules/bcryptjs/dist/bcrypt.js");
-/* harmony import */ var bcryptjs__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(bcryptjs__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router/esm/react-router.js");
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var bcryptjs__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! bcryptjs */ "./node_modules/bcryptjs/dist/bcrypt.js");
+/* harmony import */ var bcryptjs__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(bcryptjs__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router/esm/react-router.js");
 
 
 
 
-var LoginPage = function (props) {
-    var history = (0,react_router_dom__WEBPACK_IMPORTED_MODULE_3__.useHistory)();
+
+var LoginPage = function (_a) {
+    var login = _a.login;
+    var history = (0,react_router_dom__WEBPACK_IMPORTED_MODULE_4__.useHistory)();
     var getAndCastInputElementById = function (id) { return document.getElementById(id); };
-    var checkUsername = function (username) {
-        return axios__WEBPACK_IMPORTED_MODULE_1___default().get('/users')
-            .then(function (results) {
-            if (results.data.map(function (user) { return user.username; }).includes(username.trim())) {
-                return true;
-            }
-            else {
-                throw Error('Invalid username');
-            }
-        });
-    };
+    var checkUsername = function (username) { return (axios__WEBPACK_IMPORTED_MODULE_2___default().get('/users')
+        .then(function (results) {
+        if (results.data.map(function (user) { return user.username; }).includes(username.trim())) {
+            return true;
+        }
+        throw Error('Invalid username');
+    })); };
     var attemptLogin = function (event) {
         event.preventDefault();
         var form = document.getElementById('login-form');
@@ -40823,9 +40963,9 @@ var LoginPage = function (props) {
             var usernameInput_1 = getAndCastInputElementById('username-input').value.trim();
             var passwordInput_1 = getAndCastInputElementById('password-input').value.trim();
             checkUsername(usernameInput_1).then(function () {
-                axios__WEBPACK_IMPORTED_MODULE_1___default().get("/users/" + usernameInput_1)
+                axios__WEBPACK_IMPORTED_MODULE_2___default().get("/users/" + usernameInput_1)
                     .then(function (userData) {
-                    bcryptjs__WEBPACK_IMPORTED_MODULE_2___default().compare(passwordInput_1, userData.data.rows[0].password, function (err, result) {
+                    bcryptjs__WEBPACK_IMPORTED_MODULE_3___default().compare(passwordInput_1, userData.data.rows[0].password, function (err, result) {
                         if (err || result === false) {
                             alert('Incorrect password. Try again!');
                         }
@@ -40833,7 +40973,7 @@ var LoginPage = function (props) {
                             var user = userData.data.rows[0];
                             delete user.password;
                             delete user.username;
-                            props.login(user);
+                            login(user);
                             history.push('/');
                         }
                     });
@@ -40848,13 +40988,16 @@ var LoginPage = function (props) {
     };
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement("form", { id: "login-form" },
         react__WEBPACK_IMPORTED_MODULE_0__.createElement("h2", null, "Log in"),
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement("label", null,
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement("label", { htmlFor: "username-input" },
             "Username:",
             react__WEBPACK_IMPORTED_MODULE_0__.createElement("input", { required: true, type: "text", id: "username-input", className: "form-element" })),
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement("label", null,
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement("label", { htmlFor: "password-input" },
             "Password:",
             react__WEBPACK_IMPORTED_MODULE_0__.createElement("input", { required: true, type: "password", id: "password-input", className: "form-element" })),
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", { id: "login-submit-button", onClick: attemptLogin }, "Log In")));
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", { type: "submit", id: "login-submit-button", onClick: attemptLogin }, "Log In")));
+};
+LoginPage.propTypes = {
+    login: prop_types__WEBPACK_IMPORTED_MODULE_1__.func.isRequired,
 };
 /* harmony default export */ __webpack_exports__["default"] = (LoginPage);
 
@@ -40882,28 +41025,22 @@ __webpack_require__.r(__webpack_exports__);
 var MemberRegPage = function () {
     var history = (0,react_router_dom__WEBPACK_IMPORTED_MODULE_3__.useHistory)();
     var getAndCastInputElementById = function (id) { return document.getElementById(id); };
-    var checkUsername = function (username) {
-        return axios__WEBPACK_IMPORTED_MODULE_1___default().get('/users')
-            .then(function (results) {
-            if (results.data.map(function (user) { return user.username; }).includes(username.trim())) {
-                throw Error('username is already taken');
-            }
-            else {
-                return true;
-            }
-        });
-    };
-    var checkGroupCode = function (groupcode) {
-        return axios__WEBPACK_IMPORTED_MODULE_1___default().get('/groupcodes')
-            .then(function (results) {
-            if (results.data.map(function (codeObj) { return codeObj.group_code; }).includes(groupcode.trim())) {
-                return true;
-            }
-            else {
-                throw Error('not a valid group code');
-            }
-        });
-    };
+    var checkUsername = function (username) { return (axios__WEBPACK_IMPORTED_MODULE_1___default().get('/users')
+        .then(function (results) {
+        if (results.data.map(function (user) { return user.username; }).includes(username.trim())) {
+            throw Error('username is already taken');
+        }
+        else {
+            return true;
+        }
+    })); };
+    var checkGroupCode = function (groupcode) { return (axios__WEBPACK_IMPORTED_MODULE_1___default().get('/groupcodes')
+        .then(function (results) {
+        if (results.data.map(function (codeObj) { return codeObj.group_code; }).includes(groupcode.trim())) {
+            return true;
+        }
+        throw Error('not a valid group code');
+    })); };
     var handleRegistrationSubmit = function (event) {
         event.preventDefault();
         var usernameInput = getAndCastInputElementById('username-input').value;
@@ -40916,9 +41053,9 @@ var MemberRegPage = function () {
                         throw err;
                     }
                     else {
-                        bcryptjs__WEBPACK_IMPORTED_MODULE_2___default().hash(getAndCastInputElementById('password-input').value, salt, function (err, hash) {
-                            if (err) {
-                                throw err;
+                        bcryptjs__WEBPACK_IMPORTED_MODULE_2___default().hash(getAndCastInputElementById('password-input').value, salt, function (err2, hash) {
+                            if (err2) {
+                                throw err2;
                             }
                             else {
                                 if (form.checkValidity()) {
@@ -40929,16 +41066,14 @@ var MemberRegPage = function () {
                                         groupCode: groupCodeInput,
                                         isAdmin: false,
                                         isHost: false,
-                                        has_logged_once: false
+                                        has_logged_once: false,
                                     }).then(function () {
                                         history.push('/login');
-                                    }).catch(function (err) {
-                                        console.error(err);
+                                    }).catch(function (err3) {
+                                        console.error(err3);
                                     });
                                 }
-                                else {
-                                    form.reportValidity();
-                                }
+                                form.reportValidity();
                             }
                         });
                     }
@@ -40952,19 +41087,19 @@ var MemberRegPage = function () {
     };
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement("form", { id: "registration-form" },
         react__WEBPACK_IMPORTED_MODULE_0__.createElement("h2", null, "Register as Member"),
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement("label", null,
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement("label", { htmlFor: "username-input" },
             "Username*:",
             react__WEBPACK_IMPORTED_MODULE_0__.createElement("input", { required: true, id: "username-input", className: "form-element", type: "text" })),
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement("label", null,
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement("label", { htmlFor: "password-input" },
             "Password*:",
             react__WEBPACK_IMPORTED_MODULE_0__.createElement("input", { required: true, id: "password-input", className: "form-element", type: "password" })),
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement("label", null,
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement("label", { htmlFor: "first-name-input" },
             "First Name*:",
             react__WEBPACK_IMPORTED_MODULE_0__.createElement("input", { required: true, id: "first-name-input", className: "form-element", type: "text" })),
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement("label", null,
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement("label", { htmlFor: "group-code-input" },
             "Group Code*:",
             react__WEBPACK_IMPORTED_MODULE_0__.createElement("input", { required: true, id: "group-code-input", className: "form-element", type: "text" })),
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", { id: "submit-user-registration", onClick: handleRegistrationSubmit }, "Register")));
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", { type: "submit", id: "submit-user-registration", onClick: handleRegistrationSubmit }, "Register")));
 };
 /* harmony default export */ __webpack_exports__["default"] = (MemberRegPage);
 
@@ -40982,7 +41117,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _hooks__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./../../hooks */ "./client/src/hooks.ts");
+/* harmony import */ var _hooks__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../hooks */ "./client/src/hooks.ts");
 
 
 
@@ -41000,7 +41135,7 @@ var RenterProfileSetupPage = function () {
                 dogs: getAndCastInputElementById('dog-count-input').value,
                 cats: getAndCastInputElementById('cat-count-input').value,
                 percentageShare: getAndCastInputElementById('share-input').value,
-                groupCode: activeUser.group_code
+                groupCode: activeUser.group_code,
             })
                 .then(function (postResults) {
                 console.log('postResults: ', postResults);
@@ -41021,19 +41156,19 @@ var RenterProfileSetupPage = function () {
     };
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement("section", { id: "renter-profile-setup-page" },
         react__WEBPACK_IMPORTED_MODULE_0__.createElement("form", { id: "renter-profile-setup-form" },
-            react__WEBPACK_IMPORTED_MODULE_0__.createElement("label", null,
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement("label", { htmlFor: "hourly-input" },
                 "Hourly Earnings:",
                 react__WEBPACK_IMPORTED_MODULE_0__.createElement("input", { required: true, type: "text", id: "hourly-input" })),
-            react__WEBPACK_IMPORTED_MODULE_0__.createElement("label", null,
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement("label", { htmlFor: "hours-input" },
                 "Hours Working (per week):",
                 react__WEBPACK_IMPORTED_MODULE_0__.createElement("input", { required: true, type: "text", id: "hours-input" })),
-            react__WEBPACK_IMPORTED_MODULE_0__.createElement("label", null,
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement("label", { htmlFor: "dog-count-input" },
                 "# of Dogs:",
                 react__WEBPACK_IMPORTED_MODULE_0__.createElement("input", { required: true, type: "text", id: "dog-count-input" })),
-            react__WEBPACK_IMPORTED_MODULE_0__.createElement("label", null,
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement("label", { htmlFor: "cat-count-input" },
                 "# of Cats:",
                 react__WEBPACK_IMPORTED_MODULE_0__.createElement("input", { required: true, type: "text", id: "cat-count-input" })),
-            react__WEBPACK_IMPORTED_MODULE_0__.createElement("label", null,
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement("label", { htmlFor: "share-input" },
                 "Share of Rent (# btwn 1 and 100 inclusive):",
                 react__WEBPACK_IMPORTED_MODULE_0__.createElement("input", { required: true, type: "text", id: "share-input" })),
             react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", { type: "submit", id: "submit-renter-profile-button", onClick: submitHandler }, "Submit"))));
@@ -41296,11 +41431,11 @@ var __webpack_exports__ = {};
   !*** ./client/src/index.js ***!
   \*****************************/
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _components_App__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./components/App */ "./client/src/components/App.tsx");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-dom */ "./node_modules/react-dom/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-dom */ "./node_modules/react-dom/index.js");
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
 /* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
-/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var _components_App__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./components/App */ "./client/src/components/App.tsx");
 /* harmony import */ var _store__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./store */ "./client/src/store.ts");
 
 
@@ -41308,9 +41443,9 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-react_dom__WEBPACK_IMPORTED_MODULE_2__.render(react__WEBPACK_IMPORTED_MODULE_1__.createElement(react_redux__WEBPACK_IMPORTED_MODULE_3__.Provider, { store: _store__WEBPACK_IMPORTED_MODULE_4__.default },
-    react__WEBPACK_IMPORTED_MODULE_1__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_5__.BrowserRouter, null,
-        react__WEBPACK_IMPORTED_MODULE_1__.createElement(_components_App__WEBPACK_IMPORTED_MODULE_0__.default, null))), document.getElementById('app'));
+react_dom__WEBPACK_IMPORTED_MODULE_1__.render(react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_redux__WEBPACK_IMPORTED_MODULE_2__.Provider, { store: _store__WEBPACK_IMPORTED_MODULE_4__.default },
+    react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_5__.BrowserRouter, null,
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(_components_App__WEBPACK_IMPORTED_MODULE_3__.default, null))), document.getElementById('app'));
 
 }();
 /******/ })()

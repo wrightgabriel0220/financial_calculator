@@ -14,52 +14,52 @@ export default function rootReducer(state = initialState, action) {
     case 'renters': {
       return {
         ...state,
-        renters: action.payload
-      }
+        renters: action.payload,
+      };
     }
     case 'listings': {
       return {
         ...state,
-        listings: action.payload
-      }
+        listings: action.payload,
+      };
     }
     case 'focusedListing': {
       return {
         ...state,
-        focusedListing: action.payload
-      }
+        focusedListing: action.payload,
+      };
     }
     case 'modalContent': {
       return {
         ...state,
-        modalContent: action.payload
-      }
+        modalContent: action.payload,
+      };
     }
     case 'infoTabHidden': {
       return {
         ...state,
-        infoTabHidden: action.payload
-      }
+        infoTabHidden: action.payload,
+      };
     }
     case 'maxRent': {
       return {
         ...state,
-        maxRent: action.payload
-      }
+        maxRent: action.payload,
+      };
     }
     case 'activeUser': {
       return {
         ...state,
-        activeUser: action.payload
-      }
+        activeUser: action.payload,
+      };
     }
     case 'activeRenter': {
       return {
         ...state,
-        activeRenter: action.payload
-      }
+        activeRenter: action.payload,
+      };
     }
-    default: 
+    default:
       return state;
   }
 }

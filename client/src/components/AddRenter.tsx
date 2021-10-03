@@ -1,31 +1,40 @@
 import * as React from 'react';
-import AddRenterModal from './modals/AddRenterModal';
+import * as PropTypes from 'prop-types';
 import axios from 'axios';
-import { useAppDispatch } from './../hooks';
+import AddRenterModal from './modals/AddRenterModal';
+import { useAppDispatch } from '../hooks';
 import actions from '../actions';
 
-
-const AddRenter = props => {
+const AddRenter = ({ update }) => {
   const dispatch = useAppDispatch();
   
-  const submitRenter = renter => {
-    return axios.post('/renters', renter)
+  const submitRenter = renter => (
+    axios.post('/renters', renter)
       .then(results => {
-        props.update();
+        update();
         return results;
       })
-      .catch(err => {
-        return err;
-      });
-  }
+      .catch(err => err)
+  );
 
   const addRenter = () => {
-    dispatch(actions.doChangeModalContent(<AddRenterModal submitRenter={submitRenter} closeModal={dispatch.bind(null, actions.doChangeModalContent(null))} />));
+    dispatch(actions.doChangeModalContent(
+      <AddRenterModal
+        submitRenter={submitRenter}
+        closeModal={() => { dispatch(actions.doChangeModalContent(null)); }}
+        // TODO: Figure out why eslint wants a comma-dangle here
+      // eslint-disable-next-line comma-dangle
+      />
+    ));
   };
 
   return (
-    <button onClick={addRenter}>Add Renter</button>
+    <button type="submit" onClick={addRenter}>Add Renter</button>
   );
+};
+
+AddRenter.propTypes = {
+  update: PropTypes.func.isRequired,
 };
 
 export default AddRenter;

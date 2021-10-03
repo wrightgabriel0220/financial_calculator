@@ -1,15 +1,16 @@
 import * as React from 'react';
+import * as PropTypes from 'prop-types';
 
-const EditRenterModal = props => {
+const EditRenterModal = ({ changeRenter, closeModal, renterData }) => {
   const submitHandler = event => {
     event.preventDefault();
 
-    let form: HTMLFormElement = document.getElementById('modal') as HTMLFormElement;
+    const form: HTMLFormElement = document.getElementById('modal') as HTMLFormElement;
 
     const getAndCastInputElementById = (id: string) => document.getElementById(id) as HTMLInputElement;
 
     if (form.checkValidity()) {
-      props.changeRenter({
+      changeRenter({
         name: getAndCastInputElementById('name-input').value,
         hourly: getAndCastInputElementById('hourly-wages-input').value,
         hours: getAndCastInputElementById('hours-working-input').value,
@@ -21,33 +22,52 @@ const EditRenterModal = props => {
       form.reportValidity();
     }
 
-    props.closeModal();
-  }
+    closeModal();
+  };
 
   return (
     <form id="modal">
       <h2>Edit Renter</h2>
-      <label className="form-element"> Name:
-        <input id="name-input" type="text" defaultValue={props.renterData.name}></input>
+      <label htmlFor="name-input" className="form-element">
+        Name:
+        <input id="name-input" type="text" defaultValue={renterData.name} />
       </label>
-      <label className="form-element"> Hourly Wages:
-        <input id="hourly-wages-input" type="text" defaultValue={props.renterData.hourly_wages}></input>
+      <label htmlFor="hourly-wages-input" className="form-element">
+        Hourly Wages:
+        <input id="hourly-wages-input" type="text" defaultValue={renterData.hourly_wages} />
       </label>
-      <label className="form-element"> Hours Working:
-        <input id="hours-working-input" type="text" defaultValue={props.renterData.hours_working}></input>
+      <label htmlFor="hours-working-input" className="form-element">
+        Hours Working:
+        <input id="hours-working-input" type="text" defaultValue={renterData.hours_working} />
       </label>
-      <label className="form-element"> # of Dogs:
-        <input id="dog-count-input" type="text" defaultValue={props.renterData.dog_count}></input>
+      <label htmlFor="dog-count-input" className="form-element">
+        # of Dogs:
+        <input id="dog-count-input" type="text" defaultValue={renterData.dog_count} />
       </label>
-      <label className="form-element"> # of Cats:
-        <input id="cat-count-input" type="text" defaultValue={props.renterData.cat_count}></input>
+      <label htmlFor="cat-count-input" className="form-element">
+        # of Cats:
+        <input id="cat-count-input" type="text" defaultValue={renterData.cat_count} />
       </label>
-      <label className="form-element"> Share:
-        <input id="share-input" type="text" defaultValue={props.renterData.share}></input>
+      <label htmlFor="share-input" className="form-element">
+        Share:
+        <input id="share-input" type="text" defaultValue={renterData.share} />
       </label>
-      <button onClick={submitHandler}>Submit</button>
+      <button type="submit" onClick={submitHandler}>Submit</button>
     </form>
-  )
-}
+  );
+};
+
+EditRenterModal.propTypes = {
+  changeRenter: PropTypes.func.isRequired,
+  closeModal: PropTypes.func.isRequired,
+  renterData: PropTypes.shape({
+    name: PropTypes.string.isRequired,
+    hourly_wages: PropTypes.number.isRequired,
+    hours_working: PropTypes.number.isRequired,
+    dog_count: PropTypes.number.isRequired,
+    cat_count: PropTypes.number.isRequired,
+    share: PropTypes.number.isRequired,
+  }).isRequired,
+};
 
 export default EditRenterModal;

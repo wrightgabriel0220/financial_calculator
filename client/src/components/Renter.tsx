@@ -1,45 +1,74 @@
 import * as React from 'react';
-import EditRenterModal from './modals/EditRenterModal';
+import * as PropTypes from 'prop-types';
 import axios from 'axios';
+import EditRenterModal from './modals/EditRenterModal';
 
-const Renter = props => {
+const Renter = ({
+  renterData,
+  update,
+  setModalContent,
+  deleteRenter,
+}) => {
   const changeRenter = renter => {
     axios.put('/renters', {
-      id: props.renterData.id,
+      id: renterData.id,
       updates: {
         name: renter.name,
         hourly_wages: renter.hourly,
         hours_working: renter.hours,
         dog_count: renter.dogs,
         cat_count: renter.cats,
-        share: renter.share
-      }
-    }).then(results => {
-      props.update();
+        share: renter.share,
+      },
+    }).then(() => {
+      update();
     }).catch(err => {
       console.error(err);
-    })
+    });
   };
+
+  const closeModal = () => { setModalContent(null); };
 
   const editHandler = event => {
     if (Array.from(event.target.classList).includes('delete-button')) { return; }
-    props.setModalContent(<EditRenterModal renterData={props.renterData} changeRenter={changeRenter} closeModal={props.setModalContent.bind(null, null)}/>);
+    setModalContent(
+      <EditRenterModal renterData={renterData} changeRenter={changeRenter} closeModal={closeModal} />,
+    );
   };
 
   return (
     <tr className="renter" onClick={editHandler}>
-      <td>{props.renterData.name}</td>
-      <td>{props.renterData.hourly_wages}</td>
-      <td>{Math.round(props.renterData.hourly_wages*props.renterData.hours_working)}</td>
-      <td>{Math.round(props.renterData.hourly_wages*props.renterData.hours_working*4.33333333333)}</td>
-      <td>{Math.round(props.renterData.hourly_wages*props.renterData.hours_working*4.33333333333*12)}</td>
-      <td>{props.renterData.dog_count}</td>
-      <td>{props.renterData.cat_count}</td>
-      <td>{props.renterData.share}</td>
-      <td>{Math.round(props.renterData.hourly_wages*props.renterData.hours_working*4.33333333333*.3)}</td>
-      <td><button className="delete-button" onClick={props.deleteRenter.bind(null, props.renterData.id)}>X</button></td>
+      <td>{renterData.name}</td>
+      <td>{renterData.hourly_wages}</td>
+      <td>{Math.round(renterData.hourly_wages * renterData.hours_working)}</td>
+      <td>{Math.round(renterData.hourly_wages * renterData.hours_working * 4.33333333333)}</td>
+      <td>{Math.round(renterData.hourly_wages * renterData.hours_working * 4.33333333333 * 12)}</td>
+      <td>{renterData.dog_count}</td>
+      <td>{renterData.cat_count}</td>
+      <td>{renterData.share}</td>
+      <td>{Math.round(renterData.hourly_wages * renterData.hours_working * 4.33333333333 * 0.3)}</td>
+      <td>
+        <button type="button" className="delete-button" onClick={deleteRenter.bind(null, renterData.id)}>
+          X
+        </button>
+      </td>
     </tr>
   );
 };
 
-export default Renter
+Renter.propTypes = {
+  renterData: PropTypes.shape({
+    name: PropTypes.string.isRequired,
+    hourly_wages: PropTypes.number.isRequired,
+    hours_working: PropTypes.number.isRequired,
+    dog_count: PropTypes.number.isRequired,
+    cat_count: PropTypes.number.isRequired,
+    share: PropTypes.number.isRequired,
+    id: PropTypes.number.isRequired,
+  }).isRequired,
+  update: PropTypes.func.isRequired,
+  setModalContent: PropTypes.func.isRequired,
+  deleteRenter: PropTypes.func.isRequired,
+};
+
+export default Renter;

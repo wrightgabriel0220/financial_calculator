@@ -8,8 +8,8 @@ const HostRegPage = () => {
 
   const getAndCastInputElementById = (id: string) => document.getElementById(id) as HTMLInputElement;
   
-  const generateGroupCode = (length?, cb?) => {
-    let charList = 'abcdefghijklmnopqrstuvwxyz0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
+  const generateGroupCode = (length, cb) => {
+    const charList = 'abcdefghijklmnopqrstuvwxyz0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
     let groupCode = '';
 
     while (groupCode.length < length) {
@@ -18,32 +18,34 @@ const HostRegPage = () => {
     return axios.get('/groupcodes')
       .then(results => {
         if (results.data.includes(groupCode)) {
-          return generateGroupCode();
-        } else {
-          cb(groupCode);
+          return generateGroupCode(length, cb);
         }
+        
+        // TODO: Adjust how this is called to use a return instead of a callback; it should not have to return null
+        cb(groupCode);
+        return null;
       })
       .catch(err => {
         throw err;
-      })
+      });
   };
 
-  const checkUsername = username => {
-    return axios.get('/users')
+  const checkUsername = username => (
+    axios.get('/users')
       .then(results => {
         if (results.data.map(user => user.username).includes(username.trim())) {
           return false;
-        } else {
-          return true;
         }
+
+        return true;
       })
-  };
+  );
 
   const handleRegistrationSubmit = event => {
     event.preventDefault();
 
-    let form: HTMLFormElement = document.getElementById('registration-form') as HTMLFormElement;
-    let usernameInput = getAndCastInputElementById('username-input').value;
+    const form: HTMLFormElement = document.getElementById('registration-form') as HTMLFormElement;
+    const usernameInput = getAndCastInputElementById('username-input').value;
     if (!checkUsername(usernameInput)) {
       alert('That username is already taken. Please try again.');
       return;
@@ -57,7 +59,7 @@ const HostRegPage = () => {
             if (err) {
               throw err;
             } else {
-              return bcrypt.hash(getAndCastInputElementById('password-input').value, salt, (err, hash) => {
+              return bcrypt.hash(getAndCastInputElementById('password-input').value, salt, (err2, hash) => {
                 if (err) {
                   throw err;
                 } else {
@@ -70,13 +72,13 @@ const HostRegPage = () => {
                       groupCode: code,
                       isAdmin: false,
                       isHost: true,
-                      has_logged_once: false
+                      has_logged_once: false,
                     }).then(() => {
-                      history.push('/login')
-                    }).catch(err => {
-                      console.error(err);
+                      history.push('/login');
+                    }).catch(err3 => {
+                      console.error(err3);
                     });
-                  })
+                  });
                 }
               });
             }
@@ -86,7 +88,6 @@ const HostRegPage = () => {
         }
       } else {
         alert('That username is already taken. Please try again.');
-        return;
       }
     }).catch(err => {
       console.error(err);
@@ -96,16 +97,19 @@ const HostRegPage = () => {
   return (
     <form id="registration-form">
       <h2>Register as Host</h2>
-      <label>Username*:
-        <input required type="text" id="username-input" className="form-element"></input>
+      <label htmlFor="username-input">
+        Username*:
+        <input required type="text" id="username-input" className="form-element" />
       </label>
-      <label>Password*:
-        <input required type="password" id="password-input" className="form-element"></input>
+      <label htmlFor="password-input">
+        Password*:
+        <input required type="password" id="password-input" className="form-element" />
       </label>
-      <label>First Name*:
-        <input required type="text" id="first-name-input" className="form-element"></input>
+      <label htmlFor="first-name-input">
+        First Name*:
+        <input required type="text" id="first-name-input" className="form-element" />
       </label>
-      <button id="submit-user-registration" onClick={handleRegistrationSubmit}>Register</button>
+      <button type="submit" id="submit-user-registration" onClick={handleRegistrationSubmit}>Register</button>
       <sub>*: indicates that a field is required</sub>
     </form>
   );

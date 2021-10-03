@@ -1,8 +1,8 @@
-import App from './components/App';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { BrowserRouter as Router } from 'react-router-dom';
 import { Provider } from 'react-redux';
+import { BrowserRouter as Router } from 'react-router-dom';
+import App from './components/App';
 
 import store from './store';
 
@@ -11,5 +11,6 @@ ReactDOM.render(
     <Router>
       <App />
     </Router>
-  </Provider>, 
-  document.getElementById('app'));
+  </Provider>,
+  document.getElementById('app'),
+);

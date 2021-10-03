@@ -1,13 +1,14 @@
 import * as React from 'react';
+import * as PropTypes from 'prop-types';
 
-const LoginModal = props => {
+const LoginModal = ({ attemptLogin, closeModal }) => {
   const submitHandler = event => {
     event.preventDefault();
-    let form: HTMLFormElement = document.getElementById('modal') as HTMLFormElement;
+    const form: HTMLFormElement = document.getElementById('modal') as HTMLFormElement;
 
     if (form.checkValidity()) {
-      if (props.attemptLogin((document.getElementById('renter-username') as HTMLInputElement).value)) {
-        props.closeModal();
+      if (attemptLogin((document.getElementById('renter-username') as HTMLInputElement).value)) {
+        closeModal();
       } else {
         console.log('Failed to login with this username. Check capitalization and try again?');
       }
@@ -19,12 +20,17 @@ const LoginModal = props => {
   return (
     <form id="modal">
       <h2>Renter Login</h2>
-      <label>
-        <input required id="renter-username"></input>
+      <label htmlFor="renter-username">
+        <input required id="renter-username" />
       </label>
-      <button id="login-submit" onClick={submitHandler}>Log In To This Renter Profile</button>
+      <button type="submit" id="login-submit" onClick={submitHandler}>Log In To This Renter Profile</button>
     </form>
   );
+};
+
+LoginModal.propTypes = {
+  attemptLogin: PropTypes.func.isRequired,
+  closeModal: PropTypes.func.isRequired,
 };
 
 export default LoginModal;

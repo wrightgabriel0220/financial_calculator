@@ -8,8 +8,8 @@ const MemberRegPage = () => {
 
   const getAndCastInputElementById = (id: string) => document.getElementById(id) as HTMLInputElement;
 
-  const checkUsername = username => {
-    return axios.get('/users')
+  const checkUsername = username => (
+    axios.get('/users')
       .then(results => {
         if (results.data.map(user => user.username).includes(username.trim())) {
           throw Error('username is already taken');
@@ -17,33 +17,33 @@ const MemberRegPage = () => {
           return true;
         }
       })
-  };
+  );
 
-  const checkGroupCode = groupcode => {
-    return axios.get('/groupcodes')
+  const checkGroupCode = groupcode => (
+    axios.get('/groupcodes')
       .then(results => {
         if (results.data.map(codeObj => codeObj.group_code).includes(groupcode.trim())) {
           return true;
-        } else {
-          throw Error('not a valid group code');
         }
+        
+        throw Error('not a valid group code');
       })
-  }
+  );
 
   const handleRegistrationSubmit = event => {
     event.preventDefault();
-    let usernameInput = getAndCastInputElementById('username-input').value;
-    let groupCodeInput = getAndCastInputElementById('group-code-input').value;
-    let form: HTMLFormElement = document.getElementById('registration-form') as HTMLFormElement;
+    const usernameInput = getAndCastInputElementById('username-input').value;
+    const groupCodeInput = getAndCastInputElementById('group-code-input').value;
+    const form: HTMLFormElement = document.getElementById('registration-form') as HTMLFormElement;
     checkUsername(usernameInput).then(() => {
       checkGroupCode(groupCodeInput).then(() => {
         bcrypt.genSalt(10, (err, salt) => {
           if (err) {
             throw err;
           } else {
-            bcrypt.hash(getAndCastInputElementById('password-input').value, salt, (err, hash) => {
-              if (err) {
-                throw err;
+            bcrypt.hash(getAndCastInputElementById('password-input').value, salt, (err2, hash) => {
+              if (err2) {
+                throw err2;
               } else {
                 if (form.checkValidity()) {
                   axios.post('/users/register', {
@@ -53,43 +53,46 @@ const MemberRegPage = () => {
                     groupCode: groupCodeInput,
                     isAdmin: false,
                     isHost: false,
-                    has_logged_once: false
+                    has_logged_once: false,
                   }).then(() => {
                     history.push('/login');
-                  }).catch(err => {
-                    console.error(err);
+                  }).catch(err3 => {
+                    console.error(err3);
                   });
-                } else {
-                  form.reportValidity();
                 }
+                form.reportValidity();
               }
             });
           }
-        })
+        });
       }).catch(err => {
         alert(err);
-      })
+      });
     }).catch(err => {
       alert(err);
-    })
+    });
   };
 
   return (
     <form id="registration-form">
       <h2>Register as Member</h2>
-      <label>Username*:
-        <input required id="username-input" className="form-element" type="text"></input>
+      <label htmlFor="username-input">
+        Username*:
+        <input required id="username-input" className="form-element" type="text" />
       </label>
-      <label>Password*:
-        <input required id="password-input" className="form-element" type="password"></input>
+      <label htmlFor="password-input">
+        Password*:
+        <input required id="password-input" className="form-element" type="password" />
       </label>
-      <label>First Name*:
-        <input required id="first-name-input" className="form-element" type="text"></input>
+      <label htmlFor="first-name-input">
+        First Name*:
+        <input required id="first-name-input" className="form-element" type="text" />
       </label>
-      <label>Group Code*:
-        <input required id="group-code-input" className="form-element" type="text"></input>
+      <label htmlFor="group-code-input">
+        Group Code*:
+        <input required id="group-code-input" className="form-element" type="text" />
       </label>
-      <button id="submit-user-registration" onClick={handleRegistrationSubmit}>Register</button>
+      <button type="submit" id="submit-user-registration" onClick={handleRegistrationSubmit}>Register</button>
     </form>
   );
 };

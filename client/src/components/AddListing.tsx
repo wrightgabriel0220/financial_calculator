@@ -1,34 +1,44 @@
 import * as React from 'react';
-import AddListingModal from './modals/AddListingModal';
+import * as PropTypes from 'prop-types';
 import axios from 'axios';
-import { useAppSelector, useAppDispatch } from './../hooks';
+import AddListingModal from './modals/AddListingModal';
+import { useAppSelector, useAppDispatch } from '../hooks';
 import actions from '../actions';
 
-const AddListing = props => {
+const AddListing = ({ update }) => {
   const dispatch = useAppDispatch();
   
   const submitListing = listing => {
     if (listing.rent > useAppSelector(state => state.maxRent)) {
-      console.log("Rent too high for this listing");
-      return;
+      console.log('Rent too high for this listing');
+      return null;
     }
     return axios.post('/listings', listing)
       .then(results => {
-        props.update();
+        update();
         return results;
       })
-      .catch(err => {
-        return err;
-      })
+      .catch(err => err);
   };
 
   const addListing = () => {
-    dispatch(actions.doChangeModalContent(<AddListingModal closeModal={dispatch.bind(null, actions.doChangeModalContent(null))} submitListing={submitListing}/>));
+    dispatch(actions.doChangeModalContent(
+      <AddListingModal
+        closeModal={() => { dispatch(actions.doChangeModalContent(null)); }}
+        submitListing={submitListing}
+        // TODO: Figure out why ESLint wants a comma here?????????!!!!!!!
+      // eslint-disable-next-line comma-dangle
+      />
+    ));
   };
 
   return (
-    <button id="add-listing-button" onClick={addListing}>Add Listing</button>
+    <button type="submit" id="add-listing-button" onClick={addListing}>Add Listing</button>
   );
+};
+
+AddListing.propTypes = {
+  update: PropTypes.func.isRequired,
 };
 
 export default AddListing;
