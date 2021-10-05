@@ -1,6 +1,6 @@
 const path = require('path');
 const express = require('express');
-const config = require('./../config.js');
+const config = require('../config.js');
 const db = require('./db/db.js');
 
 const app = express();
@@ -17,7 +17,7 @@ app.post('/renters/get', (req, res) => {
   }).catch(err => {
     res.status(404);
     res.end(err);
-  })
+  });
 });
 
 app.get('/listings', (req, res) => {
@@ -26,8 +26,8 @@ app.get('/listings', (req, res) => {
   }).catch(err => {
     res.status(404);
     res.end(err);
-  })
-})
+  });
+});
 
 app.post('/renters', (req, res) => {
   db.addRenter(req.body).then(results => {
@@ -35,7 +35,7 @@ app.post('/renters', (req, res) => {
   }).catch(err => {
     res.status(500);
     res.end(err);
-  })
+  });
 });
 
 app.post('/listings', (req, res) => {
@@ -44,7 +44,7 @@ app.post('/listings', (req, res) => {
   }).catch(err => {
     res.status(500);
     res.end(err);
-  })
+  });
 });
 
 app.delete('/renters', (req, res) => {
@@ -53,7 +53,7 @@ app.delete('/renters', (req, res) => {
   }).catch(err => {
     res.status(500);
     res.end(err);
-  })
+  });
 });
 
 app.delete('/listings', (req, res) => {
@@ -62,17 +62,19 @@ app.delete('/listings', (req, res) => {
   }).catch(err => {
     res.status(500);
     res.end(err);
-  })
+  });
 });
 
 app.put('/renters', (req, res) => {
-  for (let column in req.body.updates) {
-    db.editRow('renters', req.body.id, column, req.body.updates[column]).then(results => {
-      res.send(results);
-    }).catch(err => {
-      res.status(500);
-      res.end(err);
-    })
+  for (const column in req.body.updates) {
+    if (Object.prototype.hasOwnProperty.call(req.body.updates, column)) {
+      db.editRow('renters', req.body.id, column, req.body.updates[column]).then(results => {
+        res.send(results);
+      }).catch(err => {
+        res.status(500);
+        res.end(err);
+      });
+    }
   }
 });
 
@@ -82,7 +84,7 @@ app.put('/listings', (req, res) => {
   }).catch(err => {
     res.status(500);
     res.end(err);
-  })
+  });
 });
 
 app.post('/issues', (req, res) => {
@@ -91,7 +93,7 @@ app.post('/issues', (req, res) => {
   }).catch(err => {
     res.status(500);
     res.end(err);
-  })
+  });
 });
 
 app.get('/users', (req, res) => {
@@ -100,8 +102,8 @@ app.get('/users', (req, res) => {
   }).catch(err => {
     res.status(500);
     res.end(err);
-  })
-})
+  });
+});
 
 app.get('/users/:username', (req, res) => {
   db.getUserInfoFor(req.params.username).then(results => {
@@ -109,8 +111,8 @@ app.get('/users/:username', (req, res) => {
   }).catch(err => {
     res.status(500);
     res.end(err);
-  })
-})
+  });
+});
 
 app.post('/users/register', (req, res) => {
   db.registerUser(req.body).then(results => {
@@ -127,8 +129,8 @@ app.put('/users/firstlog', (req, res) => {
   }).catch(err => {
     res.status(500);
     res.end(err);
-  })
-})
+  });
+});
 
 app.get('/groupcodes', (req, res) => {
   db.getGroupCodes().then(groupCodes => {
@@ -148,10 +150,12 @@ app.get('/expenses/:userId', (req, res) => {
   });
 });
 
-app.get("/*", (req, res) => {
+app.get('/*', (req, res) => {
   res.redirect('/');
-})
+});
 
 app.listen(port, (err) => {
+  if (err) { throw err; }
+  // eslint-disable-next-line no-console
   console.log(`SERVER LISTENING AT PORT ${port}`);
-})
+});
