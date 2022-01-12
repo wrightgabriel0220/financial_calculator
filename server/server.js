@@ -107,6 +107,7 @@ app.get('/users', (req, res) => {
 
 app.get('/users/:username', (req, res) => {
   db.getUserInfoFor(req.params.username).then(results => {
+    console.log('results: ', results);
     res.send(results);
   }).catch(err => {
     res.status(500);
@@ -124,7 +125,8 @@ app.post('/users/register', (req, res) => {
 });
 
 app.put('/users/firstlog', (req, res) => {
-  db.editRowFor('users', req.body.userId, 'has_logged_once', true).then(results => {
+  db.editRow('users', req.body.userId, 'has_logged_once', 'true').then(results => {
+    console.log(results);
     res.send(results);
   }).catch(err => {
     res.status(500);

@@ -88,8 +88,8 @@ const editRow = (table, id, column, value) => {
 };
 
 const registerUser = user => {
-  const queryString = `INSERT INTO users (username, password, first_name, group_code, is_admin, is_host) 
-  VALUES ($1, $2, $3, $4, $5, $6)`;
+  const queryString = `INSERT INTO users (username, password, first_name, group_code, is_admin, is_host, has_logged_once) 
+  VALUES ($1, $2, $3, $4, $5, $6, false)`;
   const fields = [user.username, user.hashedPassword, user.firstName, user.groupCode, user.isAdmin, user.isHost];
   return client.query(queryString, fields)
     .then(result => result)

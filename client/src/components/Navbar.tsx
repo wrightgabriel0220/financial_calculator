@@ -8,6 +8,7 @@ import actions from '../actions.js';
 const Navbar = ({ logout }) => {
   const dispatch = useAppDispatch();
 
+  const activeUser = useAppSelector(state => state.activeUser);
   const activeRenter = useAppSelector(state => state.activeRenter);
   const infoTabHidden = useAppSelector(state => state.infoTabHidden);
 
@@ -17,14 +18,12 @@ const Navbar = ({ logout }) => {
 
   const toggleInfoTabHidden = () => { dispatch(actions.doToggleInfoTabHidden(!infoTabHidden)); };
 
-  if (activeRenter) {
+  if (activeUser) {
     return (
       <div id="navbar">
         <h1>HOUSECALC</h1>
         <span>
-          Hello,
-          {activeRenter.name}
-          !
+          Hello, {activeRenter ? activeRenter.name : 'New User'}!
         </span>
         <span id="navbar-buttons">
           <button type="button" id="report-issue-button" onClick={reportHandler}>Report Issue</button>

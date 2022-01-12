@@ -11,5 +11,5 @@
   },
   "include": [
     "./client/src/"
-  ]
+, "coverage/setupTest.js"  ]
 }

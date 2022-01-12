@@ -34,8 +34,8 @@ const LoginPage = ({ login }) => {
                 alert('Incorrect password. Try again!');
               } else {
                 const user = userData.data.rows[0];
+                console.log('user: ', user);
                 delete user.password;
-                delete user.username;
                 login(user);
                 history.push('/');
               }

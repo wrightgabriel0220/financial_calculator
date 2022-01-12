@@ -30,6 +30,11 @@
         "no-restricted-syntax": 0,
         "react/no-array-index-key": 0
     },
+    "overrides": [
+        {
+            "excludedFiles": ["*.test.js", "*.test.jsx", "*.test.ts", "*.test.tsx"]
+        }
+    ],
     "settings": {
         "import/resolver": { 
             "node": {
