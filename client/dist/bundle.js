@@ -40438,8 +40438,9 @@ __webpack_require__.r(__webpack_exports__);
 var AddListing = function (_a) {
     var update = _a.update;
     var dispatch = (0,_hooks__WEBPACK_IMPORTED_MODULE_3__.useAppDispatch)();
+    var maxRent = (0,_hooks__WEBPACK_IMPORTED_MODULE_3__.useAppSelector)(function (state) { return state.maxRent; });
     var submitListing = function (listing) {
-        if (listing.rent > (0,_hooks__WEBPACK_IMPORTED_MODULE_3__.useAppSelector)(function (state) { return state.maxRent; })) {
+        if (listing.rent > maxRent) {
             console.log('Rent too high for this listing');
             return null;
         }

@@ -7,9 +7,11 @@ import actions from '../actions';
 
 const AddListing = ({ update }) => {
   const dispatch = useAppDispatch();
+
+  const maxRent = useAppSelector(state => state.maxRent);
   
   const submitListing = listing => {
-    if (listing.rent > useAppSelector(state => state.maxRent)) {
+    if (listing.rent > maxRent) {
       console.log('Rent too high for this listing');
       return null;
     }
