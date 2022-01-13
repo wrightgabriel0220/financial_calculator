@@ -13,7 +13,11 @@ app.use(express.static(path.join(config.root, 'client/dist')));
 
 app.post('/renters/get', (req, res) => {
   db.getRentersForGroup(req.body.groupCode).then(results => {
-    res.send(results);
+    res.send(results.map(renter => {
+      console.log('renter data: ', renter);
+      renter.hourly_wages = Number(renter.hourly_wages);
+      return renter;
+    }));
   }).catch(err => {
     res.status(404);
     res.end(err);

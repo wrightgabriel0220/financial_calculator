@@ -23,10 +23,7 @@ const RenterProfileSetupPage = ({ returnToDash }) => {
         groupCode: activeUser.group_code,
       })
         .then(postResults => {
-          console.log('postResults: ', postResults);
           axios.put('/users/firstlog', { userId: activeUser.id }).then(firstLogUpdateResults => {
-            console.log('firstLogUpdateResults route successfully requested');
-            console.log('firstLogUpdateResults: ', firstLogUpdateResults);
             returnToDash();
           })
             .catch(err => {

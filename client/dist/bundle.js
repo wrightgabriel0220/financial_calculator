@@ -40549,7 +40549,6 @@ var App = function () {
     var activeUser = (0,_hooks__WEBPACK_IMPORTED_MODULE_8__.useAppSelector)(function (state) { return state.activeUser; });
     var _a = react__WEBPACK_IMPORTED_MODULE_0__.useState(react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null)), basePage = _a[0], setBasePage = _a[1];
     var _b = react__WEBPACK_IMPORTED_MODULE_0__.useState(Boolean(activeUser)), isLoading = _b[0], setIsLoading = _b[1];
-    var _c = react__WEBPACK_IMPORTED_MODULE_0__.useState(false), dashIsReady = _c[0], setDashIsReady = _c[1];
     var dispatch = (0,_hooks__WEBPACK_IMPORTED_MODULE_8__.useAppDispatch)();
     react__WEBPACK_IMPORTED_MODULE_0__.useEffect(function () {
         if (isLoading) {
@@ -40571,15 +40570,7 @@ var App = function () {
             setBasePage(getBasePage());
         }
         else {
-            console.log('Has this user logged in at least once?', activeUser.has_logged_once);
-            if (activeUser.has_logged_once === undefined) {
-                console.log('Weird... Check this out: ', activeUser);
-            }
-            if (activeUser.has_logged_once) {
-                console.log('User just logged in for the first time');
-            }
             updateRenterList().then(updateListingList()).then(function () {
-                setDashIsReady(true);
                 setIsLoading(false);
                 setBasePage(getBasePage());
             }).catch(function (err) {
@@ -40590,13 +40581,8 @@ var App = function () {
     react__WEBPACK_IMPORTED_MODULE_0__.useEffect(function () {
         dispatch(doChangeActiveRenter(renters.find(function (renter) { return renter.name === activeUser.first_name; })));
     }, [renters]);
-    react__WEBPACK_IMPORTED_MODULE_0__.useEffect(function () {
-        console.log('dashIsReady has changed to: ', dashIsReady);
-        setBasePage(getBasePage());
-    }, [dashIsReady]);
     var logout = function () {
         dispatch(doChangeActiveUser(null));
-        setDashIsReady(false);
     };
     var updateRenterList = function () { return (axios.post('/renters/get', { groupCode: activeUser.group_code })
         .then(function (rentersInDB) {
@@ -40632,7 +40618,6 @@ var App = function () {
                     var firstLoggedUser = JSON.parse(JSON.stringify(activeUser));
                     firstLoggedUser.has_logged_once = true;
                     dispatch(doChangeActiveUser(firstLoggedUser));
-                    console.log('Returning to dashboard');
                 } });
         }
         return react__WEBPACK_IMPORTED_MODULE_0__.createElement(_pages_HomePage__WEBPACK_IMPORTED_MODULE_5__["default"], null);
@@ -41715,7 +41700,6 @@ var LoginPage = function (_a) {
                         }
                         else {
                             var user = userData.data.rows[0];
-                            console.log('user: ', user);
                             delete user.password;
                             login(user);
                             history.push('/');
@@ -41886,10 +41870,7 @@ var RenterProfileSetupPage = function (_a) {
                 groupCode: activeUser.group_code,
             })
                 .then(function (postResults) {
-                console.log('postResults: ', postResults);
                 axios__WEBPACK_IMPORTED_MODULE_1___default().put('/users/firstlog', { userId: activeUser.id }).then(function (firstLogUpdateResults) {
-                    console.log('firstLogUpdateResults route successfully requested');
-                    console.log('firstLogUpdateResults: ', firstLogUpdateResults);
                     returnToDash();
                 })
                     .catch(function (err) {

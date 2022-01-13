@@ -24,8 +24,7 @@ const getDataFor = table => (
 
 const getRentersForGroup = groupCode => {
   console.log(groupCode);
-  const queryString = `SELECT renters.name, renters.hourly_wages, renters.hours_working, renters.dog_count, 
-  renters.cat_count, renters.share FROM renters, users WHERE renters.name = users.first_name 
+  const queryString = `SELECT renters.id, renters.name, renters.hourly_wages, renters.hours_working, renters.dog_count, renters.cat_count, renters.share FROM renters, users WHERE renters.name = users.first_name 
   AND users.group_code = '${groupCode}'`;
   return client.query(queryString)
     .then(result => result.rows)

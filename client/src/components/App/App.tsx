@@ -35,7 +35,6 @@ const App = () => {
   const activeUser = useAppSelector(state => state.activeUser);
   const [basePage, setBasePage] = React.useState(<div />);
   const [isLoading, setIsLoading] = React.useState(Boolean(activeUser));
-  const [dashIsReady, setDashIsReady] = React.useState(false);
 
   const dispatch = useAppDispatch();
 
@@ -62,17 +61,8 @@ const App = () => {
       dispatch(doChangeActiveRenter(null));
       setBasePage(getBasePage());
     } else {
-      console.log('Has this user logged in at least once?', activeUser.has_logged_once);
-      if (activeUser.has_logged_once === undefined) {
-        console.log('Weird... Check this out: ', activeUser);
-      }
-      if (activeUser.has_logged_once) {
-        console.log('User just logged in for the first time');
-      }
-
       updateRenterList().then(updateListingList()).then(() => {
         
-        setDashIsReady(true);
         setIsLoading(false);
         setBasePage(getBasePage());
       }).catch(err => {
@@ -85,14 +75,8 @@ const App = () => {
     dispatch(doChangeActiveRenter(renters.find(renter => renter.name === activeUser.first_name)));
   }, [renters]);
 
-  React.useEffect(() => {
-    console.log('dashIsReady has changed to: ', dashIsReady);
-    setBasePage(getBasePage());
-  }, [dashIsReady]);
-
   const logout = () => {
     dispatch(doChangeActiveUser(null));
-    setDashIsReady(false);
   };
 
   const updateRenterList = () => (
@@ -152,10 +136,7 @@ const App = () => {
       return <RenterProfileSetupPage returnToDash={() => {
         const firstLoggedUser = JSON.parse(JSON.stringify(activeUser));
         firstLoggedUser.has_logged_once = true;
-        
         dispatch(doChangeActiveUser(firstLoggedUser));
-        
-        console.log('Returning to dashboard');
       }}/>;
     }
 
