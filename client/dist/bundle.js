@@ -41429,9 +41429,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var _hooks__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../hooks */ "./client/src/hooks.ts");
+
 
 
 var ReportIssueModal = function () {
+    var activeUser = (0,_hooks__WEBPACK_IMPORTED_MODULE_2__.useAppSelector)(function (state) { return state.activeUser; });
     var submitHandler = function (event) {
         event.preventDefault();
         var form = document.getElementById('modal');
@@ -41439,10 +41442,10 @@ var ReportIssueModal = function () {
         if (form.checkValidity()) {
             axios__WEBPACK_IMPORTED_MODULE_0___default().post('/issues', {
                 description: getAndCastInputElementById('report-issue').value,
-                renterName: getAndCastInputElementById('report-username').value,
+                renterName: activeUser.username,
             })
                 .then(function (results) {
-                console.log(results);
+                // TODO: Close the modal
             })
                 .catch(function (err) {
                 console.error(err);
@@ -41454,9 +41457,6 @@ var ReportIssueModal = function () {
     };
     return (react__WEBPACK_IMPORTED_MODULE_1__.createElement("form", { id: "modal" },
         react__WEBPACK_IMPORTED_MODULE_1__.createElement("h2", null, "Report an Issue"),
-        react__WEBPACK_IMPORTED_MODULE_1__.createElement("label", { htmlFor: "report-username" },
-            "Username:",
-            react__WEBPACK_IMPORTED_MODULE_1__.createElement("input", { required: true, className: "form-element", type: "text", id: "report-username" })),
         react__WEBPACK_IMPORTED_MODULE_1__.createElement("label", { htmlFor: "report-issue" },
             "Issue:",
             react__WEBPACK_IMPORTED_MODULE_1__.createElement("input", { required: true, className: "form-element", type: "textarea", id: "report-issue" })),

@@ -1,7 +1,10 @@
 import axios from 'axios';
 import * as React from 'react';
+import { useAppSelector } from '../../hooks';
 
 const ReportIssueModal = () => {
+  const activeUser = useAppSelector(state => state.activeUser);
+
   const submitHandler = event => {
     event.preventDefault();
 
@@ -12,10 +15,10 @@ const ReportIssueModal = () => {
     if (form.checkValidity()) {
       axios.post('/issues', {
         description: getAndCastInputElementById('report-issue').value,
-        renterName: getAndCastInputElementById('report-username').value,
+        renterName: activeUser.username,
       })
         .then(results => {
-          console.log(results);
+          // TODO: Close the modal
         })
         .catch(err => {
           console.error(err);
@@ -28,10 +31,6 @@ const ReportIssueModal = () => {
   return (
     <form id="modal">
       <h2>Report an Issue</h2>
-      <label htmlFor="report-username">
-        Username:
-        <input required className="form-element" type="text" id="report-username" />
-      </label>
       <label htmlFor="report-issue">
         Issue:
         <input required className="form-element" type="textarea" id="report-issue" />
