@@ -39,7 +39,6 @@ const Navbar = ({ logout }) => {
   return (
     <div id="navbar">
       <h1>HOUSECALC</h1>
-      <button type="button" id="report-issue-button" onClick={reportHandler}>Report Issue</button>
       <Link to="/register"><button type="button" id="register-button">Register</button></Link>
       <Link to="/login"><button type="button" id="login-button">Log In</button></Link>
     </div>

@@ -40929,7 +40929,6 @@ var Navbar = function (_a) {
     }
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", { id: "navbar" },
         react__WEBPACK_IMPORTED_MODULE_0__.createElement("h1", null, "HOUSECALC"),
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", { type: "button", id: "report-issue-button", onClick: reportHandler }, "Report Issue"),
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_4__.Link, { to: "/register" },
             react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", { type: "button", id: "register-button" }, "Register")),
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_4__.Link, { to: "/login" },
