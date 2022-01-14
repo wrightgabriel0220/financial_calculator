@@ -1,8 +1,11 @@
 import axios from 'axios';
 import * as React from 'react';
-import { useAppSelector } from '../../hooks';
+import { useAppSelector, useAppDispatch } from '../../hooks';
+import actions from '../../actions';
 
 const ReportIssueModal = () => {
+  const dispatch = useAppDispatch();
+
   const activeUser = useAppSelector(state => state.activeUser);
 
   const submitHandler = event => {
@@ -19,6 +22,7 @@ const ReportIssueModal = () => {
       })
         .then(results => {
           // TODO: Close the modal
+          dispatch(actions.doChangeModalContent(null));
         })
         .catch(err => {
           console.error(err);
