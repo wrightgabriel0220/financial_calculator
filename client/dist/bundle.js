@@ -40738,7 +40738,6 @@ var Listing = function (_a) {
         var renterShareTracker = {};
         for (var _i = 0, renters_1 = renters; _i < renters_1.length; _i++) {
             var renter = renters_1[_i];
-            console.log(renter);
             renterShareTracker[renter.name] = getRenterShare(renter);
         }
         setRenterShares(renterShareTracker);
@@ -41048,7 +41047,6 @@ var RenterList = function (_a) {
     var totalDogs = react__WEBPACK_IMPORTED_MODULE_0__.useState(renters.map(function (renter) { return renter.dog_count; }).reduce(function (a, b) { return a + b; }))[0];
     var totalCats = react__WEBPACK_IMPORTED_MODULE_0__.useState(renters.map(function (renter) { return renter.cat_count; }).reduce(function (a, b) { return a + b; }))[0];
     var deleteRenter = function (renterID) {
-        console.log('Deleting renter with id: ', renterID);
         axios__WEBPACK_IMPORTED_MODULE_1___default()["delete"]('/renters', { headers: {}, data: { id: Number(renterID) } })
             .then(function () {
             update();

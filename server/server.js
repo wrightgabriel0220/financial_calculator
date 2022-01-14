@@ -14,22 +14,25 @@ app.use(express.static(path.join(config.root, 'client/dist')));
 app.post('/renters/get', (req, res) => {
   db.getRentersForGroup(req.body.groupCode).then(results => {
     res.send(results.map(renter => {
-      console.log('renter data: ', renter);
       renter.hourly_wages = Number(renter.hourly_wages);
       return renter;
     }));
   }).catch(err => {
     res.status(404);
-    res.end(err);
+    res.send(err);
   });
 });
 
 app.get('/listings', (req, res) => {
   db.getDataFor('listings').then(results => {
-    res.send(results.rows);
+    res.send(results.rows.map(listing => {
+      listing.bathrooms = Number(listing.bathrooms);
+      return listing; //
+    }));
   }).catch(err => {
     res.status(404);
-    res.end(err);
+    console.error(err);
+    res.send(err);
   });
 });
 
@@ -111,7 +114,6 @@ app.get('/users', (req, res) => {
 
 app.get('/users/:username', (req, res) => {
   db.getUserInfoFor(req.params.username).then(results => {
-    console.log('results: ', results);
     res.send(results);
   }).catch(err => {
     res.status(500);
@@ -130,7 +132,6 @@ app.post('/users/register', (req, res) => {
 
 app.put('/users/firstlog', (req, res) => {
   db.editRow('users', req.body.userId, 'has_logged_once', 'true').then(results => {
-    console.log(results);
     res.send(results);
   }).catch(err => {
     res.status(500);

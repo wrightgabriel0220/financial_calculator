@@ -9,7 +9,6 @@ const Listing = ({ renters, listingData, focusListing, update }) => {
   React.useEffect(() => {
     const renterShareTracker = {};
     for (const renter of renters) {
-      console.log(renter);
       renterShareTracker[renter.name] = getRenterShare(renter);
     }
     

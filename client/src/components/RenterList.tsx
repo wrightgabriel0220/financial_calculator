@@ -14,7 +14,6 @@ const RenterList = ({ update }) => {
   const [totalCats] = React.useState(renters.map(renter => renter.cat_count).reduce((a, b) => a + b));
 
   const deleteRenter = renterID => {
-    console.log('Deleting renter with id: ', renterID);
     axios.delete('/renters', { headers: {}, data: { id: Number(renterID) } })
       .then(() => {
         update();
