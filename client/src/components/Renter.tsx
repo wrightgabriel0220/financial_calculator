@@ -7,7 +7,6 @@ const Renter = ({
   renterData,
   update,
   setModalContent,
-  deleteRenter,
 }) => {
   const changeRenter = renter => {
     axios.put('/renters', {
@@ -47,11 +46,6 @@ const Renter = ({
       <td>{renterData.cat_count}</td>
       <td>{renterData.share}</td>
       <td>{Math.round(renterData.hourly_wages * renterData.hours_working * 4.33333333333 * 0.3)}</td>
-      <td>
-        <button type="button" className="delete-button" onClick={deleteRenter.bind(null, renterData.id)}>
-          X
-        </button>
-      </td>
     </tr>
   );
 };
@@ -68,7 +62,6 @@ Renter.propTypes = {
   }).isRequired,
   update: PropTypes.func.isRequired,
   setModalContent: PropTypes.func.isRequired,
-  deleteRenter: PropTypes.func.isRequired,
 };
 
 export default Renter;

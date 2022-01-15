@@ -40923,7 +40923,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var Renter = function (_a) {
-    var renterData = _a.renterData, update = _a.update, setModalContent = _a.setModalContent, deleteRenter = _a.deleteRenter;
+    var renterData = _a.renterData, update = _a.update, setModalContent = _a.setModalContent;
     var changeRenter = function (renter) {
         axios__WEBPACK_IMPORTED_MODULE_1___default().put('/renters', {
             id: renterData.id,
@@ -40957,9 +40957,7 @@ var Renter = function (_a) {
         react__WEBPACK_IMPORTED_MODULE_0__.createElement("td", null, renterData.dog_count),
         react__WEBPACK_IMPORTED_MODULE_0__.createElement("td", null, renterData.cat_count),
         react__WEBPACK_IMPORTED_MODULE_0__.createElement("td", null, renterData.share),
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement("td", null, Math.round(renterData.hourly_wages * renterData.hours_working * 4.33333333333 * 0.3)),
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement("td", null,
-            react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", { type: "button", className: "delete-button", onClick: deleteRenter.bind(null, renterData.id) }, "X"))));
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement("td", null, Math.round(renterData.hourly_wages * renterData.hours_working * 4.33333333333 * 0.3))));
 };
 Renter.propTypes = {
     renterData: prop_types__WEBPACK_IMPORTED_MODULE_3__.shape({
@@ -40973,7 +40971,6 @@ Renter.propTypes = {
     }).isRequired,
     update: prop_types__WEBPACK_IMPORTED_MODULE_3__.func.isRequired,
     setModalContent: prop_types__WEBPACK_IMPORTED_MODULE_3__.func.isRequired,
-    deleteRenter: prop_types__WEBPACK_IMPORTED_MODULE_3__.func.isRequired,
 };
 /* harmony default export */ __webpack_exports__["default"] = (Renter);
 
@@ -40989,14 +40986,11 @@ Renter.propTypes = {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
-/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_5__);
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _Renter__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Renter */ "./client/src/components/Renter.tsx");
-/* harmony import */ var _hooks__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../hooks */ "./client/src/hooks.ts");
-/* harmony import */ var _actions__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../actions */ "./client/src/actions.js");
-
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var _Renter__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Renter */ "./client/src/components/Renter.tsx");
+/* harmony import */ var _hooks__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../hooks */ "./client/src/hooks.ts");
+/* harmony import */ var _actions__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../actions */ "./client/src/actions.js");
 
 
 
@@ -41004,20 +40998,11 @@ __webpack_require__.r(__webpack_exports__);
 
 var RenterList = function (_a) {
     var update = _a.update;
-    var dispatch = (0,_hooks__WEBPACK_IMPORTED_MODULE_3__.useAppDispatch)();
-    var maxRent = (0,_hooks__WEBPACK_IMPORTED_MODULE_3__.useAppSelector)(function (state) { return state.maxRent; });
-    var renters = (0,_hooks__WEBPACK_IMPORTED_MODULE_3__.useAppSelector)(function (state) { return state.renters; });
+    var dispatch = (0,_hooks__WEBPACK_IMPORTED_MODULE_2__.useAppDispatch)();
+    var maxRent = (0,_hooks__WEBPACK_IMPORTED_MODULE_2__.useAppSelector)(function (state) { return state.maxRent; });
+    var renters = (0,_hooks__WEBPACK_IMPORTED_MODULE_2__.useAppSelector)(function (state) { return state.renters; });
     var totalDogs = react__WEBPACK_IMPORTED_MODULE_0__.useState(renters.map(function (renter) { return renter.dog_count; }).reduce(function (a, b) { return a + b; }))[0];
     var totalCats = react__WEBPACK_IMPORTED_MODULE_0__.useState(renters.map(function (renter) { return renter.cat_count; }).reduce(function (a, b) { return a + b; }))[0];
-    var deleteRenter = function (renterID) {
-        axios__WEBPACK_IMPORTED_MODULE_1___default()["delete"]('/renters', { headers: {}, data: { id: Number(renterID) } })
-            .then(function () {
-            update();
-        })
-            .catch(function (err) {
-            console.error(err);
-        });
-    };
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", { id: "renters-tab" },
         react__WEBPACK_IMPORTED_MODULE_0__.createElement("table", { id: "renter-table" },
             react__WEBPACK_IMPORTED_MODULE_0__.createElement("thead", null,
@@ -41042,10 +41027,10 @@ var RenterList = function (_a) {
                     react__WEBPACK_IMPORTED_MODULE_0__.createElement("td", null, totalCats),
                     react__WEBPACK_IMPORTED_MODULE_0__.createElement("td", null),
                     react__WEBPACK_IMPORTED_MODULE_0__.createElement("td", null, maxRent)),
-                renters.map(function (renter, index) { return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Renter__WEBPACK_IMPORTED_MODULE_2__["default"], { update: update, setModalContent: function (content) { dispatch(_actions__WEBPACK_IMPORTED_MODULE_4__["default"].doChangeModalContent(content)); }, deleteRenter: deleteRenter, renterData: renter, key: "".concat(renter.name + index) })); })))));
+                renters.map(function (renter, index) { return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Renter__WEBPACK_IMPORTED_MODULE_1__["default"], { update: update, setModalContent: function (content) { dispatch(_actions__WEBPACK_IMPORTED_MODULE_3__["default"].doChangeModalContent(content)); }, renterData: renter, key: "".concat(renter.name + index) })); })))));
 };
 RenterList.propTypes = {
-    update: prop_types__WEBPACK_IMPORTED_MODULE_5__.func.isRequired,
+    update: prop_types__WEBPACK_IMPORTED_MODULE_4__.func.isRequired,
 };
 /* harmony default export */ __webpack_exports__["default"] = (RenterList);
 

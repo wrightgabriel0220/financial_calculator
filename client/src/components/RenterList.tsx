@@ -13,16 +13,6 @@ const RenterList = ({ update }) => {
   const [totalDogs] = React.useState(renters.map(renter => renter.dog_count).reduce((a, b) => a + b));
   const [totalCats] = React.useState(renters.map(renter => renter.cat_count).reduce((a, b) => a + b));
 
-  const deleteRenter = renterID => {
-    axios.delete('/renters', { headers: {}, data: { id: Number(renterID) } })
-      .then(() => {
-        update();
-      })
-      .catch(err => {
-        console.error(err);
-      });
-  };
-
   return (
     <div id="renters-tab">
       <table id="renter-table">
@@ -55,7 +45,6 @@ const RenterList = ({ update }) => {
             <Renter
               update={update}
               setModalContent={content => { dispatch(actions.doChangeModalContent(content)); }}
-              deleteRenter={deleteRenter}
               renterData={renter}
               key={`${renter.name + index}`}
             />
