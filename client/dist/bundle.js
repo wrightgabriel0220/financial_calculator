@@ -40464,50 +40464,6 @@ AddListing.propTypes = {
 
 /***/ }),
 
-/***/ "./client/src/components/AddRenter.tsx":
-/*!*********************************************!*\
-  !*** ./client/src/components/AddRenter.tsx ***!
-  \*********************************************/
-/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
-/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_5__);
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _modals_AddRenterModal__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./modals/AddRenterModal */ "./client/src/components/modals/AddRenterModal.tsx");
-/* harmony import */ var _hooks__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../hooks */ "./client/src/hooks.ts");
-/* harmony import */ var _actions__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../actions */ "./client/src/actions.js");
-
-
-
-
-
-
-var AddRenter = function (_a) {
-    var update = _a.update;
-    var dispatch = (0,_hooks__WEBPACK_IMPORTED_MODULE_3__.useAppDispatch)();
-    var submitRenter = function (renter) { return (axios__WEBPACK_IMPORTED_MODULE_1___default().post('/renters', renter)
-        .then(function (results) {
-        update();
-        return results;
-    })
-        .catch(function (err) { return err; })); };
-    var addRenter = function () {
-        dispatch(_actions__WEBPACK_IMPORTED_MODULE_4__["default"].doChangeModalContent(react__WEBPACK_IMPORTED_MODULE_0__.createElement(_modals_AddRenterModal__WEBPACK_IMPORTED_MODULE_2__["default"], { submitRenter: submitRenter, closeModal: function () { dispatch(_actions__WEBPACK_IMPORTED_MODULE_4__["default"].doChangeModalContent(null)); } })));
-    };
-    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", { type: "submit", onClick: addRenter }, "Add Renter"));
-};
-AddRenter.propTypes = {
-    update: prop_types__WEBPACK_IMPORTED_MODULE_5__.func.isRequired,
-};
-/* harmony default export */ __webpack_exports__["default"] = (AddRenter);
-
-
-/***/ }),
-
 /***/ "./client/src/components/App/App.tsx":
 /*!*******************************************!*\
   !*** ./client/src/components/App/App.tsx ***!
@@ -41281,77 +41237,6 @@ AddListingModal.propTypes = {
 
 /***/ }),
 
-/***/ "./client/src/components/modals/AddRenterModal.tsx":
-/*!*********************************************************!*\
-  !*** ./client/src/components/modals/AddRenterModal.tsx ***!
-  \*********************************************************/
-/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
-/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_1__);
-
-
-var AddRenterModal = function (_a) {
-    var submitRenter = _a.submitRenter, closeModal = _a.closeModal;
-    var submitHandler = function (event) {
-        var _a, _b, _c, _d, _e, _f;
-        event.preventDefault();
-        var form = document.getElementById('modal');
-        var getAndCastInputElementById = function (id) { return document.getElementById(id); };
-        if (form.checkValidity()) {
-            submitRenter({
-                name: (_a = getAndCastInputElementById('name-input')) === null || _a === void 0 ? void 0 : _a.value,
-                hourly: Number((_b = getAndCastInputElementById('hourly-rate-input')) === null || _b === void 0 ? void 0 : _b.value),
-                hours: Number((_c = getAndCastInputElementById('hours-working-input')) === null || _c === void 0 ? void 0 : _c.value),
-                dogs: Number((_d = getAndCastInputElementById('dog-count-input')) === null || _d === void 0 ? void 0 : _d.value) || 0,
-                cats: Number((_e = getAndCastInputElementById('cat-count-input')) === null || _e === void 0 ? void 0 : _e.value) || 0,
-                percentageShare: Number((_f = getAndCastInputElementById('share-input')) === null || _f === void 0 ? void 0 : _f.value) || 0,
-            })
-                .then(function () {
-                closeModal();
-            })
-                .catch(function () {
-                console.log('Failed to submit renter data! Try again');
-            });
-        }
-        else {
-            form.reportValidity();
-        }
-    };
-    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement("form", { id: "modal" },
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement("h2", null, "Add Renter"),
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement("label", { htmlFor: "name-input", className: "form-element" },
-            "Name:",
-            react__WEBPACK_IMPORTED_MODULE_0__.createElement("input", { id: "name-input", required: true, type: "text" })),
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement("label", { htmlFor: "hourly-rate-input", className: "form-element" },
-            "Hourly Rate:",
-            react__WEBPACK_IMPORTED_MODULE_0__.createElement("input", { id: "hourly-rate-input", required: true, type: "text" })),
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement("label", { htmlFor: "hours-working-input", className: "form-element" },
-            "Hours Working:",
-            react__WEBPACK_IMPORTED_MODULE_0__.createElement("input", { id: "hours-working-input", required: true, type: "text" })),
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement("label", { htmlFor: "dog-count-input", className: "form-element" },
-            "# of Dogs:",
-            react__WEBPACK_IMPORTED_MODULE_0__.createElement("input", { id: "dog-count-input", type: "text" })),
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement("label", { htmlFor: "cat-count-input", className: "form-element" },
-            "# of Cats:",
-            react__WEBPACK_IMPORTED_MODULE_0__.createElement("input", { id: "cat-count-input", type: "text" })),
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement("label", { htmlFor: "share-input", className: "form-element" },
-            "Share of Rent (decimal from 0 to 1):",
-            react__WEBPACK_IMPORTED_MODULE_0__.createElement("input", { disabled: true, id: "share-input", type: "text" })),
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", { type: "submit", onClick: submitHandler }, "Submit")));
-};
-AddRenterModal.propTypes = {
-    submitRenter: prop_types__WEBPACK_IMPORTED_MODULE_1__.func.isRequired,
-    closeModal: prop_types__WEBPACK_IMPORTED_MODULE_1__.func.isRequired,
-};
-/* harmony default export */ __webpack_exports__["default"] = (AddRenterModal);
-
-
-/***/ }),
-
 /***/ "./client/src/components/modals/EditRenterModal.tsx":
 /*!**********************************************************!*\
   !*** ./client/src/components/modals/EditRenterModal.tsx ***!
@@ -41487,15 +41372,13 @@ var ReportIssueModal = function () {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
-/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_7__);
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_6__);
 /* harmony import */ var _RenterList__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../RenterList */ "./client/src/components/RenterList.tsx");
 /* harmony import */ var _ListingList__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../ListingList */ "./client/src/components/ListingList.tsx");
-/* harmony import */ var _AddRenter__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../AddRenter */ "./client/src/components/AddRenter.tsx");
-/* harmony import */ var _AddListing__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../AddListing */ "./client/src/components/AddListing.tsx");
-/* harmony import */ var _Modal__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../Modal */ "./client/src/components/Modal.tsx");
-/* harmony import */ var _InfoTab__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../InfoTab */ "./client/src/components/InfoTab.tsx");
-
+/* harmony import */ var _AddListing__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../AddListing */ "./client/src/components/AddListing.tsx");
+/* harmony import */ var _Modal__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../Modal */ "./client/src/components/Modal.tsx");
+/* harmony import */ var _InfoTab__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../InfoTab */ "./client/src/components/InfoTab.tsx");
 
 
 
@@ -41506,19 +41389,18 @@ __webpack_require__.r(__webpack_exports__);
 var DashboardPage = function (_a) {
     var updateRenterList = _a.updateRenterList, updateListingList = _a.updateListingList, focusListingById = _a.focusListingById;
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement("section", { id: "dashboard" },
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Modal__WEBPACK_IMPORTED_MODULE_5__["default"], null),
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Modal__WEBPACK_IMPORTED_MODULE_4__["default"], null),
         react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", { id: "page-body" },
             react__WEBPACK_IMPORTED_MODULE_0__.createElement("section", { id: "lists" },
                 react__WEBPACK_IMPORTED_MODULE_0__.createElement(_RenterList__WEBPACK_IMPORTED_MODULE_1__["default"], { update: updateRenterList }),
                 react__WEBPACK_IMPORTED_MODULE_0__.createElement(_ListingList__WEBPACK_IMPORTED_MODULE_2__["default"], { update: updateListingList, focusListing: function (id) { focusListingById(id); } }),
-                react__WEBPACK_IMPORTED_MODULE_0__.createElement(_AddRenter__WEBPACK_IMPORTED_MODULE_3__["default"], { update: updateRenterList }),
-                react__WEBPACK_IMPORTED_MODULE_0__.createElement(_AddListing__WEBPACK_IMPORTED_MODULE_4__["default"], { update: updateListingList })),
-            react__WEBPACK_IMPORTED_MODULE_0__.createElement(_InfoTab__WEBPACK_IMPORTED_MODULE_6__["default"], null))));
+                react__WEBPACK_IMPORTED_MODULE_0__.createElement(_AddListing__WEBPACK_IMPORTED_MODULE_3__["default"], { update: updateListingList })),
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(_InfoTab__WEBPACK_IMPORTED_MODULE_5__["default"], null))));
 };
 DashboardPage.propTypes = {
-    updateRenterList: prop_types__WEBPACK_IMPORTED_MODULE_7__.func.isRequired,
-    updateListingList: prop_types__WEBPACK_IMPORTED_MODULE_7__.func.isRequired,
-    focusListingById: prop_types__WEBPACK_IMPORTED_MODULE_7__.func.isRequired,
+    updateRenterList: prop_types__WEBPACK_IMPORTED_MODULE_6__.func.isRequired,
+    updateListingList: prop_types__WEBPACK_IMPORTED_MODULE_6__.func.isRequired,
+    focusListingById: prop_types__WEBPACK_IMPORTED_MODULE_6__.func.isRequired,
 };
 /* harmony default export */ __webpack_exports__["default"] = (DashboardPage);
 
