@@ -23,7 +23,8 @@ const Navbar = ({ logout }) => {
       <div id="navbar">
         <h1>HOUSECALC</h1>
         <span>
-          Hello, {activeRenter ? activeRenter.name : 'New User'}!
+          Hello, {activeRenter ? activeRenter.name : 'New User'}!<br/>
+          {activeUser.is_host ? <b>Group Code: {activeUser.group_code}</b> : null}
         </span>
         <span id="navbar-buttons">
           <button type="button" id="report-issue-button" onClick={reportHandler}>Report Issue</button>
