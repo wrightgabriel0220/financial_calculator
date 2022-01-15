@@ -40542,7 +40542,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
-var doChangeRenterList = _actions_js__WEBPACK_IMPORTED_MODULE_9__["default"].doChangeRenterList, doChangeListingList = _actions_js__WEBPACK_IMPORTED_MODULE_9__["default"].doChangeListingList, doChangeFocusedListing = _actions_js__WEBPACK_IMPORTED_MODULE_9__["default"].doChangeFocusedListing, doChangeMaxRent = _actions_js__WEBPACK_IMPORTED_MODULE_9__["default"].doChangeMaxRent, doChangeActiveUser = _actions_js__WEBPACK_IMPORTED_MODULE_9__["default"].doChangeActiveUser, doChangeActiveRenter = _actions_js__WEBPACK_IMPORTED_MODULE_9__["default"].doChangeActiveRenter;
+var doToggleInfoTabHidden = _actions_js__WEBPACK_IMPORTED_MODULE_9__["default"].doToggleInfoTabHidden, doChangeRenterList = _actions_js__WEBPACK_IMPORTED_MODULE_9__["default"].doChangeRenterList, doChangeListingList = _actions_js__WEBPACK_IMPORTED_MODULE_9__["default"].doChangeListingList, doChangeFocusedListing = _actions_js__WEBPACK_IMPORTED_MODULE_9__["default"].doChangeFocusedListing, doChangeMaxRent = _actions_js__WEBPACK_IMPORTED_MODULE_9__["default"].doChangeMaxRent, doChangeActiveUser = _actions_js__WEBPACK_IMPORTED_MODULE_9__["default"].doChangeActiveUser, doChangeActiveRenter = _actions_js__WEBPACK_IMPORTED_MODULE_9__["default"].doChangeActiveRenter;
 var App = function () {
     var renters = (0,_hooks__WEBPACK_IMPORTED_MODULE_8__.useAppSelector)(function (state) { return state.renters; });
     var listings = (0,_hooks__WEBPACK_IMPORTED_MODULE_8__.useAppSelector)(function (state) { return state.listings; });
@@ -40583,7 +40583,10 @@ var App = function () {
         dispatch(doChangeActiveRenter(renters.find(function (renter) { return renter.name === activeUser.first_name; })));
     }, [renters]);
     var logout = function () {
+        // Unsubscribe from asynchronously retrieved datasets and disable user-dependent UI features
         dispatch(doChangeActiveUser(null));
+        dispatch(doChangeListingList([]));
+        dispatch(doToggleInfoTabHidden(true));
     };
     var updateRenterList = function () { return (axios.post('/renters/get', { groupCode: activeUser.group_code })
         .then(function (rentersInDB) {
@@ -41183,7 +41186,7 @@ RenterProfile.propTypes = {
         address: prop_types__WEBPACK_IMPORTED_MODULE_3__.string.isRequired,
         id: prop_types__WEBPACK_IMPORTED_MODULE_3__.number.isRequired,
         summary: prop_types__WEBPACK_IMPORTED_MODULE_3__.string.isRequired,
-    }).isRequired,
+    }),
 };
 /* harmony default export */ __webpack_exports__["default"] = (RenterProfile);
 

@@ -20,6 +20,7 @@ import actions from '../../actions.js';
 const axios = require('axios');
 
 const {
+  doToggleInfoTabHidden,
   doChangeRenterList,
   doChangeListingList,
   doChangeFocusedListing,
@@ -76,7 +77,11 @@ const App = () => {
   }, [renters]);
 
   const logout = () => {
+    // Unsubscribe from asynchronously retrieved datasets and disable user-dependent UI features
+
     dispatch(doChangeActiveUser(null));
+    dispatch(doChangeListingList([]));
+    dispatch(doToggleInfoTabHidden(true));
   };
 
   const updateRenterList = () => (

@@ -108,7 +108,7 @@ RenterProfile.propTypes = {
     address: PropTypes.string.isRequired,
     id: PropTypes.number.isRequired,
     summary: PropTypes.string.isRequired,
-  }).isRequired,
+  }),
 };
 
 export default RenterProfile;
