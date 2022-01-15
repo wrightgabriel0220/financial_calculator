@@ -40704,13 +40704,13 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var InfoTab = function () {
-    var _a;
+    var _a, _b;
     var activeUser = (0,_hooks__WEBPACK_IMPORTED_MODULE_2__.useAppSelector)(function (state) { return state.activeUser; });
     var activeRenter = (0,_hooks__WEBPACK_IMPORTED_MODULE_2__.useAppSelector)(function (state) { return state.activeRenter; });
     var isHidden = (0,_hooks__WEBPACK_IMPORTED_MODULE_2__.useAppSelector)(function (state) { return state.infoTabHidden; });
     var focusedListing = (0,_hooks__WEBPACK_IMPORTED_MODULE_2__.useAppSelector)(function (state) { return state.focusedListing; });
     var listings = (0,_hooks__WEBPACK_IMPORTED_MODULE_2__.useAppSelector)(function (state) { return state.listings; });
-    return isHidden ? null : (react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", { id: "info-tab" }, listings[0] ? react__WEBPACK_IMPORTED_MODULE_0__.createElement(_RenterProfile__WEBPACK_IMPORTED_MODULE_1__["default"], { moveInCost: Number((_a = Array.from(document.getElementsByClassName("moveInCost".concat(activeRenter.name)))[0].textContent) === null || _a === void 0 ? void 0 : _a.slice(1)) || 0, listing: focusedListing, renter: activeRenter, activeUser: activeUser }) : 'There is no info to display. Try adding a listing!'));
+    return isHidden ? null : (react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", { id: "info-tab" }, listings[0] ? react__WEBPACK_IMPORTED_MODULE_0__.createElement(_RenterProfile__WEBPACK_IMPORTED_MODULE_1__["default"], { moveInCost: Number((_b = (_a = Array.from(document.getElementsByClassName("moveInCost".concat(activeRenter.name)))[0]) === null || _a === void 0 ? void 0 : _a.textContent) === null || _b === void 0 ? void 0 : _b.slice(1)) || 0, listing: focusedListing, renter: activeRenter, activeUser: activeUser }) : 'There is no info to display. Try adding a listing!'));
 };
 /* harmony default export */ __webpack_exports__["default"] = (InfoTab);
 

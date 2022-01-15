@@ -14,7 +14,7 @@ const InfoTab = () => {
       {listings[0] ?<RenterProfile
         moveInCost={
           Number(
-            Array.from(document.getElementsByClassName(`moveInCost${activeRenter.name}`))[0].textContent?.slice(1),
+            Array.from(document.getElementsByClassName(`moveInCost${activeRenter.name}`))[0]?.textContent?.slice(1),
           ) || 0
         }
         listing={focusedListing}
