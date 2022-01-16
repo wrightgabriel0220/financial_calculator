@@ -23,7 +23,7 @@ const {
   doToggleInfoTabHidden,
   doChangeRenterList,
   doChangeListingList,
-  doChangeFocusedListing,
+  doChangeFocusedListingId,
   doChangeMaxRent,
   doChangeActiveUser,
   doChangeActiveRenter,
@@ -32,7 +32,7 @@ const {
 const App = () => {
   const renters = useAppSelector(state => state.renters);
   const listings = useAppSelector(state => state.listings);
-  const focusedListing = useAppSelector(state => state.focusedListing);
+  const focusedListingId = useAppSelector(state => state.focusedListingId);
   const activeUser = useAppSelector(state => state.activeUser);
   const [basePage, setBasePage] = React.useState(<div />);
   const [isLoading, setIsLoading] = React.useState(Boolean(activeUser));
@@ -50,9 +50,9 @@ const App = () => {
   }, []);
 
   React.useEffect(() => {
-    if (focusedListing) {
-      if (listings.filter(listing => listing.address === focusedListing.address).length === 0) {
-        dispatch(doChangeFocusedListing(null));
+    if (focusedListingId) {
+      if (listings.filter(listing => listing.id === focusedListingId).length === 0) {
+        dispatch(doChangeFocusedListingId(null));
       }
     }
   }, [listings]);
@@ -75,6 +75,10 @@ const App = () => {
   React.useEffect(() => {
     dispatch(doChangeActiveRenter(renters.find(renter => renter.name === activeUser.first_name)));
   }, [renters]);
+
+  React.useEffect(() => {
+    console.log('new focused listing id: ', focusedListingId);
+  }, [focusedListingId])
 
   const logout = () => {
     // Unsubscribe from asynchronously retrieved datasets and disable user-dependent UI features
@@ -123,7 +127,12 @@ const App = () => {
   );
 
   const focusListingById = id => {
-    dispatch(doChangeFocusedListing(listings.filter(listing => listing.id === id)[0]));
+    console.log('Changing focused listing id to ', id);
+    dispatch(doChangeFocusedListingId(id));
+
+    // console.log('target listing id: ', id);
+    // console.log('listing list: ', listings);
+    // dispatch(doChangeFocusedListing(listings.find(listing => {return listing.id === id})));
   };
 
   const getBasePage = () => {

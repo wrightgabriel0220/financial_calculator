@@ -40402,7 +40402,7 @@ var doChange = function (type, payload) { return ({ type: type, payload: payload
 /* harmony default export */ __webpack_exports__["default"] = ({
     doChangeRenterList: function (payload) { return doChange('renters', payload); },
     doChangeListingList: function (payload) { return doChange('listings', payload); },
-    doChangeFocusedListing: function (payload) { return doChange('focusedListing', payload); },
+    doChangeFocusedListingId: function (payload) { return doChange('focusedListingId', payload); },
     doChangeMaxRent: function (payload) { return doChange('maxRent', payload); },
     doChangeActiveUser: function (payload) { return doChange('activeUser', payload); },
     doChangeActiveRenter: function (payload) { return doChange('activeRenter', payload); },
@@ -40498,11 +40498,11 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
-var doToggleInfoTabHidden = _actions_js__WEBPACK_IMPORTED_MODULE_9__["default"].doToggleInfoTabHidden, doChangeRenterList = _actions_js__WEBPACK_IMPORTED_MODULE_9__["default"].doChangeRenterList, doChangeListingList = _actions_js__WEBPACK_IMPORTED_MODULE_9__["default"].doChangeListingList, doChangeFocusedListing = _actions_js__WEBPACK_IMPORTED_MODULE_9__["default"].doChangeFocusedListing, doChangeMaxRent = _actions_js__WEBPACK_IMPORTED_MODULE_9__["default"].doChangeMaxRent, doChangeActiveUser = _actions_js__WEBPACK_IMPORTED_MODULE_9__["default"].doChangeActiveUser, doChangeActiveRenter = _actions_js__WEBPACK_IMPORTED_MODULE_9__["default"].doChangeActiveRenter;
+var doToggleInfoTabHidden = _actions_js__WEBPACK_IMPORTED_MODULE_9__["default"].doToggleInfoTabHidden, doChangeRenterList = _actions_js__WEBPACK_IMPORTED_MODULE_9__["default"].doChangeRenterList, doChangeListingList = _actions_js__WEBPACK_IMPORTED_MODULE_9__["default"].doChangeListingList, doChangeFocusedListingId = _actions_js__WEBPACK_IMPORTED_MODULE_9__["default"].doChangeFocusedListingId, doChangeMaxRent = _actions_js__WEBPACK_IMPORTED_MODULE_9__["default"].doChangeMaxRent, doChangeActiveUser = _actions_js__WEBPACK_IMPORTED_MODULE_9__["default"].doChangeActiveUser, doChangeActiveRenter = _actions_js__WEBPACK_IMPORTED_MODULE_9__["default"].doChangeActiveRenter;
 var App = function () {
     var renters = (0,_hooks__WEBPACK_IMPORTED_MODULE_8__.useAppSelector)(function (state) { return state.renters; });
     var listings = (0,_hooks__WEBPACK_IMPORTED_MODULE_8__.useAppSelector)(function (state) { return state.listings; });
-    var focusedListing = (0,_hooks__WEBPACK_IMPORTED_MODULE_8__.useAppSelector)(function (state) { return state.focusedListing; });
+    var focusedListingId = (0,_hooks__WEBPACK_IMPORTED_MODULE_8__.useAppSelector)(function (state) { return state.focusedListingId; });
     var activeUser = (0,_hooks__WEBPACK_IMPORTED_MODULE_8__.useAppSelector)(function (state) { return state.activeUser; });
     var _a = react__WEBPACK_IMPORTED_MODULE_0__.useState(react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null)), basePage = _a[0], setBasePage = _a[1];
     var _b = react__WEBPACK_IMPORTED_MODULE_0__.useState(Boolean(activeUser)), isLoading = _b[0], setIsLoading = _b[1];
@@ -40515,9 +40515,9 @@ var App = function () {
         }
     }, []);
     react__WEBPACK_IMPORTED_MODULE_0__.useEffect(function () {
-        if (focusedListing) {
-            if (listings.filter(function (listing) { return listing.address === focusedListing.address; }).length === 0) {
-                dispatch(doChangeFocusedListing(null));
+        if (focusedListingId) {
+            if (listings.filter(function (listing) { return listing.id === focusedListingId; }).length === 0) {
+                dispatch(doChangeFocusedListingId(null));
             }
         }
     }, [listings]);
@@ -40538,6 +40538,9 @@ var App = function () {
     react__WEBPACK_IMPORTED_MODULE_0__.useEffect(function () {
         dispatch(doChangeActiveRenter(renters.find(function (renter) { return renter.name === activeUser.first_name; })));
     }, [renters]);
+    react__WEBPACK_IMPORTED_MODULE_0__.useEffect(function () {
+        console.log('new focused listing id: ', focusedListingId);
+    }, [focusedListingId]);
     var logout = function () {
         // Unsubscribe from asynchronously retrieved datasets and disable user-dependent UI features
         dispatch(doChangeActiveUser(null));
@@ -40567,7 +40570,11 @@ var App = function () {
         console.error(err);
     })); };
     var focusListingById = function (id) {
-        dispatch(doChangeFocusedListing(listings.filter(function (listing) { return listing.id === id; })[0]));
+        console.log('Changing focused listing id to ', id);
+        dispatch(doChangeFocusedListingId(id));
+        // console.log('target listing id: ', id);
+        // console.log('listing list: ', listings);
+        // dispatch(doChangeFocusedListing(listings.find(listing => {return listing.id === id})));
     };
     var getBasePage = function () {
         if (activeUser !== null) {
@@ -40664,9 +40671,9 @@ var InfoTab = function () {
     var activeUser = (0,_hooks__WEBPACK_IMPORTED_MODULE_2__.useAppSelector)(function (state) { return state.activeUser; });
     var activeRenter = (0,_hooks__WEBPACK_IMPORTED_MODULE_2__.useAppSelector)(function (state) { return state.activeRenter; });
     var isHidden = (0,_hooks__WEBPACK_IMPORTED_MODULE_2__.useAppSelector)(function (state) { return state.infoTabHidden; });
-    var focusedListing = (0,_hooks__WEBPACK_IMPORTED_MODULE_2__.useAppSelector)(function (state) { return state.focusedListing; });
+    var focusedListingId = (0,_hooks__WEBPACK_IMPORTED_MODULE_2__.useAppSelector)(function (state) { return state.focusedListingId; });
     var listings = (0,_hooks__WEBPACK_IMPORTED_MODULE_2__.useAppSelector)(function (state) { return state.listings; });
-    return isHidden ? null : (react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", { id: "info-tab" }, listings[0] ? react__WEBPACK_IMPORTED_MODULE_0__.createElement(_RenterProfile__WEBPACK_IMPORTED_MODULE_1__["default"], { moveInCost: Number((_b = (_a = Array.from(document.getElementsByClassName("moveInCost".concat(activeRenter.name)))[0]) === null || _a === void 0 ? void 0 : _a.textContent) === null || _b === void 0 ? void 0 : _b.slice(1)) || 0, listing: focusedListing, renter: activeRenter, activeUser: activeUser }) : 'There is no info to display. Try adding a listing!'));
+    return isHidden ? null : (react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", { id: "info-tab" }, listings[0] ? react__WEBPACK_IMPORTED_MODULE_0__.createElement(_RenterProfile__WEBPACK_IMPORTED_MODULE_1__["default"], { moveInCost: Number((_b = (_a = Array.from(document.getElementsByClassName("moveInCost".concat(activeRenter.name)))[0]) === null || _a === void 0 ? void 0 : _a.textContent) === null || _b === void 0 ? void 0 : _b.slice(1)) || 0, listing: listings.find(function (listing) { return listing.id === focusedListingId; }), renter: activeRenter, activeUser: activeUser }) : 'There is no info to display. Try adding a listing!'));
 };
 /* harmony default export */ __webpack_exports__["default"] = (InfoTab);
 
@@ -40720,7 +40727,7 @@ var Listing = function (_a) {
     return (
     // TODO: Fix this li for accessbility
     // eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions, jsx-a11y/click-events-have-key-events
-    react__WEBPACK_IMPORTED_MODULE_1__.createElement("li", { className: "listing", onClick: focusListing ? focusListing.bind(null, listingData.id) : null },
+    react__WEBPACK_IMPORTED_MODULE_1__.createElement("li", { className: "listing", onClick: focusListing.bind(null, listingData.id) },
         react__WEBPACK_IMPORTED_MODULE_1__.createElement("div", { className: "listing-card" },
             react__WEBPACK_IMPORTED_MODULE_1__.createElement("div", null,
                 "Address:",
@@ -41839,7 +41846,7 @@ var __assign = (undefined && undefined.__assign) || function () {
 var initialState = {
     renters: [],
     listings: [],
-    focusedListing: null,
+    focusedListingId: null,
     maxRent: 0,
     activeUser: null,
     activeRenter: null,
@@ -41855,8 +41862,8 @@ function rootReducer(state, action) {
         case 'listings': {
             return __assign(__assign({}, state), { listings: action.payload });
         }
-        case 'focusedListing': {
-            return __assign(__assign({}, state), { focusedListing: action.payload });
+        case 'focusedListingId': {
+            return __assign(__assign({}, state), { focusedListingId: action.payload });
         }
         case 'modalContent': {
             return __assign(__assign({}, state), { modalContent: action.payload });

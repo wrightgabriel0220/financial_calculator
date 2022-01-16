@@ -3,7 +3,7 @@ const doChange = (type, payload) => ({ type, payload });
 export default {
   doChangeRenterList: payload => doChange('renters', payload),
   doChangeListingList: payload => doChange('listings', payload),
-  doChangeFocusedListing: payload => doChange('focusedListing', payload),
+  doChangeFocusedListingId: payload => doChange('focusedListingId', payload),
   doChangeMaxRent: payload => doChange('maxRent', payload),
   doChangeActiveUser: payload => doChange('activeUser', payload),
   doChangeActiveRenter: payload => doChange('activeRenter', payload),

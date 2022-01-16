@@ -6,7 +6,7 @@ const InfoTab = () => {
   const activeUser = useAppSelector(state => state.activeUser);
   const activeRenter = useAppSelector(state => state.activeRenter);
   const isHidden = useAppSelector(state => state.infoTabHidden);
-  const focusedListing = useAppSelector(state => state.focusedListing);
+  const focusedListingId = useAppSelector(state => state.focusedListingId);
   const listings = useAppSelector(state => state.listings);
 
   return isHidden ? null : (
@@ -17,7 +17,7 @@ const InfoTab = () => {
             Array.from(document.getElementsByClassName(`moveInCost${activeRenter.name}`))[0]?.textContent?.slice(1),
           ) || 0
         }
-        listing={focusedListing}
+        listing={listings.find(listing => listing.id === focusedListingId)}
         renter={activeRenter}
         activeUser={activeUser}
       /> : 'There is no info to display. Try adding a listing!'}

@@ -37,7 +37,7 @@ const Listing = ({ renters, listingData, focusListing, update }) => {
   return (
     // TODO: Fix this li for accessbility
     // eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions, jsx-a11y/click-events-have-key-events
-    <li className="listing" onClick={focusListing ? focusListing.bind(null, listingData.id) : null}>
+    <li className="listing" onClick={focusListing.bind(null, listingData.id)}>
       <div className="listing-card">
         <div>
           Address:

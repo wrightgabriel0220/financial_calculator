@@ -1,7 +1,7 @@
 const initialState = {
   renters: [],
   listings: [],
-  focusedListing: null,
+  focusedListingId: null,
   maxRent: 0,
   activeUser: null,
   activeRenter: null,
@@ -23,10 +23,10 @@ export default function rootReducer(state = initialState, action) {
         listings: action.payload,
       };
     }
-    case 'focusedListing': {
+    case 'focusedListingId': {
       return {
         ...state,
-        focusedListing: action.payload,
+        focusedListingId: action.payload,
       };
     }
     case 'modalContent': {
