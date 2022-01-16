@@ -123,7 +123,6 @@ const App = () => {
   );
 
   const focusListingById = id => {
-    console.log('Changing focused listing id to ', id);
     dispatch(doChangeFocusedListingId(id));
 
     // console.log('target listing id: ', id);

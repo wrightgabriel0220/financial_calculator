@@ -3,6 +3,7 @@ import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import ReportIssueModal from './modals/ReportIssueModal';
+import ReadIssuesModal from './modals/ReadIssuesModal/ReadIssuesModal';
 import { useAppSelector, useAppDispatch } from '../hooks';
 import actions from '../actions.js';
 
@@ -19,7 +20,7 @@ const Navbar = ({ logout }) => {
 
   const seeHandler = () => {
     axios.get('/issues').then(issueList => {
-      console.log(issueList.data);
+      dispatch(actions.doChangeModalContent(<ReadIssuesModal issues={issueList.data}/>))
     }).catch(err => {
       console.error(err);
     });

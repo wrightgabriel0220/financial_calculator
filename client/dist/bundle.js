@@ -40567,7 +40567,6 @@ var App = function () {
         console.error(err);
     })); };
     var focusListingById = function (id) {
-        console.log('Changing focused listing id to ', id);
         dispatch(doChangeFocusedListingId(id));
         // console.log('target listing id: ', id);
         // console.log('listing list: ', listings);
@@ -40857,12 +40856,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
-/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_6__);
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_7__);
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
 /* harmony import */ var _modals_ReportIssueModal__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./modals/ReportIssueModal */ "./client/src/components/modals/ReportIssueModal.tsx");
-/* harmony import */ var _hooks__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../hooks */ "./client/src/hooks.ts");
-/* harmony import */ var _actions_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../actions.js */ "./client/src/actions.js");
+/* harmony import */ var _modals_ReadIssuesModal_ReadIssuesModal__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./modals/ReadIssuesModal/ReadIssuesModal */ "./client/src/components/modals/ReadIssuesModal/ReadIssuesModal.tsx");
+/* harmony import */ var _hooks__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../hooks */ "./client/src/hooks.ts");
+/* harmony import */ var _actions_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../actions.js */ "./client/src/actions.js");
+
 
 
 
@@ -40872,22 +40873,22 @@ __webpack_require__.r(__webpack_exports__);
 
 var Navbar = function (_a) {
     var logout = _a.logout;
-    var dispatch = (0,_hooks__WEBPACK_IMPORTED_MODULE_3__.useAppDispatch)();
-    var activeUser = (0,_hooks__WEBPACK_IMPORTED_MODULE_3__.useAppSelector)(function (state) { return state.activeUser; });
-    var activeRenter = (0,_hooks__WEBPACK_IMPORTED_MODULE_3__.useAppSelector)(function (state) { return state.activeRenter; });
-    var infoTabHidden = (0,_hooks__WEBPACK_IMPORTED_MODULE_3__.useAppSelector)(function (state) { return state.infoTabHidden; });
+    var dispatch = (0,_hooks__WEBPACK_IMPORTED_MODULE_4__.useAppDispatch)();
+    var activeUser = (0,_hooks__WEBPACK_IMPORTED_MODULE_4__.useAppSelector)(function (state) { return state.activeUser; });
+    var activeRenter = (0,_hooks__WEBPACK_IMPORTED_MODULE_4__.useAppSelector)(function (state) { return state.activeRenter; });
+    var infoTabHidden = (0,_hooks__WEBPACK_IMPORTED_MODULE_4__.useAppSelector)(function (state) { return state.infoTabHidden; });
     var reportHandler = function () {
-        dispatch(_actions_js__WEBPACK_IMPORTED_MODULE_4__["default"].doChangeModalContent(react__WEBPACK_IMPORTED_MODULE_1__.createElement(_modals_ReportIssueModal__WEBPACK_IMPORTED_MODULE_2__["default"], null)));
+        dispatch(_actions_js__WEBPACK_IMPORTED_MODULE_5__["default"].doChangeModalContent(react__WEBPACK_IMPORTED_MODULE_1__.createElement(_modals_ReportIssueModal__WEBPACK_IMPORTED_MODULE_2__["default"], null)));
     };
     var seeHandler = function () {
         axios__WEBPACK_IMPORTED_MODULE_0___default().get('/issues').then(function (issueList) {
-            console.log(issueList.data);
+            dispatch(_actions_js__WEBPACK_IMPORTED_MODULE_5__["default"].doChangeModalContent(react__WEBPACK_IMPORTED_MODULE_1__.createElement(_modals_ReadIssuesModal_ReadIssuesModal__WEBPACK_IMPORTED_MODULE_3__["default"], { issues: issueList.data })));
         }).catch(function (err) {
             console.error(err);
         });
         console.log('Displaying currently active issues');
     };
-    var toggleInfoTabHidden = function () { dispatch(_actions_js__WEBPACK_IMPORTED_MODULE_4__["default"].doToggleInfoTabHidden(!infoTabHidden)); };
+    var toggleInfoTabHidden = function () { dispatch(_actions_js__WEBPACK_IMPORTED_MODULE_5__["default"].doToggleInfoTabHidden(!infoTabHidden)); };
     if (activeUser) {
         return (react__WEBPACK_IMPORTED_MODULE_1__.createElement("div", { id: "navbar" },
             react__WEBPACK_IMPORTED_MODULE_1__.createElement("h1", null, "HOUSECALC"),
@@ -40907,13 +40908,13 @@ var Navbar = function (_a) {
     }
     return (react__WEBPACK_IMPORTED_MODULE_1__.createElement("div", { id: "navbar" },
         react__WEBPACK_IMPORTED_MODULE_1__.createElement("h1", null, "HOUSECALC"),
-        react__WEBPACK_IMPORTED_MODULE_1__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_5__.Link, { to: "/register" },
+        react__WEBPACK_IMPORTED_MODULE_1__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_6__.Link, { to: "/register" },
             react__WEBPACK_IMPORTED_MODULE_1__.createElement("button", { type: "button", id: "register-button" }, "Register")),
-        react__WEBPACK_IMPORTED_MODULE_1__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_5__.Link, { to: "/login" },
+        react__WEBPACK_IMPORTED_MODULE_1__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_6__.Link, { to: "/login" },
             react__WEBPACK_IMPORTED_MODULE_1__.createElement("button", { type: "button", id: "login-button" }, "Log In"))));
 };
 Navbar.propTypes = {
-    logout: prop_types__WEBPACK_IMPORTED_MODULE_6__.func.isRequired,
+    logout: prop_types__WEBPACK_IMPORTED_MODULE_7__.func.isRequired,
 };
 /* harmony default export */ __webpack_exports__["default"] = (Navbar);
 
@@ -41307,6 +41308,70 @@ EditRenterModal.propTypes = {
     }).isRequired,
 };
 /* harmony default export */ __webpack_exports__["default"] = (EditRenterModal);
+
+
+/***/ }),
+
+/***/ "./client/src/components/modals/ReadIssuesModal/Issue.tsx":
+/*!****************************************************************!*\
+  !*** ./client/src/components/modals/ReadIssuesModal/Issue.tsx ***!
+  \****************************************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_1__);
+
+
+var Issue = function (_a) {
+    var issue = _a.issue;
+    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement("tr", null,
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement("td", null, issue.reporter_name),
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement("td", null, issue.description)));
+};
+Issue.propTypes = {
+    issue: prop_types__WEBPACK_IMPORTED_MODULE_1__.shape({
+        id: prop_types__WEBPACK_IMPORTED_MODULE_1__.number,
+        description: prop_types__WEBPACK_IMPORTED_MODULE_1__.string,
+        report_name: prop_types__WEBPACK_IMPORTED_MODULE_1__.string,
+    }).isRequired,
+};
+/* harmony default export */ __webpack_exports__["default"] = (Issue);
+
+
+/***/ }),
+
+/***/ "./client/src/components/modals/ReadIssuesModal/ReadIssuesModal.tsx":
+/*!**************************************************************************!*\
+  !*** ./client/src/components/modals/ReadIssuesModal/ReadIssuesModal.tsx ***!
+  \**************************************************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _Issue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Issue */ "./client/src/components/modals/ReadIssuesModal/Issue.tsx");
+
+
+
+var ReadIssuesModal = function (_a) {
+    var issues = _a.issues;
+    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", { id: "modal", className: "issues-modal" },
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement("table", { id: "issues-table" },
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement("thead", null,
+                react__WEBPACK_IMPORTED_MODULE_0__.createElement("tr", null,
+                    react__WEBPACK_IMPORTED_MODULE_0__.createElement("td", null, "Reporter"),
+                    react__WEBPACK_IMPORTED_MODULE_0__.createElement("td", null, "Issue Desc."))),
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement("tbody", null, issues.map(function (issue) { return react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Issue__WEBPACK_IMPORTED_MODULE_1__["default"], { issue: issue }); })))));
+};
+ReadIssuesModal.propTypes = {
+    issues: prop_types__WEBPACK_IMPORTED_MODULE_2__.array.isRequired,
+};
+/* harmony default export */ __webpack_exports__["default"] = (ReadIssuesModal);
 
 
 /***/ }),

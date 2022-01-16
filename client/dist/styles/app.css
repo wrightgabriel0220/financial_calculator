@@ -69,12 +69,17 @@ html, body {
   border: solid 1px black;
   border-radius: 15px;
   padding: 50px;
+  max-height: 50%;
 }
 
 .form-element {
   display: block;
   width: 100%;
   margin: 15px 0px;
+}
+
+.issues-modal {
+  overflow-y: scroll;
 }
 
 tr, td {
