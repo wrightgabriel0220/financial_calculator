@@ -40538,9 +40538,6 @@ var App = function () {
     react__WEBPACK_IMPORTED_MODULE_0__.useEffect(function () {
         dispatch(doChangeActiveRenter(renters.find(function (renter) { return renter.name === activeUser.first_name; })));
     }, [renters]);
-    react__WEBPACK_IMPORTED_MODULE_0__.useEffect(function () {
-        console.log('new focused listing id: ', focusedListingId);
-    }, [focusedListingId]);
     var logout = function () {
         // Unsubscribe from asynchronously retrieved datasets and disable user-dependent UI features
         dispatch(doChangeActiveUser(null));
@@ -40879,6 +40876,9 @@ var Navbar = function (_a) {
     var reportHandler = function () {
         dispatch(_actions_js__WEBPACK_IMPORTED_MODULE_3__["default"].doChangeModalContent(react__WEBPACK_IMPORTED_MODULE_0__.createElement(_modals_ReportIssueModal__WEBPACK_IMPORTED_MODULE_1__["default"], null)));
     };
+    var seeHandler = function () {
+        console.log('Displaying currently active issues');
+    };
     var toggleInfoTabHidden = function () { dispatch(_actions_js__WEBPACK_IMPORTED_MODULE_3__["default"].doToggleInfoTabHidden(!infoTabHidden)); };
     if (activeUser) {
         return (react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", { id: "navbar" },
@@ -40892,6 +40892,7 @@ var Navbar = function (_a) {
                     "Group Code: ",
                     activeUser.group_code) : null),
             react__WEBPACK_IMPORTED_MODULE_0__.createElement("span", { id: "navbar-buttons" },
+                activeUser.is_admin ? react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", { type: "button", id: "see-issues-button", onClick: seeHandler }, "See Open Issues") : null,
                 react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", { type: "button", id: "report-issue-button", onClick: reportHandler }, "Report Issue"),
                 react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", { type: "button", id: "renter-profile-button", onClick: toggleInfoTabHidden }, "Renter Profile"),
                 react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", { type: "button", id: "logout-button", onClick: logout }, "Log Out"))));

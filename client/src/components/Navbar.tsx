@@ -16,6 +16,10 @@ const Navbar = ({ logout }) => {
     dispatch(actions.doChangeModalContent(<ReportIssueModal />));
   };
 
+  const seeHandler = () => {
+    console.log('Displaying currently active issues');
+  }
+
   const toggleInfoTabHidden = () => { dispatch(actions.doToggleInfoTabHidden(!infoTabHidden)); };
 
   if (activeUser) {
@@ -27,6 +31,7 @@ const Navbar = ({ logout }) => {
           {activeUser.is_host ? <b>Group Code: {activeUser.group_code}</b> : null}
         </span>
         <span id="navbar-buttons">
+          {activeUser.is_admin ? <button type="button" id="see-issues-button" onClick={seeHandler}>See Open Issues</button> : null}
           <button type="button" id="report-issue-button" onClick={reportHandler}>Report Issue</button>
           <button type="button" id="renter-profile-button" onClick={toggleInfoTabHidden}>
             Renter Profile

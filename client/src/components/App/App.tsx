@@ -76,10 +76,6 @@ const App = () => {
     dispatch(doChangeActiveRenter(renters.find(renter => renter.name === activeUser.first_name)));
   }, [renters]);
 
-  React.useEffect(() => {
-    console.log('new focused listing id: ', focusedListingId);
-  }, [focusedListingId])
-
   const logout = () => {
     // Unsubscribe from asynchronously retrieved datasets and disable user-dependent UI features
 
