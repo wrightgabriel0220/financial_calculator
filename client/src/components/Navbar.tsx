@@ -1,3 +1,4 @@
+import axios from 'axios';
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
@@ -17,6 +18,12 @@ const Navbar = ({ logout }) => {
   };
 
   const seeHandler = () => {
+    axios.get('/issues').then(issueList => {
+      console.log(issueList.data);
+    }).catch(err => {
+      console.error(err);
+    });
+
     console.log('Displaying currently active issues');
   }
 

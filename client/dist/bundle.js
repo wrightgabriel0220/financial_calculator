@@ -40854,13 +40854,16 @@ var Modal = function () {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
-/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_5__);
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
-/* harmony import */ var _modals_ReportIssueModal__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./modals/ReportIssueModal */ "./client/src/components/modals/ReportIssueModal.tsx");
-/* harmony import */ var _hooks__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../hooks */ "./client/src/hooks.ts");
-/* harmony import */ var _actions_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../actions.js */ "./client/src/actions.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_6__);
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
+/* harmony import */ var _modals_ReportIssueModal__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./modals/ReportIssueModal */ "./client/src/components/modals/ReportIssueModal.tsx");
+/* harmony import */ var _hooks__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../hooks */ "./client/src/hooks.ts");
+/* harmony import */ var _actions_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../actions.js */ "./client/src/actions.js");
+
 
 
 
@@ -40869,43 +40872,48 @@ __webpack_require__.r(__webpack_exports__);
 
 var Navbar = function (_a) {
     var logout = _a.logout;
-    var dispatch = (0,_hooks__WEBPACK_IMPORTED_MODULE_2__.useAppDispatch)();
-    var activeUser = (0,_hooks__WEBPACK_IMPORTED_MODULE_2__.useAppSelector)(function (state) { return state.activeUser; });
-    var activeRenter = (0,_hooks__WEBPACK_IMPORTED_MODULE_2__.useAppSelector)(function (state) { return state.activeRenter; });
-    var infoTabHidden = (0,_hooks__WEBPACK_IMPORTED_MODULE_2__.useAppSelector)(function (state) { return state.infoTabHidden; });
+    var dispatch = (0,_hooks__WEBPACK_IMPORTED_MODULE_3__.useAppDispatch)();
+    var activeUser = (0,_hooks__WEBPACK_IMPORTED_MODULE_3__.useAppSelector)(function (state) { return state.activeUser; });
+    var activeRenter = (0,_hooks__WEBPACK_IMPORTED_MODULE_3__.useAppSelector)(function (state) { return state.activeRenter; });
+    var infoTabHidden = (0,_hooks__WEBPACK_IMPORTED_MODULE_3__.useAppSelector)(function (state) { return state.infoTabHidden; });
     var reportHandler = function () {
-        dispatch(_actions_js__WEBPACK_IMPORTED_MODULE_3__["default"].doChangeModalContent(react__WEBPACK_IMPORTED_MODULE_0__.createElement(_modals_ReportIssueModal__WEBPACK_IMPORTED_MODULE_1__["default"], null)));
+        dispatch(_actions_js__WEBPACK_IMPORTED_MODULE_4__["default"].doChangeModalContent(react__WEBPACK_IMPORTED_MODULE_1__.createElement(_modals_ReportIssueModal__WEBPACK_IMPORTED_MODULE_2__["default"], null)));
     };
     var seeHandler = function () {
+        axios__WEBPACK_IMPORTED_MODULE_0___default().get('/issues').then(function (issueList) {
+            console.log(issueList.data);
+        }).catch(function (err) {
+            console.error(err);
+        });
         console.log('Displaying currently active issues');
     };
-    var toggleInfoTabHidden = function () { dispatch(_actions_js__WEBPACK_IMPORTED_MODULE_3__["default"].doToggleInfoTabHidden(!infoTabHidden)); };
+    var toggleInfoTabHidden = function () { dispatch(_actions_js__WEBPACK_IMPORTED_MODULE_4__["default"].doToggleInfoTabHidden(!infoTabHidden)); };
     if (activeUser) {
-        return (react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", { id: "navbar" },
-            react__WEBPACK_IMPORTED_MODULE_0__.createElement("h1", null, "HOUSECALC"),
-            react__WEBPACK_IMPORTED_MODULE_0__.createElement("span", null,
+        return (react__WEBPACK_IMPORTED_MODULE_1__.createElement("div", { id: "navbar" },
+            react__WEBPACK_IMPORTED_MODULE_1__.createElement("h1", null, "HOUSECALC"),
+            react__WEBPACK_IMPORTED_MODULE_1__.createElement("span", null,
                 "Hello, ",
                 activeRenter ? activeRenter.name : 'New User',
                 "!",
-                react__WEBPACK_IMPORTED_MODULE_0__.createElement("br", null),
-                activeUser.is_host ? react__WEBPACK_IMPORTED_MODULE_0__.createElement("b", null,
+                react__WEBPACK_IMPORTED_MODULE_1__.createElement("br", null),
+                activeUser.is_host ? react__WEBPACK_IMPORTED_MODULE_1__.createElement("b", null,
                     "Group Code: ",
                     activeUser.group_code) : null),
-            react__WEBPACK_IMPORTED_MODULE_0__.createElement("span", { id: "navbar-buttons" },
-                activeUser.is_admin ? react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", { type: "button", id: "see-issues-button", onClick: seeHandler }, "See Open Issues") : null,
-                react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", { type: "button", id: "report-issue-button", onClick: reportHandler }, "Report Issue"),
-                react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", { type: "button", id: "renter-profile-button", onClick: toggleInfoTabHidden }, "Renter Profile"),
-                react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", { type: "button", id: "logout-button", onClick: logout }, "Log Out"))));
+            react__WEBPACK_IMPORTED_MODULE_1__.createElement("span", { id: "navbar-buttons" },
+                activeUser.is_admin ? react__WEBPACK_IMPORTED_MODULE_1__.createElement("button", { type: "button", id: "see-issues-button", onClick: seeHandler }, "See Open Issues") : null,
+                react__WEBPACK_IMPORTED_MODULE_1__.createElement("button", { type: "button", id: "report-issue-button", onClick: reportHandler }, "Report Issue"),
+                react__WEBPACK_IMPORTED_MODULE_1__.createElement("button", { type: "button", id: "renter-profile-button", onClick: toggleInfoTabHidden }, "Renter Profile"),
+                react__WEBPACK_IMPORTED_MODULE_1__.createElement("button", { type: "button", id: "logout-button", onClick: logout }, "Log Out"))));
     }
-    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", { id: "navbar" },
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement("h1", null, "HOUSECALC"),
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_4__.Link, { to: "/register" },
-            react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", { type: "button", id: "register-button" }, "Register")),
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_4__.Link, { to: "/login" },
-            react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", { type: "button", id: "login-button" }, "Log In"))));
+    return (react__WEBPACK_IMPORTED_MODULE_1__.createElement("div", { id: "navbar" },
+        react__WEBPACK_IMPORTED_MODULE_1__.createElement("h1", null, "HOUSECALC"),
+        react__WEBPACK_IMPORTED_MODULE_1__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_5__.Link, { to: "/register" },
+            react__WEBPACK_IMPORTED_MODULE_1__.createElement("button", { type: "button", id: "register-button" }, "Register")),
+        react__WEBPACK_IMPORTED_MODULE_1__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_5__.Link, { to: "/login" },
+            react__WEBPACK_IMPORTED_MODULE_1__.createElement("button", { type: "button", id: "login-button" }, "Log In"))));
 };
 Navbar.propTypes = {
-    logout: prop_types__WEBPACK_IMPORTED_MODULE_5__.func.isRequired,
+    logout: prop_types__WEBPACK_IMPORTED_MODULE_6__.func.isRequired,
 };
 /* harmony default export */ __webpack_exports__["default"] = (Navbar);
 

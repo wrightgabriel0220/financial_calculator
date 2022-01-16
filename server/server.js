@@ -94,6 +94,16 @@ app.put('/listings', (req, res) => {
   });
 });
 
+app.get('/issues', (req, res) => {
+  db.getDataFor('issues').then(results => {
+    console.log(results);
+    res.send(results.rows);
+  }).catch(err => {
+    res.status(500);
+    res.send(err);
+  })
+});
+
 app.post('/issues', (req, res) => {
   db.reportIssue({ description: req.body.description, reporterName: req.body.renterName }).then(results => {
     res.send(results);
