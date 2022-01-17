@@ -37,11 +37,20 @@ app.get('/listings', (req, res) => {
 });
 
 app.post('/renters', (req, res) => {
-  db.addRenter(req.body).then(results => {
-    res.send(results);
-  }).catch(err => {
-    res.status(500);
-    res.end(err);
+  db.getRentersForGroup(req.body.groupCode).then(rentersInGroup => {
+    for (let renter of rentersInGroup) {
+      console.log('target share: ', req.body.percentageShare);
+      db.editRow('renters', renter.id, 'share', req.body.percentageShare).catch(err => {
+        console.error(err);
+      })
+    }
+  }).then(() => {
+    db.addRenter(req.body).then(results => {
+      res.send(results);
+    }).catch(err => {
+      res.status(500);
+      res.end(err);
+    });
   });
 });
 

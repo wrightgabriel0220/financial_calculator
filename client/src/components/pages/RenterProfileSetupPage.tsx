@@ -4,10 +4,21 @@ import axios from 'axios';
 import { useAppSelector } from '../../hooks';
 
 const RenterProfileSetupPage = ({ returnToDash }) => {
+  // TODO: 
+  // When a renter submits renter data, split the share of rent equally amongst all renters
+
+
   const activeUser = useAppSelector(state => state.activeUser);
+  const renters = useAppSelector(state => state.renters);
+
+  const getPercentageShare = () => {
+    return 100 / (renters.length + 1);
+  }
 
   const submitHandler = event => {
     event.preventDefault();
+
+    getPercentageShare();
 
     const getAndCastInputElementById = (id: string) => document.getElementById(id) as HTMLInputElement;
 
@@ -19,7 +30,7 @@ const RenterProfileSetupPage = ({ returnToDash }) => {
         hours: getAndCastInputElementById('hours-input').value,
         dogs: getAndCastInputElementById('dog-count-input').value,
         cats: getAndCastInputElementById('cat-count-input').value,
-        percentageShare: getAndCastInputElementById('share-input').value,
+        percentageShare: getPercentageShare(),
         groupCode: activeUser.group_code,
       })
         .then(postResults => {
@@ -57,10 +68,6 @@ const RenterProfileSetupPage = ({ returnToDash }) => {
         <label htmlFor="cat-count-input">
           # of Cats:
           <input required type="text" id="cat-count-input" />
-        </label><br/>
-        <label htmlFor="share-input">
-          Share of Rent (# btwn 1 and 100 inclusive):
-          <input required type="text" id="share-input" />
         </label><br/>
         <button type="submit" id="submit-renter-profile-button" onClick={submitHandler}>Submit</button>
       </form>
