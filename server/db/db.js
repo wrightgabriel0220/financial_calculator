@@ -37,7 +37,7 @@ const addRenter = data => {
   const fields = [data.name, data.hourly, data.hours, data.dogs, data.cats, data.percentageShare, data.groupCode];
   return client.query(queryString, fields)
     .then(result => result)
-    .catch(err => err);
+    .catch(err => console.error(err));
 };
 
 const addListing = data => {
@@ -83,7 +83,7 @@ const editRow = (table, id, column, value) => {
   if (typeof (value) === 'string') { value = `'${value}'`; }
   return client.query(`UPDATE ${table} SET ${column} = ${value} WHERE (id = $1)`, [id])
     .then(result => result)
-    .catch(err => err);
+    .catch(err => console.error(err));
 };
 
 const registerUser = user => {

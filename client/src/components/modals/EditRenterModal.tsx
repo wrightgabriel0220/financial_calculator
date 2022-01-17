@@ -1,7 +1,10 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
+import { useAppSelector } from '../../hooks';
 
 const EditRenterModal = ({ changeRenter, closeModal, renterData }) => {
+  const activeUser = useAppSelector(state => state.activeUser);
+
   const submitHandler = event => {
     event.preventDefault();
 
@@ -50,7 +53,10 @@ const EditRenterModal = ({ changeRenter, closeModal, renterData }) => {
       </label>
       <label htmlFor="share-input" className="form-element">
         Share:
-        <input id="share-input" type="text" defaultValue={renterData.share} />
+        {activeUser.is_admin ? 
+        <input id="share-input" type="text" defaultValue={renterData.share} /> :
+        <input id="share-input" type="text" defaultValue={renterData.share} disabled />}
+        
       </label>
       <button type="submit" onClick={submitHandler}>Submit</button>
     </form>

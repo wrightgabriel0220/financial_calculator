@@ -49,8 +49,10 @@ app.post('/renters', (req, res) => {
       res.send(results);
     }).catch(err => {
       res.status(500);
-      res.end(err);
+      console.error(err);
     });
+  }).catch(err => {
+    console.error(err);
   });
 });
 

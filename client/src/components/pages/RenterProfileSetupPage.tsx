@@ -4,15 +4,11 @@ import axios from 'axios';
 import { useAppSelector } from '../../hooks';
 
 const RenterProfileSetupPage = ({ returnToDash }) => {
-  // TODO: 
-  // When a renter submits renter data, split the share of rent equally amongst all renters
-
-
   const activeUser = useAppSelector(state => state.activeUser);
   const renters = useAppSelector(state => state.renters);
 
   const getPercentageShare = () => {
-    return 100 / (renters.length + 1);
+    return Math.floor(100 / (renters.length + 1));
   }
 
   const submitHandler = event => {
