@@ -1,13 +1,30 @@
 import * as React from 'react';
+import * as PropTypes from 'prop-types';
 import RenterProfile from './RenterProfile';
-import { useAppSelector } from '../hooks';
+import { useAppDispatch, useAppSelector } from '../hooks';
+import EditRenterModal from './modals/EditRenterModal';
+import actions from '../actions';
 
-const InfoTab = () => {
+const InfoTab = ({ editProfile }) => {
+  const dispatch = useAppDispatch();
+
   const activeUser = useAppSelector(state => state.activeUser);
   const activeRenter = useAppSelector(state => state.activeRenter);
   const isHidden = useAppSelector(state => state.infoTabHidden);
   const focusedListingId = useAppSelector(state => state.focusedListingId);
   const listings = useAppSelector(state => state.listings);
+
+  const editProfileHandler = () => {
+    dispatch(
+      actions.doChangeModalContent(
+        <EditRenterModal 
+          renterData={activeRenter} 
+          changeRenter={editProfile} 
+          closeModal={() => { dispatch(actions.doChangeModalContent(null)) }} 
+        />
+      )
+    );
+  }
 
   return isHidden ? null : (
     <div id="info-tab">
@@ -21,8 +38,15 @@ const InfoTab = () => {
         renter={activeRenter}
         activeUser={activeUser}
       /> : 'There is no info to display. Try adding a listing!'}
+      <button type="button" id="edit-renter-profile-button" onClick={editProfileHandler}>
+        Edit Your Renter Profile
+      </button>
     </div>
   );
+};
+
+InfoTab.propTypes = {
+  editProfile: PropTypes.func.isRequired,
 };
 
 export default InfoTab;

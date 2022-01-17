@@ -6,7 +6,7 @@ import AddListing from '../AddListing';
 import Modal from '../Modal';
 import InfoTab from '../InfoTab';
 
-const DashboardPage = ({ updateRenterList, updateListingList, focusListingById }) => (
+const DashboardPage = ({ updateRenterList, updateListingList, focusListingById, editProfile }) => (
   <section id="dashboard">
     <Modal />
     <div id="page-body">
@@ -15,7 +15,7 @@ const DashboardPage = ({ updateRenterList, updateListingList, focusListingById }
         <ListingList update={updateListingList} focusListing={id => { focusListingById(id); }} />
         <AddListing update={updateListingList} />
       </section>
-      <InfoTab />
+      <InfoTab editProfile={editProfile}/>
     </div>
   </section>
 );
@@ -24,6 +24,7 @@ DashboardPage.propTypes = {
   updateRenterList: PropTypes.func.isRequired,
   updateListingList: PropTypes.func.isRequired,
   focusListingById: PropTypes.func.isRequired,
+  editProfile: PropTypes.func.isRequired,
 };
 
 export default DashboardPage;

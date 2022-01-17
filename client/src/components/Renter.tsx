@@ -2,12 +2,15 @@ import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import axios from 'axios';
 import EditRenterModal from './modals/EditRenterModal';
+import { useAppSelector } from '../hooks';
 
 const Renter = ({
   renterData,
   update,
   setModalContent,
 }) => {
+  const activeUser = useAppSelector(state => state.activeUser);
+
   const changeRenter = renter => {
     axios.put('/renters', {
       id: renterData.id,
@@ -29,10 +32,12 @@ const Renter = ({
   const closeModal = () => { setModalContent(null); };
 
   const editHandler = event => {
-    if (Array.from(event.target.classList).includes('delete-button')) { return; }
-    setModalContent(
-      <EditRenterModal renterData={renterData} changeRenter={changeRenter} closeModal={closeModal} />,
-    );
+    if (activeUser.is_admin) {
+      if (Array.from(event.target.classList).includes('delete-button')) { return; }
+      setModalContent(
+        <EditRenterModal renterData={renterData} changeRenter={changeRenter} closeModal={closeModal} />,
+      );
+    }
   };
 
   return (

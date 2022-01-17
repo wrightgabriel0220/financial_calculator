@@ -17,7 +17,7 @@ const EditRenterModal = ({ changeRenter, closeModal, renterData }) => {
         dogs: getAndCastInputElementById('dog-count-input').value || 0,
         cats: getAndCastInputElementById('cat-count-input').value || 0,
         share: getAndCastInputElementById('share-input').value || 0,
-      });
+      }, renterData);
     } else {
       form.reportValidity();
     }

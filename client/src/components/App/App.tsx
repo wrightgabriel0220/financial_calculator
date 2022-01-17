@@ -34,6 +34,7 @@ const App = () => {
   const listings = useAppSelector(state => state.listings);
   const focusedListingId = useAppSelector(state => state.focusedListingId);
   const activeUser = useAppSelector(state => state.activeUser);
+  const activeRenter = useAppSelector(state => state.activeRenter);
   const [basePage, setBasePage] = React.useState(<div />);
   const [isLoading, setIsLoading] = React.useState(Boolean(activeUser));
 
@@ -130,6 +131,24 @@ const App = () => {
     // dispatch(doChangeFocusedListing(listings.find(listing => {return listing.id === id})));
   };
 
+  const editRenterProfile = (renter, activeRenter) => {
+    axios.put('/renters', {
+      id: activeRenter.id,
+      updates: {
+        name: renter.name,
+        hourly_wages: renter.hourly,
+        hours_working: renter.hours,
+        dog_count: renter.dogs,
+        cat_count: renter.cats,
+        share: renter.share,
+      },
+    }).then(() => {
+      updateRenterList();
+    }).catch(err => {
+      console.error(err);
+    })
+  }
+
   const getBasePage = () => {
     if (activeUser !== null) {
       if (activeUser.has_logged_once) {
@@ -138,6 +157,7 @@ const App = () => {
             updateRenterList={updateRenterList}
             updateListingList={updateListingList}
             focusListingById={focusListingById}
+            editProfile={editRenterProfile}
           />
         );
       }
